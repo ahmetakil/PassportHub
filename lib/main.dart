@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:passport_hub/common/app_router.dart';
+import 'package:passport_hub/common/bloc/hub_bloc_provider.dart';
 import 'package:passport_hub/common/injector.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await injectorSetup(GetIt.I);
 
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -28,12 +33,14 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routeInformationProvider: _router.routeInformationProvider,
-      routeInformationParser: _router.routeInformationParser,
-      routerDelegate: _router.routerDelegate,
-      title: 'Fennel',
+    return HubBlocProvider(
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        routeInformationProvider: _router.routeInformationProvider,
+        routeInformationParser: _router.routeInformationParser,
+        routerDelegate: _router.routerDelegate,
+        title: 'Fennel',
+      ),
     );
   }
 }

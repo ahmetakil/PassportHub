@@ -1,10 +1,6 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:passport_hub/common/hub_logger.dart';
-import 'package:passport_hub/common/models/country.dart';
-import 'package:passport_hub/common/models/visa_information.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/repository/visa_repository.dart';
 
