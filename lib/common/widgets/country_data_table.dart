@@ -1,3 +1,4 @@
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
@@ -19,15 +20,13 @@ class CountryDataTable extends StatelessWidget {
 
             return Row(
               children: [
-                Text(" ${country.iso3code}"),
-                Text("- ${country.name}"),
-                Flexible(
-                  child: Text(
-                    "- ${country.region}",
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                  ),
+                CountryFlag.fromCountryCode(
+                  country.iso2code ?? "",
+                  width: 24,
+                  height: 24,
                 ),
+                Text(" ${country.iso2code}"),
+                Text("- ${country.name}"),
               ],
             );
           },

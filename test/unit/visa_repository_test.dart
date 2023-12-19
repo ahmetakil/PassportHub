@@ -11,11 +11,11 @@ Afghanistan,e-visa,visa required,visa required,visa required,e-visa,visa require
 Albania,-1,visa required,90,visa required,180,visa required,180
 Test,-1,visa free,90,visa required,180,visa required,visa on arrival""";
 
-const Country albania = Country(name: "Albania");
-const Country armenia = Country(name: "Armenia");
-const Country afghanistan = Country(name: "Afghanistan");
-const Country algeria = Country(name: "Algeria");
-const Country testCountry = Country(name: "Test");
+const Country albania = Country(iso3code: "Albania");
+const Country armenia = Country(iso3code: "Armenia");
+const Country afghanistan = Country(iso3code: "Afghanistan");
+const Country algeria = Country(iso3code: "Algeria");
+const Country testCountry = Country(iso3code: "Test");
 
 void main() {
   group('Visa Repository Tests', () {

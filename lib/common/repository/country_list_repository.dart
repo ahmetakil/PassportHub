@@ -23,6 +23,7 @@ class CountryListRepository {
         }
 
         final String? countryName = rows[i][0] as String?;
+        final String? iso2 = rows[i][1] as String?;
         final String? iso3 = rows[i][2] as String?;
         final String? region = rows[i][5] as String?;
         final String? subRegion = rows[i][6] as String?;
@@ -34,6 +35,7 @@ class CountryListRepository {
 
         result[iso3] = Country(
           iso3code: iso3,
+          iso2code: iso2,
           name: countryName,
           region: region,
           subRegion: subRegion,
