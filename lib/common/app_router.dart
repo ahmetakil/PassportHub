@@ -9,21 +9,22 @@ class AppRouter {
 
   static GoRouter generateGoRouter() {
     return GoRouter(
+      debugLogDiagnostics: true,
       initialLocation: "/",
       routes: [
         GoRoute(
           path: "/",
-          redirect: (_, __) => splash,
+          redirect: (_, __) => "/splash",
         ),
         GoRoute(
           name: AppRouter.splash,
-          path: "/splash",
+          path: "/$splash",
           builder: (BuildContext context, GoRouterState state) =>
               const SplashScreen(),
         ),
         GoRoute(
           name: AppRouter.home,
-          path: "/home",
+          path: "/$home",
           builder: (BuildContext context, GoRouterState state) =>
               const HomeScreen(),
         ),
