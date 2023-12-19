@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:passport_hub/common/api/visa_api.dart';
+import 'package:passport_hub/common/widgets/country_data_table.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,6 +14,9 @@ class HomeScreen extends StatelessWidget {
       body: const Column(
         children: [
           Text("List"),
+          Expanded(
+            child: CountryDataTable(),
+          ),
         ],
       ),
     );

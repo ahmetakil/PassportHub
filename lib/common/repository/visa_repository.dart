@@ -19,14 +19,13 @@ class VisaRepository {
     final Map<Country, List<VisaInformation>> result = {};
 
     for (int i = 1; i < rows.length; i++) {
-      final String? currentCountry = rows[i][0] as String?;
+      final String? currentCountryCode = rows[i][0] as String?;
 
-      final Country country =
-          Country(name: currentCountry ?? "-", iso3code: "");
+      final Country country = Country(iso3code: currentCountryCode ?? "-");
       final List<VisaInformation> visaInformationList = [];
 
       for (int j = 1; j < rows[i].length; j++) {
-        final String? targetCountry = rows[0][j] as String?;
+        final String? targetCountryCode = rows[0][j] as String?;
 
         final dynamic current = rows[i][j] as dynamic;
 
@@ -35,14 +34,16 @@ class VisaRepository {
         }
 
         final info = VisaInformation(
-          destinationCountry: Country(name: targetCountry ?? "-", iso3code: ""),
+          destinationCountry: Country(iso3code: targetCountryCode ?? "-"),
           requirement: VisaRequirement.fromValue(current),
         );
 
         visaInformationList.add(info);
       }
 
-      result[country] = visaInformationList;
+      if (visaInformationList.isNotEmpty) {
+        result[country] = visaInformationList;
+      }
     }
     return VisaMatrix(
       matrix: result,

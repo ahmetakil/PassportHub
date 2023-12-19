@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:passport_hub/common/api/visa_api.dart';
+import 'package:passport_hub/common/api/country_list_api.dart';
 import 'package:passport_hub/common/const.dart';
 
-class GithubVisaApi implements VisaApi {
+class GithubCountryListApi implements CountryListApi {
   final Dio _dio = Dio();
 
   @override
-  Future<List<List<String>>?> fetchVisaMatrix() async {
+  Future<List<List<String>>?> fetchCountryList() async {
     try {
-      final Response<String> response = await _dio.get(passportUrlWithIsoCodes);
+      final Response<String> response = await _dio.get(countryCodesUrl);
 
       if (response.statusCode == 200) {
         final List<String>? rows = response.data?.split("\n");
