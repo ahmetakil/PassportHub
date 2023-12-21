@@ -34,14 +34,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return HubBlocProvider(
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        routeInformationProvider: _router.routeInformationProvider,
-        routeInformationParser: _router.routeInformationParser,
-        routerDelegate: _router.routerDelegate,
-        title: 'PassportHub',
-        theme: HubTheme.lightTheme,
+    return GestureDetector(
+      excludeFromSemantics: true,
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: HubBlocProvider(
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          routeInformationProvider: _router.routeInformationProvider,
+          routeInformationParser: _router.routeInformationParser,
+          routerDelegate: _router.routerDelegate,
+          title: 'PassportHub',
+          theme: HubTheme.lightTheme,
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:passport_hub/common/ui/widgets/hub_scaffold.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/home_tab.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
       const BottomNavigationBarItem(icon: Icon(Icons.web), label: "Compare"),
     ];
 
-    return Scaffold(
+    return HubScaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: bottomNavigationBarItems,
         currentIndex: _selectedIndex,
@@ -40,7 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("Passport Hub"),
         centerTitle: true,
       ),
-      body: screens[_selectedIndex],
+      body: SingleChildScrollView(
+        child: screens[_selectedIndex],
+      ),
     );
   }
 }
