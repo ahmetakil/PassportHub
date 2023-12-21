@@ -17,5 +17,10 @@ class Country extends Equatable {
   });
 
   @override
+  String toString() {
+    return "Country<$iso3code | $name>";
+  }
+
+  @override
   List<Object?> get props => [iso3code];
 }
