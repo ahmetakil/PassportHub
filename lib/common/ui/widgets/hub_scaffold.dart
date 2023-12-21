@@ -6,8 +6,6 @@ class HubScaffold extends StatelessWidget {
   final Drawer? drawer;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final Widget? floatingActionButton;
-  final BorderRadius borderRadius;
-  final bool removePadding;
   final BottomNavigationBar? bottomNavigationBar;
   final bool? resizeToAvoidBottomInset;
 
@@ -18,8 +16,6 @@ class HubScaffold extends StatelessWidget {
     this.drawer,
     this.floatingActionButtonLocation,
     this.floatingActionButton,
-    required this.borderRadius,
-    required this.removePadding,
     this.bottomNavigationBar,
     this.resizeToAvoidBottomInset,
   });
@@ -29,6 +25,10 @@ class HubScaffold extends StatelessWidget {
     return Scaffold(
       body: body,
       appBar: appBar,
+      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+      bottomNavigationBar: bottomNavigationBar,
+      drawer: drawer,
+      floatingActionButton: floatingActionButton,
     );
   }
 }
