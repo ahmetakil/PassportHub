@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         routeInformationParser: _router.routeInformationParser,
         routerDelegate: _router.routerDelegate,
         title: 'PassportHub',
-        theme: AppTheme.lightTheme,
+        theme: HubTheme.lightTheme,
       ),
     );
   }

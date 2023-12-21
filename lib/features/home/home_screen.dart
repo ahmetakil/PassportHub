@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:passport_hub/features/home/tabs/home_tab.dart';
+import 'package:passport_hub/features/home/tabs/home_tab/home_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

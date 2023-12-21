@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-const Color primary = Color(0xff1E3A8A);
-const Color onPrimary = Color(0xff7DD3FC);
-const Color secondary = Color(0xff10B981);
-const Color onSecondary = Color(0xFF6EE7B7);
-const Color background = Color(0xFFF3F4F6);
-const Color onBackground = Color(0xFF4B5563);
+class HubTheme {
+  static const Color primary = Color(0xff1E3A8A);
+  static const Color onPrimary = Color(0xff7DD3FC);
+  static const Color secondary = Color(0xff10B981);
+  static const Color onSecondary = Color(0xFF6EE7B7);
+  static const Color background = Color(0xFFF3F4F6);
+  static const Color onBackground = Color(0xFF4B5563);
 
-class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       primaryColorLight: onPrimary,
-      colorScheme: ColorScheme(
+      colorScheme: const ColorScheme(
         primary: primary,
         onPrimary: onPrimary,
         brightness: Brightness.light,
@@ -20,21 +20,22 @@ class AppTheme {
         onSecondary: onSecondary,
         error: Color(0xFFB00020),
         onError: Colors.white,
-        onBackground: onBackground,
+        onBackground: onPrimary,
         surface: Colors.white,
         onSurface: Colors.black,
       ),
-      scaffoldBackgroundColor: Color(0xFF4B5563),
+      scaffoldBackgroundColor: Colors.white,
       // Define button themes
-      buttonTheme: ButtonThemeData(
+      buttonTheme: const ButtonThemeData(
         buttonColor: Color(0xFFFB923C), // Accent color
         textTheme: ButtonTextTheme.primary,
       ),
     );
   }
-}
 
-ThemeData fennelThemeLight = ThemeData(
-  brightness: Brightness.light,
-  primaryColor: primary,
-);
+  static const hubSmallPadding = 8.0;
+  static const hubMediumPadding = 16.0;
+  static const hubLargePadding = 24.0;
+
+  static const hubBorderRadius = 8.0;
+}
