@@ -1,6 +1,6 @@
 part of 'country_search_bloc.dart';
 
-abstract class CountrySearchState extends Equatable {
+sealed class CountrySearchState extends Equatable {
   const CountrySearchState();
 }
 

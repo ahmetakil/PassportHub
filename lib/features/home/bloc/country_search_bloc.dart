@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuzzy/data/result.dart';
 import 'package:fuzzy/fuzzy.dart';
+import 'package:passport_hub/common/hub_logger.dart';
 import 'package:passport_hub/common/models/country.dart';
 
 part 'country_search_event.dart';
@@ -20,6 +21,7 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
     fuzzy = Fuzzy<Country>(
       allCountryList,
       options: FuzzyOptions<Country>(
+        threshold: 0.8,
         keys: [
           WeightedKey(
             name: 'name',
@@ -42,6 +44,7 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
 
     on<CountrySearchEvent>((event, emit) {
       final String query = event.searchQuery;
+      HubLogger.log("Searching for $query");
 
       if (query.isEmpty) {
         emit(const CountrySearchInitialState());
@@ -50,6 +53,7 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
 
       final List<Result<Country>> fuzzyResults = fuzzy.search(
         query,
+        8,
       );
 
       final List<Country> matchedCountries =

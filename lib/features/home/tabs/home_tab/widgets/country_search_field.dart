@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
+import 'package:passport_hub/common/ui/widgets/hub_text_field.dart';
+import 'package:passport_hub/features/home/bloc/country_search_bloc.dart';
 
 class CountrySearchField extends StatefulWidget {
   const CountrySearchField({super.key});
@@ -31,7 +34,20 @@ class _CountrySearchFieldState extends State<CountrySearchField> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
+            HubTextField(
+              keyboardType: TextInputType.text,
+              debounce: true,
+              onChanged: (String value) {
+                if (value.length < 2) {
+                  return;
+                }
+
+                context.read<CountrySearchBloc>().add(
+                      CountrySearchEvent(
+                        searchQuery: value,
+                      ),
+                    );
+              },
               decoration: const InputDecoration(
                 icon: Padding(
                   padding: EdgeInsets.only(
