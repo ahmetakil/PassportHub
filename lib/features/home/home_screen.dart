@@ -12,8 +12,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> screens = [
-    HomeTab(),
-    HomeTab(),
+    const HomeTab(),
+    const HomeTab(),
   ];
 
   @override

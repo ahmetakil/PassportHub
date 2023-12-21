@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
           }
 
           return Container(
-            child: Text("A"),
+            child: const Text("A"),
           );
         },
       ),
