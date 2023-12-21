@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:passport_hub/common/app_router.dart';
 import 'package:passport_hub/common/bloc/hub_bloc_provider.dart';
 import 'package:passport_hub/common/injector.dart';
+import 'package:passport_hub/common/ui/hub_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +40,8 @@ class _MyAppState extends State<MyApp> {
         routeInformationProvider: _router.routeInformationProvider,
         routeInformationParser: _router.routeInformationParser,
         routerDelegate: _router.routerDelegate,
-        title: 'Fennel',
+        title: 'PassportHub',
+        theme: AppTheme.lightTheme,
       ),
     );
   }

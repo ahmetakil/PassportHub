@@ -40,8 +40,11 @@ class CountryListRepository {
           region: region,
           subRegion: subRegion,
         );
-      } catch (e) {
-        print('CountryListRepository.generateCountryListMatrix e: $e');
+      } catch (e, stacktrace) {
+        HubLogger.e(
+          'CountryListRepository.generateCountryListMatrix e: $e',
+          stackTrace: stacktrace,
+        );
       }
     }
 
