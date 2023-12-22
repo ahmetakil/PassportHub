@@ -53,7 +53,6 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
 
       final List<Result<Country>> fuzzyResults = fuzzy.search(
         query,
-        8,
       );
 
       final List<Country> matchedCountries =
