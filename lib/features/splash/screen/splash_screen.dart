@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:passport_hub/common/app_router.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
 import 'package:passport_hub/common/hub_logger.dart';
+import 'package:passport_hub/common/ui/widgets/hub_loading.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -26,13 +27,11 @@ class _SplashScreenState extends State<SplashScreen> {
         builder: (context, state) {
           if (state.isLoading) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: HubLoading(),
             );
           }
 
-          return Container(
-            child: const Text("A"),
-          );
+          return const SizedBox.shrink();
         },
       ),
     );

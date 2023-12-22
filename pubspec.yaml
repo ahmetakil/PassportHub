@@ -44,6 +44,7 @@ dependencies:
   build_runner: ^2.4.7
   country_flags: ^2.2.0
   fuzzy: ^0.5.1
+  countries_world_map: ^1.1.1
 
 dev_dependencies:
   flutter_test:

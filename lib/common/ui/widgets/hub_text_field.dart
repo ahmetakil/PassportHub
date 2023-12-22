@@ -52,13 +52,10 @@ class _HubTextFieldState extends State<HubTextField> {
                 return;
               }
 
-              print("a1");
-
               if (_debounce?.isActive ?? false) {
                 _debounce?.cancel();
               }
               _debounce = Timer(debounceDuration, () {
-                print("a2");
                 onChanged(val);
               });
             },

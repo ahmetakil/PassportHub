@@ -10,25 +10,28 @@ class CountrySearchResultChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(HubTheme.hubBorderRadius),
-        color: HubTheme.onPrimary.withOpacity(0.4),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 4,
-          horizontal: 6,
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(HubTheme.hubBorderRadius),
+          color: HubTheme.onPrimary.withOpacity(0.4),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            HubCountryFlag(country: country),
-            Padding(
-              padding: const EdgeInsets.only(left: 4.0),
-              child: Text(country.iso3code),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 4,
+            horizontal: 6,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              HubCountryFlag(country: country),
+              Padding(
+                padding: const EdgeInsets.only(left: 4.0),
+                child: Text(country.iso3code),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -9,6 +9,12 @@ class VisaMatrix {
 
   List<Country> get countryList => matrix.keys.toList();
 
+  Country? getCountryByIso(String iso3) {
+    return countryList.firstWhereOrNull(
+      (Country country) => country.iso3code == iso3,
+    );
+  }
+
   List<VisaInformation> getDestinations({required Country target}) {
     return matrix[target] ?? [];
   }
@@ -46,5 +52,9 @@ class VisaMatrix {
     return VisaMatrix(
       matrix: Map.fromEntries(newEntries),
     );
+  }
+
+  Map<Country, double> calculatePassportPower() {
+    return {};
   }
 }

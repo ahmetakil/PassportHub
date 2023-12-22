@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:passport_hub/common/ui/hub_error_screen.dart';
+import 'package:passport_hub/features/country_details/country_details_screen.dart';
 import 'package:passport_hub/features/home/home_screen.dart';
 import 'package:passport_hub/features/splash/screen/splash_screen.dart';
 
 class AppRouter {
   static const splash = "splash";
   static const home = "home";
+  static const countryDetails = "countryDetails";
 
   static GoRouter generateGoRouter() {
     return GoRouter(
@@ -27,6 +30,23 @@ class AppRouter {
           path: "/$home",
           builder: (BuildContext context, GoRouterState state) =>
               const HomeScreen(),
+        ),
+        GoRoute(
+          name: countryDetails,
+          path: "/$countryDetails/:iso",
+          builder: (BuildContext context, GoRouterState state) {
+            final String? iso = state.pathParameters["iso"];
+
+            if (iso == null) {
+              return const HubErrorScreen(
+                errorMessage: "Could not find an iso value for CountryDetails!",
+              );
+            }
+
+            return CountryDetails(
+              isoCode: iso,
+            );
+          },
         ),
       ],
     );
