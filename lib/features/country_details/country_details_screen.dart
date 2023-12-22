@@ -1,9 +1,13 @@
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
 import 'package:passport_hub/common/models/country.dart';
+import 'package:passport_hub/common/models/visa_matrix.dart';
+import 'package:passport_hub/common/ui/widgets/hub_country_flag.dart';
 import 'package:passport_hub/common/ui/widgets/hub_loading.dart';
 import 'package:passport_hub/common/ui/widgets/hub_scaffold.dart';
+import 'package:passport_hub/features/home/tabs/home_tab/widgets/hub_world_map.dart';
 
 class CountryDetails extends StatelessWidget {
   final String isoCode;
@@ -15,8 +19,8 @@ class CountryDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HubScaffold(
-      body: BlocConsumer<VisaBloc, VisaState>(
+    return SafeArea(
+      child: BlocConsumer<VisaBloc, VisaState>(
         listener: (context, state) {
           if (state.visaMatrix == null) {
             context.read<VisaBloc>().add(
@@ -25,17 +29,36 @@ class CountryDetails extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          final Country? country = state.visaMatrix?.getCountryByIso(isoCode);
+          final VisaMatrix? matrix = state.visaMatrix;
+          final Country? country = matrix?.getCountryByIso(isoCode);
 
-          if (country == null) {
+          if (matrix == null || country == null) {
             return const HubLoading();
           }
 
-          return Column(
-            children: [
-              Text("${country.name}"),
-              Text("${country.region}"),
-            ],
+          return HubScaffold(
+            appBar: AppBar(
+              title: Text("${country.name}"),
+            ),
+            body: Column(
+              children: [
+                Row(
+                  children: [
+                    HubCountryFlag(
+                      country: country,
+                      size: 40,
+                    ),
+                    Text("${country.name}"),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text("${country.region}"),
+                  ],
+                ),
+                HubWorldMap(visaMatrix: matrix),
+              ],
+            ),
           );
         },
       ),

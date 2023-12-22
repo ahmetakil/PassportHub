@@ -24,9 +24,16 @@ class HomeTab extends StatelessWidget {
             child: const Column(
               children: [
                 CountrySearchField(),
-                Padding(
-                  padding: EdgeInsets.only(top: HubTheme.hubMediumPadding),
-                  child: CountrySearchResults(),
+                Expanded(
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverPadding(
+                        padding:
+                            EdgeInsets.only(top: HubTheme.hubMediumPadding),
+                        sliver: CountrySearchResults(),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

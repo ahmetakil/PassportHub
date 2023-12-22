@@ -12,13 +12,7 @@ class CountrySearchField extends StatefulWidget {
 }
 
 class _CountrySearchFieldState extends State<CountrySearchField> {
-  late TextEditingController _countryNameController;
-
-  @override
-  void initState() {
-    super.initState();
-    _countryNameController = TextEditingController();
-  }
+  final TextEditingController _countryNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +42,20 @@ class _CountrySearchFieldState extends State<CountrySearchField> {
                       ),
                     );
               },
-              decoration: const InputDecoration(
-                icon: Padding(
+              decoration: InputDecoration(
+                suffix: _countryNameController.text.isNotEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.only(
+                          right: HubTheme.hubMediumPadding,
+                        ),
+                        child: Icon(
+                          Icons.clear,
+                          size: 16,
+                          color: Colors.grey.withOpacity(0.8),
+                        ),
+                      )
+                    : null,
+                icon: const Padding(
                   padding: EdgeInsets.only(
                     left: HubTheme.hubSmallPadding,
                   ),

@@ -6,7 +6,6 @@ class HubTheme {
   static const Color secondary = Color(0xff10B981);
   static const Color onSecondary = Color(0xFF6EE7B7);
   static const Color background = Color(0xFFF3F4F6);
-  static const Color onBackground = Color(0xFF4B5563);
 
   static ThemeData get lightTheme {
     return ThemeData(

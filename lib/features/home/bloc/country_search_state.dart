@@ -12,7 +12,7 @@ class CountrySearchInitialState extends CountrySearchState {
 }
 
 class CountrySearchResultsState extends CountrySearchState {
-  final List<Country>? results;
+  final List<Country> results;
 
   const CountrySearchResultsState({
     required this.results,
