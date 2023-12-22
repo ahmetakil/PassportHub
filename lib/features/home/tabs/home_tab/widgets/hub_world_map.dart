@@ -27,9 +27,7 @@ class HubWorldMap extends StatelessWidget {
         instructions: SMapWorld.instructions,
         defaultColor: Colors.grey,
         colors: x,
-        callback: (id, name, tapdetails) {
-          print('HubWorldMap.callback id: $id , name: $name');
-        },
+        callback: (id, name, tapdetails) {},
       ),
     );
   }

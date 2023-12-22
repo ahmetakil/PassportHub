@@ -15,8 +15,8 @@ class CountrySearchResults extends StatelessWidget {
       sliver: BlocBuilder<CountrySearchBloc, CountrySearchState>(
         builder: (context, state) {
           return switch (state) {
-            CountrySearchInitialState() => SliverToBoxAdapter(
-                child: const SizedBox.shrink(),
+            CountrySearchInitialState() => const SliverToBoxAdapter(
+                child: SizedBox.shrink(),
               ),
             CountrySearchResultsState(:final List<Country> results) =>
               SliverList.separated(
