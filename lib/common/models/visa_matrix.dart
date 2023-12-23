@@ -1,11 +1,19 @@
 import 'package:collection/collection.dart';
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/models/visa_information.dart';
+import 'package:passport_hub/common/models/visa_requirement.dart';
+
+typedef Iso3 = String;
 
 class VisaMatrix {
   final Map<Country, List<VisaInformation>> matrix;
 
-  VisaMatrix({required this.matrix});
+  late Map<Iso3, Country> isoToCountryMap;
+
+  VisaMatrix({required this.matrix})
+      : isoToCountryMap = {
+          for (final Country c in matrix.keys.toList()) c.iso3code: c,
+        };
 
   List<Country> get countryList => matrix.keys.toList();
 
@@ -54,7 +62,42 @@ class VisaMatrix {
     );
   }
 
-  Map<Country, double> calculatePassportPower() {
-    return {};
+  List<Country> getCountriesByRequirement({
+    required Country targetCountry,
+    required VisaRequirementType requirementType,
+  }) {
+    final List<VisaInformation>? visaInformationList = matrix[targetCountry];
+
+    return visaInformationList
+            ?.where(
+              (information) => information.requirement.type == requirementType,
+            )
+            .map((information) => information.destinationCountry.iso3code)
+            .map((String isoCode) => isoToCountryMap[isoCode])
+            .whereType<Country>()
+            .toList() ??
+        [];
+  }
+
+  Map<VisaRequirementType, List<Country>> getCountriesGroupedByRequirement({
+    required Country targetCountry,
+  }) {
+    final List<VisaInformation> visaInformationList =
+        matrix[targetCountry] ?? [];
+
+    final Map<VisaRequirementType, List<Country>> result = {};
+
+    for (final VisaInformation information in visaInformationList) {
+      final VisaRequirementType type = information.requirement.type;
+
+      final Country destinationCountry = information.destinationCountry;
+
+      final List<Country> currentList = result[type] ?? [];
+      currentList.add(destinationCountry);
+
+      result[type] = currentList;
+    }
+
+    return result;
   }
 }
