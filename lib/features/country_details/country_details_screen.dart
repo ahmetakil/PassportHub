@@ -19,6 +19,7 @@ class CountryDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
       child: BlocConsumer<VisaBloc, VisaState>(
         listener: (context, state) {
           if (state.visaMatrix == null) {
@@ -55,7 +56,10 @@ class CountryDetails extends StatelessWidget {
                     Text("${country.region}"),
                   ],
                 ),
-                HubWorldMap(visaMatrix: matrix),
+                HubWorldMap(
+                  visaMatrix: matrix,
+                  selectedCountry: country,
+                ),
               ],
             ),
           );

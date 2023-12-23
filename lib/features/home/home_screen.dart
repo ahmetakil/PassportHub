@@ -22,8 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final bottomNavigationBarItems = [
       const BottomNavigationBarItem(
-        icon: Icon(Icons.add_circle_outline),
-        label: "Home",
+        icon: Icon(Icons.language),
+        label: "Search",
       ),
       const BottomNavigationBarItem(
         icon: Icon(Icons.compare_arrows),
