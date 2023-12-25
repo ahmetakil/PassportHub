@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:passport_hub/common/ui/widgets/hub_scaffold.dart';
 import 'package:passport_hub/features/home/tabs/compare_tab/compare_tab.dart';
-import 'package:passport_hub/features/home/tabs/home_tab/home_tab.dart';
+import 'package:passport_hub/features/home/tabs/home_tab/explore_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> screens = [
-    const HomeTab(),
+    const ExploreTab(),
     const CompareTab(),
   ];
 
@@ -22,8 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final bottomNavigationBarItems = [
       const BottomNavigationBarItem(
-        icon: Icon(Icons.language),
-        label: "Search",
+        icon: Icon(Icons.explore),
+        label: "Explore",
       ),
       const BottomNavigationBarItem(
         icon: Icon(Icons.compare_arrows),
