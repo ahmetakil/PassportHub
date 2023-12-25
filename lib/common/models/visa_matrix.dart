@@ -80,6 +80,57 @@ class VisaMatrix {
         [];
   }
 
+  ///
+  /// For instance if there is targetCountry: [Country(A), Country(B)]
+  /// This function will return a Map where visa-free will imply countries where both
+  /// A and B can visit visa free.
+  Map<VisaRequirementType, List<Country>> getMinimumTravelAreaForCountries({
+    required List<Country> targetCountries,
+  }) {
+    if (targetCountries.isEmpty) {
+      return {};
+    }
+
+    final Map<VisaRequirementType, List<Country>> result = {};
+
+    for (final VisaRequirementType type in VisaRequirementType.values) {
+      result[type] = [];
+    }
+
+    for (final destinationCountry in matrix.keys) {
+      VisaRequirementType mostRestrictiveType = VisaRequirementType.visaFree;
+
+      // Determine the most restrictive visa type for this destination
+      for (final targetCountry in targetCountries) {
+        if (targetCountry == destinationCountry) {
+          // If the destination country is one of the target countries, it should always be included as visaFree
+          mostRestrictiveType = VisaRequirementType.visaFree;
+        } else {
+          final visaInfoList = matrix[targetCountry] ?? [];
+          final visaInfo = visaInfoList.firstWhere(
+            (info) => info.destinationCountry == destinationCountry,
+            orElse: () => VisaInformation(
+              destinationCountry: destinationCountry,
+              requirement: const VisaRequirement.noEntry(),
+            ),
+          );
+
+          // Update the most restrictive type if necessary
+          if (visaInfo.requirement.type.index > mostRestrictiveType.index) {
+            mostRestrictiveType = visaInfo.requirement.type;
+          }
+        }
+      }
+
+      if (mostRestrictiveType != VisaRequirementType.none) {
+        result[mostRestrictiveType]?.add(destinationCountry);
+      }
+    }
+
+    result.removeWhere((key, value) => value.isEmpty);
+    return result;
+  }
+
   Map<VisaRequirementType, List<Country>> getCountriesGroupedByRequirement({
     required Country targetCountry,
   }) {
