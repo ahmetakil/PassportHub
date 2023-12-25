@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:passport_hub/common/models/visa_requirement.dart';
 
+part 'hub_text_theme.dart';
+
 class HubTheme {
   static const Color primary = Color(0xff001972);
   static const Color onPrimary = Color(0xff7DD3FC);
