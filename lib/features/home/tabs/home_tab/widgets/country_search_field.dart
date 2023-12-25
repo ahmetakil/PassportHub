@@ -42,28 +42,6 @@ class _CountrySearchFieldState extends State<CountrySearchField> {
                       ),
                     );
               },
-              decoration: InputDecoration(
-                suffix: _countryNameController.text.isNotEmpty
-                    ? Padding(
-                        padding: const EdgeInsets.only(
-                          right: HubTheme.hubMediumPadding,
-                        ),
-                        child: Icon(
-                          Icons.clear,
-                          size: 16,
-                          color: Colors.grey.withOpacity(0.8),
-                        ),
-                      )
-                    : null,
-                icon: const Padding(
-                  padding: EdgeInsets.only(
-                    left: HubTheme.hubSmallPadding,
-                  ),
-                  child: Icon(Icons.search),
-                ),
-                hintText: "Search",
-                border: InputBorder.none,
-              ),
               controller: _countryNameController,
             ),
           ],
