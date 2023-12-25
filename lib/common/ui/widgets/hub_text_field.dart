@@ -39,54 +39,65 @@ class _HubTextFieldState extends State<HubTextField> {
   Widget build(BuildContext context) {
     final ValueChanged<String>? onChanged = widget.onChanged;
 
-    return TextField(
-      keyboardType: widget.keyboardType,
-      textCapitalization: TextCapitalization.none,
-      autocorrect: false,
-      onChanged: onChanged == null
-          ? null
-          : (String val) {
-              final Duration? debounceDuration = widget.debounceDuration;
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: HubTheme.hubMediumPadding,
+      ),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: HubTheme.background,
+          borderRadius: BorderRadius.circular(HubTheme.hubBorderRadius),
+        ),
+        child: TextField(
+          keyboardType: widget.keyboardType,
+          textCapitalization: TextCapitalization.none,
+          autocorrect: false,
+          onChanged: onChanged == null
+              ? null
+              : (String val) {
+                  final Duration? debounceDuration = widget.debounceDuration;
 
-              if (debounceDuration == null) {
-                onChanged(val);
-                return;
-              }
+                  if (debounceDuration == null) {
+                    onChanged(val);
+                    return;
+                  }
 
-              if (_debounce?.isActive ?? false) {
-                _debounce?.cancel();
-              }
-              _debounce = Timer(debounceDuration, () {
-                onChanged(val);
-              });
-            },
-      decoration: widget.decoration ??
-          InputDecoration(
-            suffix: (widget.controller?.text.isNotEmpty ?? false)
-                ? Padding(
-                    padding: const EdgeInsets.only(
-                      right: HubTheme.hubMediumPadding,
-                    ),
-                    child: Icon(
-                      Icons.clear,
-                      size: 16,
-                      color: Colors.grey.withOpacity(0.8),
-                    ),
-                  )
-                : null,
-            icon: const Padding(
-              padding: EdgeInsets.only(
-                left: HubTheme.hubSmallPadding,
+                  if (_debounce?.isActive ?? false) {
+                    _debounce?.cancel();
+                  }
+                  _debounce = Timer(debounceDuration, () {
+                    onChanged(val);
+                  });
+                },
+          decoration: widget.decoration ??
+              InputDecoration(
+                suffix: (widget.controller?.text.isNotEmpty ?? false)
+                    ? Padding(
+                        padding: const EdgeInsets.only(
+                          right: HubTheme.hubMediumPadding,
+                        ),
+                        child: Icon(
+                          Icons.clear,
+                          size: 16,
+                          color: Colors.grey.withOpacity(0.8),
+                        ),
+                      )
+                    : null,
+                icon: const Padding(
+                  padding: EdgeInsets.only(
+                    left: HubTheme.hubSmallPadding,
+                  ),
+                  child: Icon(Icons.search),
+                ),
+                hintText: "Search",
+                border: InputBorder.none,
+                fillColor: const Color(
+                  0xCCD1D1D1,
+                ),
               ),
-              child: Icon(Icons.search),
-            ),
-            hintText: "Search",
-            border: InputBorder.none,
-            fillColor: const Color(
-              0xCCD1D1D1,
-            ),
-          ),
-      controller: widget.controller,
+          controller: widget.controller,
+        ),
+      ),
     );
   }
 }
