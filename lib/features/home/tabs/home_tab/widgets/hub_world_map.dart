@@ -22,6 +22,14 @@ class HubWorldMap extends StatefulWidget {
           targetCountry: selectedCountry,
         );
 
+  HubWorldMap.combinedMap({
+    super.key,
+    required this.visaMatrix,
+    required List<Country> selectedCountryList,
+  }) : mapColors = visaMatrix.generateColorMapForCountryGroups(
+          countryList: selectedCountryList,
+        );
+
   @override
   State<HubWorldMap> createState() => _HubWorldMapState();
 }
@@ -58,27 +66,28 @@ class _HubWorldMapState extends State<HubWorldMap>
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.75,
-      width: MediaQuery.of(context).size.width,
-      child: InteractiveViewer(
-        constrained: false,
-        transformationController: _transformationController,
-        maxScale: maxScale,
-        minScale: minScale,
-        child: SizedBox(
-          child: SimpleMap(
-            countryBorder: CountryBorder(
-              color: Colors.black.withOpacity(0.5),
-              width: 1.0,
+    return Expanded(
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: InteractiveViewer(
+          constrained: false,
+          transformationController: _transformationController,
+          maxScale: maxScale,
+          minScale: minScale,
+          child: SizedBox(
+            child: SimpleMap(
+              countryBorder: CountryBorder(
+                color: Colors.black.withOpacity(0.5),
+                width: 1.0,
+              ),
+              fit: BoxFit.fitHeight,
+              instructions: SMapWorld.instructions,
+              defaultColor: Colors.grey,
+              colors: widget.mapColors,
+              callback: (id, name, tapdetails) {
+                print("callback : $id name: $name");
+              },
             ),
-            fit: BoxFit.fitHeight,
-            instructions: SMapWorld.instructions,
-            defaultColor: Colors.grey,
-            colors: widget.mapColors,
-            callback: (id, name, tapdetails) {
-              print("callback : $id name: $name");
-            },
           ),
         ),
       ),

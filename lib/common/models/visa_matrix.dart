@@ -158,6 +158,36 @@ class VisaMatrix {
     return result;
   }
 
+  Map<String, Color> generateColorMapForCountryGroups({
+    required List<Country> countryList,
+  }) {
+    final Map<VisaRequirementType, List<Country>> requirementMap =
+        getMinimumTravelAreaForCountries(
+      targetCountries: countryList,
+    );
+
+    final Map<String, Color> mapColors = {};
+
+    for (final MapEntry<VisaRequirementType, List<Country>> entry
+        in requirementMap.entries) {
+      final type = entry.key;
+
+      final List<String> countryIsoCodes = entry.value
+          .map((e) => e.iso2code?.toLowerCase())
+          .whereType<String>()
+          .toList();
+
+      mapColors.addAll(
+        Map.fromIterable(
+          countryIsoCodes,
+          value: (_) => type.color,
+        ),
+      );
+    }
+
+    return mapColors;
+  }
+
   Map<String, Color> generateColorMapForCountryRequirements({
     required Country targetCountry,
     Color? selfColor,
