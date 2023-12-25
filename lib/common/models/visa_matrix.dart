@@ -1,7 +1,9 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/models/visa_information.dart';
 import 'package:passport_hub/common/models/visa_requirement.dart';
+import 'package:passport_hub/common/ui/hub_theme.dart';
 
 typedef Iso3 = String;
 
@@ -36,8 +38,7 @@ class VisaMatrix {
     );
   }
 
-  /// Keys refers to iso3 country codes.
-  VisaMatrix enhanceWithCountryList(Map<String, Country> countryList) {
+  VisaMatrix enhanceWithCountryList(Map<Iso3, Country> countryList) {
     final List<MapEntry<Country, List<VisaInformation>>> entries =
         matrix.entries.toList();
 
@@ -104,5 +105,39 @@ class VisaMatrix {
     }
 
     return result;
+  }
+
+  Map<String, Color> generateColorMapForCountryRequirements({
+    required Country targetCountry,
+    Color? selfColor,
+  }) {
+    final Map<VisaRequirementType, List<Country>> requirementMap =
+        getCountriesGroupedByRequirement(
+      targetCountry: targetCountry,
+    );
+
+    final Map<String, Color> mapColors = {};
+
+    for (final MapEntry<VisaRequirementType, List<Country>> entry
+        in requirementMap.entries) {
+      final type = entry.key;
+
+      final List<String> countryIsoCodes = entry.value
+          .map((e) => e.iso2code?.toLowerCase())
+          .whereType<String>()
+          .toList();
+
+      mapColors.addAll(
+        Map.fromIterable(
+          countryIsoCodes,
+          value: (_) => type.color,
+        ),
+      );
+    }
+
+    final String selfIsoCode = targetCountry.iso2code?.toLowerCase() ?? "";
+
+    mapColors[selfIsoCode] = selfColor ?? Colors.grey;
+    return mapColors;
   }
 }
