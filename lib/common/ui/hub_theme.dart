@@ -9,7 +9,7 @@ class HubTheme {
   static const Color background = Color(0xFFF3F4F6);
   static const Color red = Color(0xffFF2525);
   static const Color black = Color(0xff121212);
-  static const Color yellow = Colors.amber;
+  static const Color yellow = Color(0xffD1A564);
 
   static ThemeData get lightTheme {
     return ThemeData(
