@@ -80,7 +80,8 @@ void main() {
       expect(
         result[VisaRequirementType.visaFree],
         containsAllInOrder(
-            [albania, algeria, andorra, angola, antigua, argentina, armenia]),
+          [albania, algeria, andorra, angola, antigua, argentina, armenia],
+        ),
       );
 
       expect(
