@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:passport_hub/common/ui/hub_theme.dart';
 
 class HubTextField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
@@ -59,7 +60,32 @@ class _HubTextFieldState extends State<HubTextField> {
                 onChanged(val);
               });
             },
-      decoration: widget.decoration,
+      decoration: widget.decoration ??
+          InputDecoration(
+            suffix: (widget.controller?.text.isNotEmpty ?? false)
+                ? Padding(
+                    padding: const EdgeInsets.only(
+                      right: HubTheme.hubMediumPadding,
+                    ),
+                    child: Icon(
+                      Icons.clear,
+                      size: 16,
+                      color: Colors.grey.withOpacity(0.8),
+                    ),
+                  )
+                : null,
+            icon: const Padding(
+              padding: EdgeInsets.only(
+                left: HubTheme.hubSmallPadding,
+              ),
+              child: Icon(Icons.search),
+            ),
+            hintText: "Search",
+            border: InputBorder.none,
+            fillColor: const Color(
+              0xCCD1D1D1,
+            ),
+          ),
       controller: widget.controller,
     );
   }
