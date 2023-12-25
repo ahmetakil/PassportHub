@@ -10,7 +10,14 @@ Passport,Albania,Algeria,Andorra,Angola,Antigua and Barbuda,Argentina,Armenia
 Afghanistan,e-visa,visa required,visa required,visa required,e-visa,visa required,visa required
 Albania,-1,e-visa,90,visa required,180,visa required,180
 Test,-1,visa free,90,visa required,180,visa required,visa on arrival
-Japan,180,180,visa free,180,180,180,180""";
+Japan,180,180,visa free,180,180,180,180
+Algeria,e-visa,visa required,visa required,visa required,e-visa,visa required,visa required
+Andorra,e-visa,visa required,visa required,visa required,e-visa,visa required,visa required
+Armenia,e-visa,visa required,visa required,visa required,e-visa,visa required,visa required
+Angola,e-visa,visa required,visa required,visa required,e-visa,visa required,visa required
+Antigua and Barbuda,e-visa,visa required,visa required,visa required,e-visa,visa required,visa required
+Argentina,e-visa,visa required,visa required,visa required,e-visa,visa required,visa required
+""";
 
 const Country albania = Country(iso3code: "Albania");
 const Country angola = Country(iso3code: "Angola");
@@ -54,7 +61,7 @@ void main() {
       );
       expect(
         result[VisaRequirementType.visaFree],
-        containsAllInOrder([andorra, antigua]),
+        containsAllInOrder([andorra, antigua, armenia]),
       );
       expect(
         result[VisaRequirementType.visaRequired],
@@ -88,6 +95,81 @@ void main() {
         result.values.toList().length == result.values.toSet().length,
         isTrue,
       );
+    });
+  });
+
+  group('getMinimumTravelAreaForCountries tests', () {
+    final visaApi = MockVisaApi(mockResponseData: exampleData);
+    late VisaRepository visaRepository;
+    late VisaMatrix visaMatrix;
+
+    setUp(() async {
+      visaRepository = VisaRepository(visaApi);
+      visaMatrix = await visaRepository.generateVisaMatrix();
+    });
+
+    test(
+        'VisaMatrix correctly calculates minimum travel area for Japan and Albania',
+        () async {
+      expect(visaMatrix, isNotNull);
+
+      final Map<VisaRequirementType, List<Country>> result =
+          visaMatrix.getMinimumTravelAreaForCountries(
+        targetCountries: [japan, albania],
+      );
+
+      expect(result.isNotEmpty, isTrue);
+      expect(
+        result[VisaRequirementType.visaFree],
+        orderedEquals([
+          albania,
+          andorra,
+          armenia,
+          antigua,
+        ]),
+      );
+    });
+
+    test('VisaMatrix correctly calculates minimum travel area for Japan',
+        () async {
+      expect(visaMatrix, isNotNull);
+
+      final Map<VisaRequirementType, List<Country>> result =
+          visaMatrix.getMinimumTravelAreaForCountries(
+        targetCountries: [japan],
+      );
+
+      expect(result.isNotEmpty, isTrue);
+      expect(
+        result[VisaRequirementType.visaFree],
+        orderedEquals([
+          albania,
+          japan,
+          algeria,
+          andorra,
+          armenia,
+          angola,
+          antigua,
+          argentina,
+        ]),
+      );
+
+      expect(
+        result[VisaRequirementType.visaRequired],
+        orderedEquals([afghanistan, testCountry]),
+      );
+    });
+
+    test('VisaMatrix correctly calculates minimum travel area for Japan',
+        () async {
+      expect(visaMatrix, isNotNull);
+
+      final Map<VisaRequirementType, List<Country>> result =
+          visaMatrix.getMinimumTravelAreaForCountries(
+        targetCountries: [],
+      );
+
+      expect(result.isEmpty, isTrue);
     });
   });
 }
