@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
+import 'package:passport_hub/common/ui/widgets/hub_text_field.dart';
 import 'package:passport_hub/features/home/bloc/country_search_bloc.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/country_search_field.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/country_search_results.dart';
+import 'package:passport_hub/features/home/tabs/home_tab/widgets/hub_world_map.dart';
 
-class HomeTab extends StatelessWidget {
-  const HomeTab({super.key});
+class TravelTab extends StatelessWidget {
+  const TravelTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,26 +19,12 @@ class HomeTab extends StatelessWidget {
         final VisaMatrix? visaMatrix = state.visaMatrix;
 
         if (visaMatrix != null) {
-          return BlocProvider<CountrySearchBloc>(
-            create: (_) => CountrySearchBloc(
-              allCountryList: visaMatrix.countryList,
-            ),
-            child: const Column(
-              children: [
-                CountrySearchField(),
-                Expanded(
-                  child: CustomScrollView(
-                    slivers: [
-                      SliverPadding(
-                        padding:
-                            EdgeInsets.only(top: HubTheme.hubMediumPadding),
-                        sliver: CountrySearchResults(),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          return Column(
+            children: [
+              Text("Travel"),
+              HubTextField(),
+              //HubWorldMap.combined(visaMatrix: visaMatrix, mapColors: mapColors)
+            ],
           );
         }
 

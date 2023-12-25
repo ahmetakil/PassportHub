@@ -6,20 +6,18 @@ import 'package:passport_hub/common/models/visa_matrix.dart';
 
 class HubWorldMap extends StatefulWidget {
   final VisaMatrix visaMatrix;
-  final Country selectedCountry;
   final Map<String, Color> mapColors;
 
   const HubWorldMap({
     super.key,
     required this.visaMatrix,
-    required this.selectedCountry,
     required this.mapColors,
   });
 
   HubWorldMap.destinationMap({
     super.key,
     required this.visaMatrix,
-    required this.selectedCountry,
+    required Country selectedCountry,
   }) : mapColors = visaMatrix.generateColorMapForCountryRequirements(
           targetCountry: selectedCountry,
         );
