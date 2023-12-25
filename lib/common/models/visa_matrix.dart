@@ -95,7 +95,12 @@ class VisaMatrix {
       final List<Country> currentList = result[type] ?? [];
       currentList.add(destinationCountry);
 
-      result[type] = currentList;
+      result[type] = currentList
+          .map(
+            (Country country) => isoToCountryMap[country.iso3code],
+          )
+          .whereType<Country>()
+          .toList();
     }
 
     return result;

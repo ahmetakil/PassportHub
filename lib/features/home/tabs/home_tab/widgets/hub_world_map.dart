@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/models/visa_requirement.dart';
+import 'package:passport_hub/common/ui/hub_theme.dart';
 
 class HubWorldMap extends StatelessWidget {
   final VisaMatrix visaMatrix;
@@ -17,29 +18,43 @@ class HubWorldMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Country> visaFreeCountries =
-        visaMatrix.getCountriesByRequirement(
+    final Map<VisaRequirementType, List<Country>> visaRequirementsMap =
+        visaMatrix.getCountriesGroupedByRequirement(
       targetCountry: selectedCountry,
-      requirementType: VisaRequirementType.visaFree,
     );
 
-    final List<String> y = visaFreeCountries
-        .map(
-          (Country e) => e.iso2code?.toLowerCase(),
-        )
-        .whereType<String>()
-        .toList();
-    final Map<String, Color> x = Map<String, Color>.fromIterable(
-      y,
-      value: (country) => Colors.green,
-    );
+    final Map<String, Color> mapColors = {};
+
+    for (final MapEntry<VisaRequirementType, List<Country>> entry
+        in visaRequirementsMap.entries) {
+      final type = entry.key;
+
+      final List<String> countryIsoCodes = entry.value
+          .map((e) => e.iso2code?.toLowerCase())
+          .whereType<String>()
+          .toList();
+
+      mapColors.addAll(
+        Map.fromIterable(
+          countryIsoCodes,
+          value: (_) => type.color,
+        ),
+      );
+    }
+
+    final String selfIsoCode = selectedCountry.iso2code?.toLowerCase() ?? "";
+
+    mapColors[selfIsoCode] = VisaRequirementTypeExtension.self;
+
     return InteractiveViewer(
+      panEnabled: true,
       maxScale: 5,
       scaleFactor: 1.0,
       child: SimpleMap(
+        fit: BoxFit.fill,
         instructions: SMapWorld.instructions,
         defaultColor: Colors.grey,
-        colors: x,
+        colors: mapColors,
         callback: (id, name, tapdetails) {},
       ),
     );
