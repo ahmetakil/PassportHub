@@ -56,7 +56,7 @@ class CountryDetails extends StatelessWidget {
                     Text("${country.region}"),
                   ],
                 ),
-                HubWorldMap(
+                HubWorldMap.destinationMap(
                   visaMatrix: matrix,
                   selectedCountry: country,
                 ),

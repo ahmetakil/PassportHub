@@ -3,59 +3,86 @@ import 'package:countries_world_map/data/maps/world_map.dart';
 import 'package:flutter/material.dart';
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
-import 'package:passport_hub/common/models/visa_requirement.dart';
-import 'package:passport_hub/common/ui/hub_theme.dart';
 
-class HubWorldMap extends StatelessWidget {
+class HubWorldMap extends StatefulWidget {
   final VisaMatrix visaMatrix;
   final Country selectedCountry;
+  final Map<String, Color> mapColors;
 
   const HubWorldMap({
     super.key,
     required this.visaMatrix,
     required this.selectedCountry,
+    required this.mapColors,
   });
+
+  HubWorldMap.destinationMap({
+    super.key,
+    required this.visaMatrix,
+    required this.selectedCountry,
+  }) : mapColors = visaMatrix.generateColorMapForCountryRequirements(
+          targetCountry: selectedCountry,
+        );
+
+  @override
+  State<HubWorldMap> createState() => _HubWorldMapState();
+}
+
+class _HubWorldMapState extends State<HubWorldMap>
+    with SingleTickerProviderStateMixin {
+  late TransformationController _transformationController;
+
+  double minScale = 0.1;
+  double maxScale = 4;
+
+  final initialZoomFactor = 0.5;
+  final xTranslate = 200.0;
+  final yTranslate = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _transformationController = TransformationController();
+
+    _transformationController.value.setEntry(0, 0, initialZoomFactor);
+    _transformationController.value.setEntry(1, 1, initialZoomFactor);
+    _transformationController.value.setEntry(2, 2, initialZoomFactor);
+    _transformationController.value.setEntry(0, 3, -xTranslate);
+    _transformationController.value.setEntry(1, 3, -yTranslate);
+  }
+
+  @override
+  void dispose() {
+    _transformationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final Map<VisaRequirementType, List<Country>> visaRequirementsMap =
-        visaMatrix.getCountriesGroupedByRequirement(
-      targetCountry: selectedCountry,
-    );
-
-    final Map<String, Color> mapColors = {};
-
-    for (final MapEntry<VisaRequirementType, List<Country>> entry
-        in visaRequirementsMap.entries) {
-      final type = entry.key;
-
-      final List<String> countryIsoCodes = entry.value
-          .map((e) => e.iso2code?.toLowerCase())
-          .whereType<String>()
-          .toList();
-
-      mapColors.addAll(
-        Map.fromIterable(
-          countryIsoCodes,
-          value: (_) => type.color,
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.75,
+      width: MediaQuery.of(context).size.width,
+      child: InteractiveViewer(
+        constrained: false,
+        transformationController: _transformationController,
+        maxScale: maxScale,
+        minScale: minScale,
+        child: SizedBox(
+          child: SimpleMap(
+            countryBorder: CountryBorder(
+              color: Colors.black.withOpacity(0.5),
+              width: 1.0,
+            ),
+            fit: BoxFit.fitHeight,
+            instructions: SMapWorld.instructions,
+            defaultColor: Colors.grey,
+            colors: widget.mapColors,
+            callback: (id, name, tapdetails) {
+              print("callback : $id name: $name");
+            },
+          ),
         ),
-      );
-    }
-
-    final String selfIsoCode = selectedCountry.iso2code?.toLowerCase() ?? "";
-
-    mapColors[selfIsoCode] = VisaRequirementTypeExtension.self;
-
-    return InteractiveViewer(
-      panEnabled: true,
-      maxScale: 5,
-      scaleFactor: 1.0,
-      child: SimpleMap(
-        fit: BoxFit.fill,
-        instructions: SMapWorld.instructions,
-        defaultColor: Colors.grey,
-        colors: mapColors,
-        callback: (id, name, tapdetails) {},
       ),
     );
   }
