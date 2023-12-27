@@ -4,7 +4,12 @@ import 'package:passport_hub/common/ui/widgets/hub_text_field.dart';
 import 'package:passport_hub/features/home/bloc/country_search_bloc.dart';
 
 class CountrySearchField extends StatefulWidget {
-  const CountrySearchField({super.key});
+  final bool autofocus;
+
+  const CountrySearchField({
+    super.key,
+    this.autofocus = false,
+  });
 
   @override
   State<CountrySearchField> createState() => _CountrySearchFieldState();
@@ -16,6 +21,7 @@ class _CountrySearchFieldState extends State<CountrySearchField> {
   @override
   Widget build(BuildContext context) {
     return HubTextField(
+      autofocus: widget.autofocus,
       keyboardType: TextInputType.text,
       debounce: true,
       onChanged: (String value) {
