@@ -64,8 +64,10 @@ void main() {
       const CountrySearchResultsState(
         results: [
           andorra,
-          algeria,
           angola,
+          algeria,
+          albania,
+          afghanistan,
         ],
       ),
     ],
@@ -88,6 +90,7 @@ void main() {
         results: [
           afghanistan,
           albania,
+          algeria,
           angola,
         ],
       ),
@@ -120,6 +123,7 @@ void main() {
         results: [
           afghanistan,
           albania,
+          algeria,
           angola,
         ],
       ),
@@ -146,8 +150,10 @@ void main() {
       const CountrySearchResultsState(
         results: [
           afghanistan,
-          angola,
           algeria,
+          angola,
+          albania,
+          andorra,
         ],
       ),
     ],
