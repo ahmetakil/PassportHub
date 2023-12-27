@@ -13,6 +13,8 @@ class HubTheme {
   static const Color black = Color(0xff121212);
   static const Color yellow = Color(0xffD1A564);
 
+  static const Color textFieldBackground = Color(0xffD1D1D1CC);
+
   static ThemeData get lightTheme {
     return ThemeData(
       primaryColorLight: onPrimary,
@@ -29,7 +31,7 @@ class HubTheme {
         surface: Colors.white,
         onSurface: black,
       ),
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: Color(0xffF5F5F7),
       // Define button themes
       buttonTheme: const ButtonThemeData(
         buttonColor: Color(0xFFFB923C), // Accent color
