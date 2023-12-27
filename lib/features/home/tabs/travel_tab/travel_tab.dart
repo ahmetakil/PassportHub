@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:passport_hub/common/app_router.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
@@ -24,7 +26,19 @@ class TravelTab extends StatelessWidget {
             return Column(
               children: [
                 const HubPageTitle(title: "Travel"),
-                const HubTextField(),
+                Hero(
+                  tag: "travel_search_field",
+                  child: Material(
+                    color: Colors.transparent,
+                    child: HubTextField(
+                      enabled: false,
+                      onTap: () {
+                        print("a");
+                        context.pushNamed(AppRouter.search);
+                      },
+                    ),
+                  ),
+                ),
                 HubWorldMap.combinedMap(
                   visaMatrix: visaMatrix,
                   selectedCountryList: [],
