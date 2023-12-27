@@ -2,6 +2,10 @@ import 'package:passport_hub/common/api/country_list_api.dart';
 import 'package:passport_hub/common/hub_logger.dart';
 import 'package:passport_hub/common/models/country.dart';
 
+const Map<String, String> _nameUpdates = {
+  'United Kingdom of Great Britain and Northern Ireland': 'United Kingdom',
+};
+
 class CountryListRepository {
   final CountryListApi countryListApi;
 
@@ -36,7 +40,7 @@ class CountryListRepository {
         result[iso3] = Country(
           iso3code: iso3,
           iso2code: iso2,
-          name: countryName,
+          name: _nameUpdates[countryName] ?? countryName,
           region: region,
           subRegion: subRegion,
         );
