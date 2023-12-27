@@ -6,6 +6,7 @@ import 'package:passport_hub/common/api/visa_api.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
 import 'package:passport_hub/common/repository/country_list_repository.dart';
 import 'package:passport_hub/common/repository/visa_repository.dart';
+import 'package:passport_hub/features/home/bloc/country_search_bloc.dart';
 
 Future<void> injectorSetup(GetIt getIt) async {
   getIt.registerLazySingleton<VisaApi>(
@@ -33,6 +34,10 @@ Future<void> injectorSetup(GetIt getIt) async {
       getIt<VisaRepository>(),
       getIt<CountryListRepository>(),
     ),
+  );
+
+  getIt.registerLazySingleton<CountrySearchBloc>(
+    () => CountrySearchBloc(),
   );
 
   await getIt.allReady();

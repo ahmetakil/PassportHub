@@ -51,9 +51,10 @@ void main() {
   blocTest<CountrySearchBloc, CountrySearchState>(
     'When country name Andorra is searched it will be the first matched result',
     build: () {
-      return CountrySearchBloc(
-        allCountryList: countryData,
-      );
+      return CountrySearchBloc()
+        ..add(
+          SetCountryList(allCountryList: countryData),
+        );
     },
     act: (bloc) => bloc
       ..add(
@@ -73,9 +74,10 @@ void main() {
   blocTest<CountrySearchBloc, CountrySearchState>(
     'When country name Afghanistan is searched it will be the first matched result',
     build: () {
-      return CountrySearchBloc(
-        allCountryList: countryData,
-      );
+      return CountrySearchBloc()
+        ..add(
+          SetCountryList(allCountryList: countryData),
+        );
     },
     act: (bloc) => bloc
       ..add(
@@ -95,9 +97,10 @@ void main() {
   blocTest<CountrySearchBloc, CountrySearchState>(
     'When country name Afghanistan is searched and then an empty query is searched state will go back to the initial state',
     build: () {
-      return CountrySearchBloc(
-        allCountryList: countryData,
-      );
+      return CountrySearchBloc()
+        ..add(
+          SetCountryList(allCountryList: countryData),
+        );
     },
     act: (bloc) async {
       bloc.add(
@@ -127,9 +130,10 @@ void main() {
   blocTest<CountrySearchBloc, CountrySearchState>(
     'When country iso AFG is searched it will find the country Afghanistan',
     build: () {
-      return CountrySearchBloc(
-        allCountryList: countryData,
-      );
+      return CountrySearchBloc()
+        ..add(
+          SetCountryList(allCountryList: countryData),
+        );
     },
     act: (bloc) async {
       bloc.add(

@@ -4,6 +4,14 @@ abstract class CountrySearchEvent {
   const CountrySearchEvent();
 }
 
+class SetCountryList extends CountrySearchEvent {
+  final List<Country> allCountryList;
+
+  const SetCountryList({
+    required this.allCountryList,
+  });
+}
+
 class CountrySearchQueryEvent extends CountrySearchEvent {
   final String searchQuery;
 
@@ -11,7 +19,7 @@ class CountrySearchQueryEvent extends CountrySearchEvent {
 }
 
 class SelectCountryEvent extends CountrySearchEvent {
-  final Country country;
+  final List<Country> countryList;
 
-  const SelectCountryEvent({required this.country});
+  const SelectCountryEvent({required this.countryList});
 }
