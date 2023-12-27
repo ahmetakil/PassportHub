@@ -4,12 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:passport_hub/common/app_router.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
-import 'package:passport_hub/common/ui/hub_theme.dart';
 import 'package:passport_hub/common/ui/widgets/hub_page_title.dart';
 import 'package:passport_hub/common/ui/widgets/hub_text_field.dart';
-import 'package:passport_hub/features/home/bloc/country_search_bloc.dart';
-import 'package:passport_hub/features/home/tabs/home_tab/widgets/country_search_field.dart';
-import 'package:passport_hub/features/home/tabs/home_tab/widgets/country_search_results.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/hub_world_map.dart';
 
 class TravelTab extends StatelessWidget {
@@ -33,7 +29,6 @@ class TravelTab extends StatelessWidget {
                     child: HubTextField(
                       enabled: false,
                       onTap: () {
-                        print("a");
                         context.pushNamed(AppRouter.search);
                       },
                     ),
@@ -41,8 +36,8 @@ class TravelTab extends StatelessWidget {
                 ),
                 HubWorldMap.combinedMap(
                   visaMatrix: visaMatrix,
-                  selectedCountryList: [],
-                )
+                  selectedCountryList: const [],
+                ),
               ],
             );
           }

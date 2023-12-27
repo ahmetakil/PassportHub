@@ -85,7 +85,6 @@ class _HubWorldMapState extends State<HubWorldMap>
               defaultColor: Colors.grey,
               colors: widget.mapColors,
               callback: (id, name, tapdetails) {
-                print("callback : $id name: $name");
               },
             ),
           ),
