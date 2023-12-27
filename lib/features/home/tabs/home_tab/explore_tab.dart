@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
+import 'package:passport_hub/common/ui/hub_error_screen.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
 import 'package:passport_hub/common/ui/widgets/hub_page_title.dart';
 import 'package:passport_hub/features/home/bloc/country_search_bloc.dart';
@@ -43,11 +44,7 @@ class ExploreTab extends StatelessWidget {
             );
           }
 
-          return const Center(
-            child: Text(
-              "Could not fetch data, \n Please try again later!",
-            ),
-          );
+          return const HubErrorScreen();
         },
       ),
     );
