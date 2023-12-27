@@ -42,7 +42,7 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
       ),
     );
 
-    on<CountrySearchEvent>((event, emit) {
+    on<CountrySearchQueryEvent>((event, emit) {
       final String query = event.searchQuery;
       HubLogger.log("Searching for $query");
 

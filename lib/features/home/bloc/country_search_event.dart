@@ -1,7 +1,17 @@
 part of 'country_search_bloc.dart';
 
-class CountrySearchEvent {
+abstract class CountrySearchEvent {
+  const CountrySearchEvent();
+}
+
+class CountrySearchQueryEvent extends CountrySearchEvent {
   final String searchQuery;
 
-  CountrySearchEvent({required this.searchQuery});
+  const CountrySearchQueryEvent({required this.searchQuery});
+}
+
+class SelectCountryEvent extends CountrySearchEvent {
+  final Country country;
+
+  const SelectCountryEvent({required this.country});
 }

@@ -13,14 +13,7 @@ class CountrySearchResultRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        context.pushNamed(
-          AppRouter.countryDetails,
-          pathParameters: {
-            "iso": country.iso3code,
-          },
-        );
-      },
+      onTap: () {},
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(HubTheme.hubBorderRadius),

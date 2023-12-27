@@ -30,7 +30,7 @@ class _CountrySearchFieldState extends State<CountrySearchField> {
         }
 
         context.read<CountrySearchBloc>().add(
-              CountrySearchEvent(
+              CountrySearchQueryEvent(
                 searchQuery: value,
               ),
             );

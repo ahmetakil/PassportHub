@@ -57,7 +57,7 @@ void main() {
     },
     act: (bloc) => bloc
       ..add(
-        CountrySearchEvent(searchQuery: "Andorra"),
+        const CountrySearchQueryEvent(searchQuery: "Andorra"),
       ),
     expect: () => <CountrySearchState>[
       const CountrySearchResultsState(
@@ -79,7 +79,7 @@ void main() {
     },
     act: (bloc) => bloc
       ..add(
-        CountrySearchEvent(searchQuery: "Afghanistan"),
+        const CountrySearchQueryEvent(searchQuery: "Afghanistan"),
       ),
     expect: () => <CountrySearchState>[
       const CountrySearchResultsState(
@@ -101,13 +101,13 @@ void main() {
     },
     act: (bloc) async {
       bloc.add(
-        CountrySearchEvent(searchQuery: "Afghanistan"),
+        const CountrySearchQueryEvent(searchQuery: "Afghanistan"),
       );
 
       await Future.delayed(const Duration(milliseconds: 10));
 
       bloc.add(
-        CountrySearchEvent(searchQuery: ""),
+        const CountrySearchQueryEvent(searchQuery: ""),
       );
 
       return bloc;
@@ -133,7 +133,7 @@ void main() {
     },
     act: (bloc) async {
       bloc.add(
-        CountrySearchEvent(searchQuery: "AFG"),
+        const CountrySearchQueryEvent(searchQuery: "AFG"),
       );
 
       return bloc;
