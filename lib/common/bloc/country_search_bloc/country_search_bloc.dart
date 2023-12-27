@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuzzy/data/result.dart';
@@ -23,17 +24,15 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
       fuzzy = Fuzzy<Country>(
         allCountryList,
         options: FuzzyOptions<Country>(
+          verbose: true,
+          shouldNormalize: true,
           threshold: 0.8,
+          distance: 50,
           keys: [
             WeightedKey(
               name: 'name',
               getter: (Country c) => c.name ?? '',
-              weight: 1,
-            ),
-            WeightedKey(
-              name: 'iso',
-              getter: (Country c) => c.iso3code,
-              weight: 1,
+              weight: 3,
             ),
           ],
         ),
@@ -62,8 +61,18 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
         query,
       );
 
+      final Country? exactMatchedIso = allCountryList
+          .firstWhereOrNull((Country country) => country.iso3code == query);
+
       final List<Country> matchedCountries =
           fuzzyResults.map((e) => e.item).toList();
+
+      if (exactMatchedIso != null) {
+        matchedCountries.removeWhere(
+          (Country country) => country.iso3code == query,
+        );
+        matchedCountries.insert(0, exactMatchedIso);
+      }
 
       emit(
         CountrySearchResultsState(
