@@ -53,7 +53,8 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
 
       if (fuzzySearch == null) {
         HubLogger.e(
-            "Could not find fuzzy, make sure to call SetCountryList first ");
+          "Could not find fuzzy, make sure to call SetCountryList first ",
+        );
         return;
       }
 

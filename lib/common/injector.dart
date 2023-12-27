@@ -3,10 +3,10 @@ import 'package:passport_hub/common/api/country_list_api.dart';
 import 'package:passport_hub/common/api/github_country_list_api.dart';
 import 'package:passport_hub/common/api/github_visa_api.dart';
 import 'package:passport_hub/common/api/visa_api.dart';
+import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
 import 'package:passport_hub/common/repository/country_list_repository.dart';
 import 'package:passport_hub/common/repository/visa_repository.dart';
-import 'package:passport_hub/features/home/bloc/country_search_bloc.dart';
 
 Future<void> injectorSetup(GetIt getIt) async {
   getIt.registerLazySingleton<VisaApi>(

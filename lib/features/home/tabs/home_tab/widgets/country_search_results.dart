@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
-import 'package:passport_hub/features/home/bloc/country_search_bloc.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/country_search_result_row.dart';
 
 class CountrySearchResults extends StatelessWidget {

@@ -51,7 +51,7 @@ class _HubTextFieldState extends State<HubTextField> {
       ),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: HubTheme.textFieldBackground.withOpacity(0.8),
+          color: HubTheme.textFieldBackground,
           borderRadius: BorderRadius.circular(HubTheme.hubBorderRadius),
         ),
         child: GestureDetector(
