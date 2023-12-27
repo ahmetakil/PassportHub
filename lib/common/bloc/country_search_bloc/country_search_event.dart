@@ -19,7 +19,7 @@ class CountrySearchQueryEvent extends CountrySearchEvent {
 }
 
 class SelectCountryEvent extends CountrySearchEvent {
-  final List<Country> countryList;
+  final Country country;
 
-  const SelectCountryEvent({required this.countryList});
+  const SelectCountryEvent({required this.country});
 }

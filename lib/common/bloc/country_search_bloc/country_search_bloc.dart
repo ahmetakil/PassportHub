@@ -85,8 +85,20 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
       if (state is CountrySearchResultsState) {
         final resultState = state as CountrySearchResultsState;
 
+        final List<Country> selectedCountryList = [
+          ...resultState.selectedCountryList,
+        ];
+
+        if (selectedCountryList.contains(event.country)) {
+          selectedCountryList.remove(event.country);
+        } else {
+          selectedCountryList.add(event.country);
+        }
+
         emit(
-          resultState.copyWith(selectedCountryList: event.countryList),
+          resultState.copyWith(
+            selectedCountryList: selectedCountryList,
+          ),
         );
       }
     });
