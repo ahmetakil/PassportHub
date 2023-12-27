@@ -24,7 +24,6 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
       fuzzy = Fuzzy<Country>(
         allCountryList,
         options: FuzzyOptions<Country>(
-          verbose: true,
           shouldNormalize: true,
           threshold: 0.8,
           distance: 50,
