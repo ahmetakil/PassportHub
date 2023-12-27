@@ -1,6 +1,8 @@
-# passport_hub
+# PassportHub
 
-A new Flutter project.
+![example workflow](https://github.com/ahmetakil/PassportHub/actions/workflows/flutter.yml/badge.svg)
+
+A Flutter application that displays world passport destinations and allows you to compare passports.
 
 ## Getting Started
 
