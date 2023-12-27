@@ -7,19 +7,20 @@ import 'package:passport_hub/common/ui/widgets/hub_scaffold.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/country_search_field.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/country_search_results.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<VisaBloc, VisaState>(
       builder: (context, state) {
-        return HubScaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {},
-            child: const Icon(Icons.save),
-          ),
-          body: const SafeArea(
+        return const HubScaffold(
+          body: SafeArea(
             child: Column(
               children: [
                 Padding(
