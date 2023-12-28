@@ -74,7 +74,8 @@ class _HubWorldMapState extends State<HubWorldMap>
   }
 
   void updateMapColorsForSelectedCountryList(
-      List<Country> selectedCountryList) {
+    List<Country> selectedCountryList,
+  ) {
     for (final Country country in selectedCountryList) {
       final String? iso2 = country.iso2code;
 

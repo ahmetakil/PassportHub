@@ -30,7 +30,7 @@ class HubSegmentedControl extends StatelessWidget {
 class _HubSegmentedControlChild extends StatelessWidget {
   final String text;
 
-  const _HubSegmentedControlChild({super.key, required this.text});
+  const _HubSegmentedControlChild({required this.text});
 
   @override
   Widget build(BuildContext context) {

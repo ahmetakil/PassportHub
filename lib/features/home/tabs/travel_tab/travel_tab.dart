@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -41,23 +40,24 @@ class _TravelTabState extends State<TravelTab> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const HubPageTitle(title: "Travel"),
-                      Spacer(),
+                      const Spacer(),
                       Padding(
                         padding: const EdgeInsets.only(
                           right: HubTheme.hubMediumPadding,
                         ),
                         child: HubSegmentedControl(
-                            groupValue: showMap ? "Map" : "List",
-                            options: ["Map", "List"],
-                            onValueChanged: (String? val) {
-                              if (val == "List") {
-                                showMap = false;
-                              } else {
-                                showMap = true;
-                              }
-                              setState(() {});
-                            }),
-                      )
+                          groupValue: showMap ? "Map" : "List",
+                          options: const ["Map", "List"],
+                          onValueChanged: (String? val) {
+                            if (val == "List") {
+                              showMap = false;
+                            } else {
+                              showMap = true;
+                            }
+                            setState(() {});
+                          },
+                        ),
+                      ),
                     ],
                   ),
                   Padding(
