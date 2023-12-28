@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -10,10 +11,18 @@ import 'package:passport_hub/common/ui/hub_theme.dart';
 import 'package:passport_hub/common/ui/widgets/hub_fake_text_field.dart';
 import 'package:passport_hub/common/ui/widgets/hub_page_title.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/hub_world_map.dart';
+import 'package:passport_hub/features/home/tabs/travel_tab/widgets/hub_segmented_control.dart';
 import 'package:passport_hub/features/home/tabs/travel_tab/widgets/travel_search_result_list_view.dart';
 
-class TravelTab extends StatelessWidget {
+class TravelTab extends StatefulWidget {
   const TravelTab({super.key});
+
+  @override
+  State<TravelTab> createState() => _TravelTabState();
+}
+
+class _TravelTabState extends State<TravelTab> {
+  bool showMap = true;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +37,29 @@ class TravelTab extends StatelessWidget {
                   state.getSelectedCountryList();
               return Column(
                 children: [
-                  const HubPageTitle(title: "Travel"),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const HubPageTitle(title: "Travel"),
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          right: HubTheme.hubMediumPadding,
+                        ),
+                        child: HubSegmentedControl(
+                            groupValue: showMap ? "Map" : "List",
+                            options: ["Map", "List"],
+                            onValueChanged: (String? val) {
+                              if (val == "List") {
+                                showMap = false;
+                              } else {
+                                showMap = true;
+                              }
+                              setState(() {});
+                            }),
+                      )
+                    ],
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(
                       bottom: HubTheme.hubMediumPadding,
