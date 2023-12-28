@@ -36,9 +36,16 @@ class CountrySearchResultRow extends StatelessWidget {
               HubCountryFlag(
                 country: country,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: HubTheme.hubSmallPadding),
-                child: Text(country.name ?? country.iso3code),
+              Expanded(
+                flex: 4,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(left: HubTheme.hubSmallPadding),
+                  child: Text(
+                    country.name ?? country.iso3code,
+                    maxLines: 2,
+                  ),
+                ),
               ),
               const Spacer(),
               Opacity(
