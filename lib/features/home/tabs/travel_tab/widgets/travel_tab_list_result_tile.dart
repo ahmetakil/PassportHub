@@ -29,16 +29,14 @@ class TravelTabListResultTile extends StatelessWidget {
               color: visaRequirementType.color,
             ),
           ),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 4,
-                horizontal: HubTheme.hubSmallPadding,
-              ),
-              child: Text(
-                visaRequirementType.label,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
-              ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 4,
+              horizontal: HubTheme.hubSmallPadding,
+            ),
+            child: Text(
+              visaRequirementType.label,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
             ),
           ),
         ],
