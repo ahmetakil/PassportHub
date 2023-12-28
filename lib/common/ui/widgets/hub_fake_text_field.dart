@@ -46,11 +46,14 @@ class HubFakeTextField extends StatelessWidget {
                 ),
               ),
               showEmpty
-                  ? Text(
-                      "Search",
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: Theme.of(context).hintColor,
-                          ),
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 3),
+                      child: Text(
+                        "Search",
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: Theme.of(context).hintColor,
+                            ),
+                      ),
                     )
                   : Expanded(
                       child: child,
