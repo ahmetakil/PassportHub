@@ -19,6 +19,7 @@ class HubPageTitle extends StatelessWidget {
         child: Text(
           title,
           style: HubText.heading,
+          overflow: TextOverflow.ellipsis,
         ),
       ),
     );

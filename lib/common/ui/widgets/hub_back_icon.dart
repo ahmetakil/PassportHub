@@ -11,8 +11,8 @@ class HubBackIcon extends StatelessWidget {
         context.pop();
       },
       child: const SizedBox(
-        width: 40,
-        height: 40,
+        width: 32,
+        height: 32,
         child: Icon(
           Icons.arrow_back,
         ),
