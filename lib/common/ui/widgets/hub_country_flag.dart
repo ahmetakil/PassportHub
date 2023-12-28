@@ -1,7 +1,6 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:passport_hub/common/models/country.dart';
-import 'package:passport_hub/common/ui/hub_theme.dart';
 
 const _flagAspectRatio = 16 / 10;
 

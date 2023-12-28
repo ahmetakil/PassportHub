@@ -44,8 +44,9 @@ class CountryDetails extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
-                      top: HubTheme.hubLargePadding,
-                      left: HubTheme.hubSmallPadding),
+                    top: HubTheme.hubLargePadding,
+                    left: HubTheme.hubSmallPadding,
+                  ),
                   child: Row(
                     children: [
                       const HubBackIcon(),
