@@ -31,7 +31,7 @@ class HubTheme {
         surface: Colors.white,
         onSurface: black,
       ),
-      scaffoldBackgroundColor: const Color(0xffF5F5F7),
+      scaffoldBackgroundColor: const Color(0xffFAFAFA),
       // Define button themes
       buttonTheme: const ButtonThemeData(
         buttonColor: Color(0xFFFB923C), // Accent color
