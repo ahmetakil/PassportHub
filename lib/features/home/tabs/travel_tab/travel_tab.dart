@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:passport_hub/common/app_router.dart';
+import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
+import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
+import 'package:passport_hub/common/ui/hub_theme.dart';
+import 'package:passport_hub/common/ui/widgets/hub_fake_text_field.dart';
 import 'package:passport_hub/common/ui/widgets/hub_page_title.dart';
 import 'package:passport_hub/common/ui/widgets/hub_text_field.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/hub_world_map.dart';
+import 'package:passport_hub/features/home/tabs/travel_tab/widgets/travel_search_result_chip.dart';
+import 'package:passport_hub/features/home/tabs/travel_tab/widgets/travel_search_result_list_view.dart';
 
 class TravelTab extends StatelessWidget {
   const TravelTab({super.key});
@@ -18,34 +24,40 @@ class TravelTab extends StatelessWidget {
         builder: (context, state) {
           final VisaMatrix? visaMatrix = state.visaMatrix;
 
-          if (visaMatrix != null) {
-            return Column(
-              children: [
-                const HubPageTitle(title: "Travel"),
-                Hero(
-                  tag: "travel_search_field",
-                  child: Material(
-                    color: Colors.transparent,
-                    child: HubTextField(
-                      enabled: false,
-                      onTap: () {
-                        context.pushNamed(AppRouter.search);
-                      },
+          return BlocBuilder<CountrySearchBloc, CountrySearchState>(
+            builder: (context, state) {
+              final List<Country> selectedCountryList =
+                  state.getSelectedCountryList();
+              return Column(
+                children: [
+                  const HubPageTitle(title: "Travel"),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: HubTheme.hubMediumPadding),
+                    child: Hero(
+                      tag: "travel_search_field",
+                      child: Material(
+                        color: Colors.transparent,
+                        child: HubFakeTextField(
+                          showEmpty: selectedCountryList.isEmpty,
+                          child: TravelSearchResultListView(
+                            countryList: selectedCountryList,
+                          ),
+                          onTap: () {
+                            context.pushNamed(AppRouter.search);
+                          },
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                HubWorldMap.combinedMap(
-                  visaMatrix: visaMatrix,
-                  selectedCountryList: const [],
-                ),
-              ],
-            );
-          }
-
-          return const Center(
-            child: Text(
-              "Could not fetch data, \n Please try again later!",
-            ),
+                  if (visaMatrix != null)
+                    HubWorldMap.combinedMap(
+                      visaMatrix: visaMatrix,
+                      selectedCountryList: const [],
+                    ),
+                ],
+              );
+            },
           );
         },
       ),

@@ -1,5 +1,27 @@
 part of 'country_search_bloc.dart';
 
+extension CountrySearchStateExtension on CountrySearchState {
+  List<Country> getSearchResults() {
+    if (this is CountrySearchResultsState) {
+      final resultState = this as CountrySearchResultsState;
+
+      return resultState.results;
+    }
+
+    return [];
+  }
+
+  List<Country> getSelectedCountryList() {
+    if (this is CountrySearchResultsState) {
+      final resultState = this as CountrySearchResultsState;
+
+      return resultState.selectedCountryList;
+    }
+
+    return [];
+  }
+}
+
 sealed class CountrySearchState extends Equatable {
   const CountrySearchState();
 }

@@ -101,9 +101,7 @@ class _HubTextFieldState extends State<HubTextField> {
                   ),
                   hintText: "Search",
                   border: InputBorder.none,
-                  fillColor: const Color(
-                    0xCCD1D1D1,
-                  ),
+                  fillColor: HubTheme.textFieldBackground,
                 ),
             controller: widget.controller,
           ),
