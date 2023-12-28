@@ -9,9 +9,7 @@ import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
 import 'package:passport_hub/common/ui/widgets/hub_fake_text_field.dart';
 import 'package:passport_hub/common/ui/widgets/hub_page_title.dart';
-import 'package:passport_hub/common/ui/widgets/hub_text_field.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/hub_world_map.dart';
-import 'package:passport_hub/features/home/tabs/travel_tab/widgets/travel_search_result_chip.dart';
 import 'package:passport_hub/features/home/tabs/travel_tab/widgets/travel_search_result_list_view.dart';
 
 class TravelTab extends StatelessWidget {
@@ -33,7 +31,8 @@ class TravelTab extends StatelessWidget {
                   const HubPageTitle(title: "Travel"),
                   Padding(
                     padding: const EdgeInsets.only(
-                        bottom: HubTheme.hubMediumPadding),
+                      bottom: HubTheme.hubMediumPadding,
+                    ),
                     child: Hero(
                       tag: "travel_search_field",
                       child: Material(

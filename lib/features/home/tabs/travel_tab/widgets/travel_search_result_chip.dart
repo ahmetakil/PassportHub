@@ -20,7 +20,7 @@ class TravelSearchResultChip extends StatelessWidget {
           country: country,
           size: 20,
         ),
-        Text("${country.iso3code}"),
+        Text(country.iso3code),
         IconButton(
           onPressed: () {
             context.read<CountrySearchBloc>().add(
@@ -29,7 +29,7 @@ class TravelSearchResultChip extends StatelessWidget {
                   ),
                 );
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.clear,
             size: 12,
           ),
