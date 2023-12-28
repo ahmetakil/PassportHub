@@ -52,7 +52,7 @@ class TravelTab extends StatelessWidget {
                   if (visaMatrix != null)
                     HubWorldMap.combinedMap(
                       visaMatrix: visaMatrix,
-                      selectedCountryList: const [],
+                      selectedCountryList: selectedCountryList,
                     ),
                 ],
               );

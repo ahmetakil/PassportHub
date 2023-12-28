@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/models/country.dart';
+import 'package:passport_hub/common/ui/hub_theme.dart';
 import 'package:passport_hub/common/ui/widgets/hub_country_flag.dart';
 
 class TravelSearchResultChip extends StatelessWidget {
@@ -14,27 +15,43 @@ class TravelSearchResultChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        HubCountryFlag(
-          country: country,
-          size: 20,
+    return InkWell(
+      onTap: () {
+        context.read<CountrySearchBloc>().add(
+              SelectCountryEvent(
+                country: country,
+              ),
+            );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(HubTheme.hubBorderRadius),
+          color: HubTheme.onPrimary.withOpacity(0.4),
         ),
-        Text(country.iso3code),
-        IconButton(
-          onPressed: () {
-            context.read<CountrySearchBloc>().add(
-                  SelectCountryEvent(
-                    country: country,
-                  ),
-                );
-          },
-          icon: const Icon(
-            Icons.clear,
-            size: 12,
-          ),
+        padding: const EdgeInsets.all(4),
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 4.0),
+              child: HubCountryFlag(
+                country: country,
+                size: 24,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 4),
+              child: Text(
+                country.iso3code,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ),
+            const Icon(
+              Icons.clear,
+              size: 12,
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
