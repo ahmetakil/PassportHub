@@ -9,6 +9,19 @@ enum VisaRequirementType {
   none;
 }
 
+extension VisaRequirementExtension on VisaRequirementType {
+  String get label {
+    return switch (this) {
+      VisaRequirementType.visaFree => "Visa Free",
+      VisaRequirementType.visaOnArrival => "Visa on arrival",
+      VisaRequirementType.eVisa => "Evisa",
+      VisaRequirementType.visaRequired => "Visa Required",
+      VisaRequirementType.noAdmission => "No Admission",
+      VisaRequirementType.none => "N/A",
+    };
+  }
+}
+
 class VisaRequirement extends Equatable {
   final VisaRequirementType type;
   final int? daysAllowed;

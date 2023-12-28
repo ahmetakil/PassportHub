@@ -158,7 +158,7 @@ class VisaMatrix {
     return result;
   }
 
-  Map<String, Color> generateColorMapForCountryGroups({
+  Map<Country, VisaRequirementType> generateRequirementMapForCountryGroups({
     required List<Country> countryList,
   }) {
     final Map<VisaRequirementType, List<Country>> requirementMap =
@@ -166,26 +166,41 @@ class VisaMatrix {
       targetCountries: countryList,
     );
 
-    final Map<String, Color> mapColors = {};
+    final Map<Country, VisaRequirementType> countryToRequirementMap = {};
 
     for (final MapEntry<VisaRequirementType, List<Country>> entry
         in requirementMap.entries) {
       final type = entry.key;
 
-      final List<String> countryIsoCodes = entry.value
-          .map((e) => e.iso2code?.toLowerCase())
-          .whereType<String>()
-          .toList();
-
-      mapColors.addAll(
+      countryToRequirementMap.addAll(
         Map.fromIterable(
-          countryIsoCodes,
-          value: (_) => type.color,
+          entry.value,
+          value: (_) => type,
         ),
       );
     }
 
-    return mapColors;
+    return countryToRequirementMap;
+  }
+
+  Map<String, Color> generateColorMapForCountryGroups({
+    required List<Country> countryList,
+  }) {
+    final Map<Country, VisaRequirementType> countryToReqMap =
+        generateRequirementMapForCountryGroups(countryList: countryList);
+
+    countryToReqMap
+        .removeWhere((Country country, _) => country.iso2code == null);
+
+    final List<MapEntry<String, Color>> filteredMapEntries = countryToReqMap
+        .map(
+          (Country country, VisaRequirementType type) =>
+              MapEntry(country.iso2code!.toLowerCase(), type.color),
+        )
+        .entries
+        .toList();
+
+    return Map.fromEntries(filteredMapEntries);
   }
 
   Map<String, Color> generateColorMapForCountryRequirements({
