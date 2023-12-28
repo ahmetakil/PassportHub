@@ -10,7 +10,7 @@ import 'package:passport_hub/common/ui/hub_theme.dart';
 import 'package:passport_hub/common/ui/widgets/hub_fake_text_field.dart';
 import 'package:passport_hub/common/ui/widgets/hub_page_title.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/hub_world_map.dart';
-import 'package:passport_hub/features/home/tabs/travel_tab/widgets/hub_segmented_control.dart';
+import 'package:passport_hub/common/ui/widgets/hub_segmented_control.dart';
 import 'package:passport_hub/features/home/tabs/travel_tab/widgets/travel_search_result_list_view.dart';
 
 class TravelTab extends StatefulWidget {
