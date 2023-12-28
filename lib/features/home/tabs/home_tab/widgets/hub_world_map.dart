@@ -85,6 +85,7 @@ class _HubWorldMapState extends State<HubWorldMap>
 
       mapColors[iso2.toLowerCase()] = VisaRequirementTypeExtension.self;
     }
+    setState(() {});
   }
 
   @override
