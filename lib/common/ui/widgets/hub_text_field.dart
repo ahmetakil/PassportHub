@@ -35,6 +35,14 @@ class HubTextField extends StatefulWidget {
 class _HubTextFieldState extends State<HubTextField> {
   Timer? _debounce;
 
+  bool showClear = false;
+
+  @override
+  void didChangeDependencies() {
+    showClear = widget.controller?.text.isNotEmpty ?? false;
+    super.didChangeDependencies();
+  }
+
   @override
   void dispose() {
     _debounce?.cancel();
@@ -77,19 +85,28 @@ class _HubTextFieldState extends State<HubTextField> {
                     }
                     _debounce = Timer(debounceDuration, () {
                       onChanged(val);
+
+                      setState(() {
+                        showClear = val.isNotEmpty;
+                      });
                     });
                   },
             decoration: widget.decoration ??
                 InputDecoration(
-                  suffix: (widget.controller?.text.isNotEmpty ?? false)
-                      ? Padding(
-                          padding: const EdgeInsets.only(
-                            right: HubTheme.hubMediumPadding,
-                          ),
-                          child: Icon(
-                            Icons.clear,
-                            size: 16,
-                            color: Colors.grey.withOpacity(0.8),
+                  suffix: showClear
+                      ? GestureDetector(
+                          onTap: () {
+                            widget.controller?.clear();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              right: HubTheme.hubMediumPadding,
+                            ),
+                            child: Icon(
+                              Icons.clear,
+                              size: 16,
+                              color: Colors.grey.withOpacity(0.8),
+                            ),
                           ),
                         )
                       : null,
