@@ -5,11 +5,11 @@ import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
 import 'package:passport_hub/common/ui/widgets/hub_country_flag.dart';
 
-class CountrySearchResultRow extends StatelessWidget {
+class CountrySearchResultTile extends StatelessWidget {
   final Country country;
   final bool isSelected;
 
-  const CountrySearchResultRow({
+  const CountrySearchResultTile({
     super.key,
     required this.country,
     this.isSelected = false,

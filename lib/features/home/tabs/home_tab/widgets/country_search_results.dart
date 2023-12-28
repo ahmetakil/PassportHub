@@ -29,7 +29,7 @@ class CountrySearchResults extends StatelessWidget {
                   color: Colors.grey.withOpacity(0.2),
                 ),
                 itemCount: results.length,
-                itemBuilder: (context, i) => CountrySearchResultRow(
+                itemBuilder: (context, i) => CountrySearchResultTile(
                   country: results[i],
                   isSelected: selectedCountryList.contains(
                     results[i],
