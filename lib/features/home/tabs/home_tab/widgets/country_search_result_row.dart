@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
-import 'package:passport_hub/common/ui/widgets/hub_country_flag.dart';
+import 'package:passport_hub/common/ui/widgets/hub_country_tile.dart';
 
 class CountrySearchResultTile extends StatelessWidget {
   final Country country;
@@ -23,44 +23,18 @@ class CountrySearchResultTile extends StatelessWidget {
               SelectCountryEvent(country: country),
             );
       },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(HubTheme.hubBorderRadius),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(
-            HubTheme.hubSmallPadding,
-          ),
-          child: Row(
-            children: [
-              HubCountryFlag(
-                country: country,
-              ),
-              Expanded(
-                flex: 4,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: HubTheme.hubSmallPadding),
-                  child: Text(
-                    country.name ?? country.iso3code,
-                    maxLines: 2,
-                  ),
-                ),
-              ),
-              const Spacer(),
-              Opacity(
-                opacity: isSelected ? 1 : 0,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    right: HubTheme.hubSmallPadding,
-                  ),
-                  child: Icon(
-                    Icons.check_circle,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
-              ),
-            ],
+      child: HubCountryTile(
+        country: country,
+        suffix: Opacity(
+          opacity: isSelected ? 1 : 0,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              right: HubTheme.hubSmallPadding,
+            ),
+            child: Icon(
+              Icons.check_circle,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
         ),
       ),

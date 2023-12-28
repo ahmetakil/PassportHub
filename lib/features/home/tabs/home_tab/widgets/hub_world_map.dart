@@ -95,27 +95,23 @@ class _HubWorldMapState extends State<HubWorldMap>
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: InteractiveViewer(
-          constrained: false,
-          transformationController: _transformationController,
-          maxScale: maxScale,
-          minScale: minScale,
-          child: SizedBox(
-            child: SimpleMap(
-              countryBorder: CountryBorder(
-                color: Colors.black.withOpacity(0.5),
-                width: 1.0,
-              ),
-              fit: BoxFit.fitHeight,
-              instructions: SMapWorld.instructions,
-              defaultColor: Colors.grey,
-              colors: mapColors,
-              callback: (id, name, tapdetails) {},
-            ),
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: InteractiveViewer(
+        constrained: false,
+        transformationController: _transformationController,
+        maxScale: maxScale,
+        minScale: minScale,
+        child: SimpleMap(
+          countryBorder: CountryBorder(
+            color: Colors.black.withOpacity(0.5),
+            width: 1.0,
           ),
+          fit: BoxFit.fitHeight,
+          instructions: SMapWorld.instructions,
+          defaultColor: Colors.grey,
+          colors: mapColors,
+          callback: (id, name, tapdetails) {},
         ),
       ),
     );
