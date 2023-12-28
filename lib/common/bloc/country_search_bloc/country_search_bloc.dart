@@ -73,10 +73,19 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
         matchedCountries.insert(0, exactMatchedIso);
       }
 
+      final List<Country> alreadySelectedCountryList =
+          state.getSelectedCountryList();
+
+      if (alreadySelectedCountryList.isNotEmpty) {
+        matchedCountries
+            .removeWhere((Country c) => alreadySelectedCountryList.contains(c));
+        matchedCountries.insertAll(0, alreadySelectedCountryList);
+      }
+
       emit(
         CountrySearchResultsState(
           results: matchedCountries,
-          selectedCountryList: const [],
+          selectedCountryList: state.getSelectedCountryList(),
         ),
       );
     });
