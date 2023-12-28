@@ -41,8 +41,8 @@ class _HubWorldMapState extends State<HubWorldMap>
   double minScale = 0.1;
   double maxScale = 4;
 
-  final initialZoomFactor = 0.5;
-  final xTranslate = 200.0;
+  final initialZoomFactor = 0.8;
+  final xTranslate = 800.0;
   final yTranslate = 0.0;
 
   @override
@@ -84,8 +84,7 @@ class _HubWorldMapState extends State<HubWorldMap>
               instructions: SMapWorld.instructions,
               defaultColor: Colors.grey,
               colors: widget.mapColors,
-              callback: (id, name, tapdetails) {
-              },
+              callback: (id, name, tapdetails) {},
             ),
           ),
         ),
