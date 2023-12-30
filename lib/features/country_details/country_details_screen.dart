@@ -60,16 +60,16 @@ class CountryDetails extends StatelessWidget {
                 ),
                 Row(
                   children: [
+                    Image.asset(
+                      "assets/images/passport_images/${country.iso3code}.webp",
+                      width: 60,
+                      height: 86,
+                    ),
                     HubCountryFlag(
                       country: country,
                       size: 210,
                       aspectRatio: 2.4,
                     ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text("${country.region}"),
                   ],
                 ),
                 Expanded(
