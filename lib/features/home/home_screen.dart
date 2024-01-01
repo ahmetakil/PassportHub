@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:passport_hub/common/ui/widgets/hub_scaffold.dart';
-import 'package:passport_hub/features/home/tabs/compare_tab/compare_tab.dart';
-import 'package:passport_hub/features/home/tabs/home_tab/explore_tab.dart';
-import 'package:passport_hub/features/home/tabs/travel_tab/travel_tab.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final StatefulNavigationShell navigationShell;
+  final Widget child;
+
+  const HomeScreen({
+    super.key,
+    required this.navigationShell,
+    required this.child,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
-
-  final List<Widget> screens = [
-    const ExploreTab(),
-    const TravelTab(),
-    const CompareTab(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     final bottomNavigationBarItems = [
@@ -44,14 +41,14 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 8,
         backgroundColor: Colors.white,
         items: bottomNavigationBarItems,
-        currentIndex: _selectedIndex,
+        currentIndex: widget.navigationShell.currentIndex,
         onTap: (int index) {
-          setState(() {
-            _selectedIndex = index;
-          });
+          widget.navigationShell.goBranch(
+            index,
+          );
         },
       ),
-      body: screens[_selectedIndex],
+      body: widget.child,
     );
   }
 }

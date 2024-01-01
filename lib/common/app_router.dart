@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:passport_hub/common/ui/hub_error_screen.dart';
 import 'package:passport_hub/features/country_details/country_details_screen.dart';
 import 'package:passport_hub/features/home/home_screen.dart';
+import 'package:passport_hub/features/home/tabs/compare_tab/compare_tab.dart';
+import 'package:passport_hub/features/home/tabs/home_tab/explore_tab.dart';
+import 'package:passport_hub/features/home/tabs/travel_tab/travel_tab.dart';
 import 'package:passport_hub/features/search/search_screen.dart';
 import 'package:passport_hub/features/splash/screen/splash_screen.dart';
 
@@ -11,6 +14,9 @@ class AppRouter {
   static const home = "home";
   static const countryDetails = "countryDetails";
   static const search = "search";
+  static const explore = "explore";
+  static const travel = "travel";
+  static const compare = "compare";
 
   static GoRouter generateGoRouter() {
     return GoRouter(
@@ -27,11 +33,59 @@ class AppRouter {
           builder: (BuildContext context, GoRouterState state) =>
               const SplashScreen(),
         ),
-        GoRoute(
-          name: AppRouter.home,
-          path: "/$home",
-          builder: (BuildContext context, GoRouterState state) =>
-              const HomeScreen(),
+        StatefulShellRoute(
+          builder: (
+            BuildContext context,
+            GoRouterState state,
+            StatefulNavigationShell navigationShell,
+          ) {
+            return navigationShell;
+          },
+          branches: [
+            StatefulShellBranch(
+              initialLocation: "/$explore",
+              routes: [
+                GoRoute(
+                  path: "/$explore",
+                  name: AppRouter.explore,
+                  builder: (BuildContext context, GoRouterState state) =>
+                      const ExploreTab(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              initialLocation: "/$travel",
+              routes: [
+                GoRoute(
+                  path: "/$travel",
+                  name: AppRouter.travel,
+                  builder: (BuildContext context, GoRouterState state) =>
+                      const TravelTab(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              initialLocation: "/$compare",
+              routes: [
+                GoRoute(
+                  path: "/$compare",
+                  name: AppRouter.compare,
+                  builder: (BuildContext context, GoRouterState state) =>
+                      const CompareTab(),
+                ),
+              ],
+            ),
+          ],
+          navigatorContainerBuilder: (
+            BuildContext context,
+            StatefulNavigationShell navigationShell,
+            List<Widget> children,
+          ) {
+            return HomeScreen(
+              navigationShell: navigationShell,
+              child: children[navigationShell.currentIndex],
+            );
+          },
         ),
         GoRoute(
           name: countryDetails,

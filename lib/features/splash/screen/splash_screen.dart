@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     allCountryList: visaMatrix.countryList,
                   ),
                 );
-            context.goNamed(AppRouter.home);
+            context.goNamed(AppRouter.explore);
           }
         },
         builder: (context, state) {
