@@ -23,6 +23,7 @@ class HubScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: body,
       appBar: appBar,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,

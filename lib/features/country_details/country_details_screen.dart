@@ -8,6 +8,7 @@ import 'package:passport_hub/common/ui/widgets/hub_back_icon.dart';
 import 'package:passport_hub/common/ui/widgets/hub_country_flag.dart';
 import 'package:passport_hub/common/ui/widgets/hub_loading.dart';
 import 'package:passport_hub/common/ui/widgets/hub_page_title.dart';
+import 'package:passport_hub/common/ui/widgets/hub_passport_image.dart';
 import 'package:passport_hub/common/ui/widgets/hub_scaffold.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/hub_world_map.dart';
 
@@ -40,45 +41,49 @@ class CountryDetails extends StatelessWidget {
           }
 
           return HubScaffold(
-            body: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: HubTheme.hubLargePadding,
-                    left: HubTheme.hubSmallPadding,
-                  ),
-                  child: Row(
-                    children: [
-                      const HubBackIcon(),
-                      Flexible(
-                        child: HubPageTitle(
-                          title: country.name ?? "",
+            body: SafeArea(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: HubTheme.hubSmallPadding,
+                    ),
+                    child: Row(
+                      children: [
+                        const HubBackIcon(),
+                        Flexible(
+                          child: HubPageTitle(
+                            title: country.name ?? "",
+                          ),
                         ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: HubTheme.hubMediumPadding,
+                        ),
+                        child: HubPassportImage(
+                          country: country,
+                        ),
+                      ),
+                      HubCountryFlag(
+                        country: country,
+                        size: 210,
+                        aspectRatio: 2.4,
                       ),
                     ],
                   ),
-                ),
-                Row(
-                  children: [
-                    Image.asset(
-                      "assets/images/passport_images/${country.iso3code}.webp",
-                      width: 60,
-                      height: 86,
+                  Expanded(
+                    child: HubWorldMap.destinationMap(
+                      visaMatrix: matrix,
+                      selectedCountry: country,
                     ),
-                    HubCountryFlag(
-                      country: country,
-                      size: 210,
-                      aspectRatio: 2.4,
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: HubWorldMap.destinationMap(
-                    visaMatrix: matrix,
-                    selectedCountry: country,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },
