@@ -35,7 +35,7 @@ class TravelSearchResultChip extends StatelessWidget {
               padding: const EdgeInsets.only(right: 4.0),
               child: HubCountryFlag(
                 country: country,
-                size: 24,
+                width: 24,
               ),
             ),
             Padding(
