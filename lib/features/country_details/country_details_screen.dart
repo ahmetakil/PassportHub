@@ -98,24 +98,33 @@ class CountryDetails extends StatelessWidget {
                               "Passport Ranking",
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
-                            Row(
-                              textBaseline: TextBaseline.alphabetic,
-                              crossAxisAlignment: CrossAxisAlignment.baseline,
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(
-                                    right: HubTheme.hubSmallPadding,
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 4,
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(
+                                      right: HubTheme.hubSmallPadding,
+                                    ),
+                                    child: HubIcon(
+                                      HubIcons.medal,
+                                      height: 18,
+                                    ),
                                   ),
-                                  child: HubIcon(
-                                    HubIcons.medal,
-                                    height: 16,
+                                  Text(
+                                    "103",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                        ),
                                   ),
-                                ),
-                                Text(
-                                  "103",
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -124,7 +133,7 @@ class CountryDetails extends StatelessWidget {
                             height: 42,
                             child: VerticalDivider(
                               width: 1,
-                              thickness: 2,
+                              thickness: 1,
                               color: Colors.grey.withOpacity(0.5),
                             ),
                           ),
@@ -134,11 +143,27 @@ class CountryDetails extends StatelessWidget {
                           children: [
                             Text(
                               "Visa Free Access",
-                              style: Theme.of(context).textTheme.bodyLarge,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                    color: HubTheme.black.withOpacity(0.6),
+                                    fontWeight: FontWeight.w500,
+                                  ),
                             ),
-                            Text(
-                              "26 Countries",
-                              style: Theme.of(context).textTheme.bodyMedium,
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 4,
+                              ),
+                              child: Text(
+                                "26 Countries",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                              ),
                             ),
                           ],
                         ),

@@ -6,7 +6,7 @@ class HubDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      thickness: 2,
+      thickness: 1,
       color: Colors.grey.withOpacity(
         0.5,
       ),
