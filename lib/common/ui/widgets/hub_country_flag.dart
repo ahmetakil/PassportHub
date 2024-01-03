@@ -6,13 +6,17 @@ const _flagAspectRatio = 16 / 10;
 
 class HubCountryFlag extends StatelessWidget {
   final Country country;
-  final double size;
+  final double width;
   final double aspectRatio;
+  final double? height;
+  final BoxFit? fit;
 
   const HubCountryFlag({
     required this.country,
-    this.size = 32,
+    this.width = 32,
     this.aspectRatio = _flagAspectRatio,
+    this.height,
+    this.fit,
     super.key,
   });
 
@@ -20,9 +24,10 @@ class HubCountryFlag extends StatelessWidget {
   Widget build(BuildContext context) {
     return CountryFlag.fromCountryCode(
       country.iso2code ?? "",
-      width: size,
-      height: size / aspectRatio,
+      width: width,
+      height: height ?? width / aspectRatio,
       borderRadius: 4.0,
+      boxFit: fit ?? BoxFit.contain,
     );
   }
 }
