@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
 
 class HubTextField extends StatefulWidget {
@@ -14,6 +16,7 @@ class HubTextField extends StatefulWidget {
   final bool enabled;
   final VoidCallback? onTap;
   final bool autofocus;
+  final EdgeInsets padding;
 
   const HubTextField({
     super.key,
@@ -25,7 +28,12 @@ class HubTextField extends StatefulWidget {
     this.enabled = true,
     this.onTap,
     this.autofocus = false,
-  }) : debounceDuration =
+    EdgeInsets? padding,
+  })  : padding = padding ??
+            const EdgeInsets.symmetric(
+              horizontal: HubTheme.hubMediumPadding,
+            ),
+        debounceDuration =
             debounce == true ? const Duration(milliseconds: 200) : null;
 
   @override
@@ -54,9 +62,7 @@ class _HubTextFieldState extends State<HubTextField> {
     final ValueChanged<String>? onChanged = widget.onChanged;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: HubTheme.hubMediumPadding,
-      ),
+      padding: widget.padding,
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: HubTheme.textFieldBackground,
@@ -96,7 +102,13 @@ class _HubTextFieldState extends State<HubTextField> {
                   suffix: showClear
                       ? GestureDetector(
                           onTap: () {
+                            setState(() {
+                              showClear = false;
+                            });
                             widget.controller?.clear();
+                            context
+                                .read<CountrySearchBloc>()
+                                .add(const ClearSearchEvent());
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(
