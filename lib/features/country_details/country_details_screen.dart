@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
@@ -61,6 +63,7 @@ class CountryDetails extends StatelessWidget {
                     ),
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -72,8 +75,7 @@ class CountryDetails extends StatelessWidget {
                       ),
                       HubCountryFlag(
                         country: country,
-                        width: 260,
-                        height: 86,
+                        width: 140,
                         fit: BoxFit.fill,
                       ),
                     ],
@@ -168,6 +170,84 @@ class CountryDetails extends StatelessWidget {
                           ],
                         ),
                       ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: HubTheme.hubMediumPadding,
+                      left: HubTheme.hubMediumPadding,
+                      right: HubTheme.hubMediumPadding,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF262626),
+                        borderRadius:
+                            BorderRadius.circular(HubTheme.hubBorderRadius),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: HubTheme.hubSmallPadding,
+                          vertical: HubTheme.hubTinyPadding,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              "COMPARE PASSPORTS",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    color: Colors.white,
+                                  ),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.compare_arrows,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: HubTheme.hubMediumPadding,
+                      vertical: HubTheme.hubSmallPadding,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: HubTheme.blueLight,
+                        borderRadius:
+                            BorderRadius.circular(HubTheme.hubBorderRadius),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: HubTheme.hubSmallPadding,
+                          vertical: HubTheme.hubTinyPadding,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              "CHECK VISA ACCESS",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    color: Colors.white,
+                                  ),
+                            ),
+                            const Spacer(),
+                            Transform.rotate(
+                              angle: pi / 6,
+                              child: const Icon(
+                                Icons.airplanemode_active_rounded,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ],

@@ -13,6 +13,8 @@ class HubTheme {
   static const Color black = Color(0xff121212);
   static const Color yellow = Color(0xffD1A564);
 
+  static const Color blueLight = Color(0xff1D44AA);
+
   static const Color textFieldBackground = Color(0xCCD1D1D1);
 
   static ThemeData get lightTheme {
@@ -34,12 +36,13 @@ class HubTheme {
       scaffoldBackgroundColor: const Color(0xffFAFAFA),
       // Define button themes
       buttonTheme: const ButtonThemeData(
-        buttonColor: Color(0xFFFB923C), // Accent color
+        buttonColor: Color(0xFFFB923C),
         textTheme: ButtonTextTheme.primary,
       ),
     );
   }
 
+  static const hubTinyPadding = 4.0;
   static const hubSmallPadding = 8.0;
   static const hubMediumPadding = 16.0;
   static const hubLargePadding = 24.0;
