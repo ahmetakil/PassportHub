@@ -13,8 +13,11 @@ class CountryDetailsCountryList extends StatefulWidget {
   final VisaMatrix matrix;
   final Country targetCountry;
 
-  const CountryDetailsCountryList(
-      {super.key, required this.matrix, required this.targetCountry});
+  const CountryDetailsCountryList({
+    super.key,
+    required this.matrix,
+    required this.targetCountry,
+  });
 
   @override
   State<CountryDetailsCountryList> createState() =>
