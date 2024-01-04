@@ -45,13 +45,13 @@ class CountryDetails extends StatelessWidget {
 
           return HubScaffold(
             body: SafeArea(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: HubTheme.hubSmallPadding,
-                    ),
-                    child: Row(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: HubTheme.hubMediumPadding,
+                ),
+                child: Column(
+                  children: [
+                    Row(
                       children: [
                         const HubBackIcon(),
                         Flexible(
@@ -61,37 +61,26 @@ class CountryDetails extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: HubTheme.hubMediumPadding,
-                        ),
-                        child: HubPassportImage(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        HubPassportImage(
                           country: country,
                         ),
-                      ),
-                      HubCountryFlag(
-                        country: country,
-                        width: 140,
-                        fit: BoxFit.fill,
-                      ),
-                    ],
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: HubTheme.hubMediumPadding,
-                      horizontal: HubTheme.hubMediumPadding,
+                        HubCountryFlag(
+                          country: country,
+                          width: 140,
+                          fit: BoxFit.fill,
+                        ),
+                      ],
                     ),
-                    child: HubDivider(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: HubTheme.hubMediumPadding,
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: HubTheme.hubMediumPadding,
+                      ),
+                      child: HubDivider(),
                     ),
-                    child: Row(
+                    Row(
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +91,7 @@ class CountryDetails extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
-                                top: 4,
+                                top: HubTheme.hubTinyPadding,
                               ),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -155,7 +144,7 @@ class CountryDetails extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
-                                top: 4,
+                                top: HubTheme.hubTinyPadding,
                               ),
                               child: Text(
                                 "26 Countries",
@@ -171,86 +160,103 @@ class CountryDetails extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: HubTheme.hubMediumPadding,
-                      left: HubTheme.hubMediumPadding,
-                      right: HubTheme.hubMediumPadding,
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF262626),
-                        borderRadius:
-                            BorderRadius.circular(HubTheme.hubBorderRadius),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: HubTheme.hubMediumPadding,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: HubTheme.hubSmallPadding,
-                          vertical: HubTheme.hubTinyPadding,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF262626),
+                          borderRadius:
+                              BorderRadius.circular(HubTheme.hubBorderRadius),
                         ),
-                        child: Row(
-                          children: [
-                            Text(
-                              "COMPARE PASSPORTS",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    color: Colors.white,
-                                  ),
-                            ),
-                            const Spacer(),
-                            const Icon(
-                              Icons.compare_arrows,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: HubTheme.hubMediumPadding,
-                      vertical: HubTheme.hubSmallPadding,
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: HubTheme.blueLight,
-                        borderRadius:
-                            BorderRadius.circular(HubTheme.hubBorderRadius),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: HubTheme.hubSmallPadding,
-                          vertical: HubTheme.hubTinyPadding,
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              "CHECK VISA ACCESS",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    color: Colors.white,
-                                  ),
-                            ),
-                            const Spacer(),
-                            Transform.rotate(
-                              angle: pi / 6,
-                              child: const Icon(
-                                Icons.airplanemode_active_rounded,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: HubTheme.hubSmallPadding,
+                            vertical: HubTheme.hubTinyPadding,
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                "COMPARE PASSPORTS",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                              ),
+                              const Spacer(),
+                              const Icon(
+                                Icons.compare_arrows,
                                 color: Colors.white,
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: HubTheme.hubSmallPadding,
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: HubTheme.blueLight,
+                          borderRadius:
+                              BorderRadius.circular(HubTheme.hubBorderRadius),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: HubTheme.hubSmallPadding,
+                            vertical: HubTheme.hubTinyPadding,
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                "CHECK VISA ACCESS",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                              ),
+                              const Spacer(),
+                              Transform.rotate(
+                                angle: pi / 6,
+                                child: const Icon(
+                                  Icons.airplanemode_active_rounded,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: HubTheme.hubMediumPadding),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Visa Requirements by\nCountry",
+                          maxLines: 2,
+                          textAlign: TextAlign.left,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
