@@ -51,17 +51,6 @@ class CountryDetails extends StatelessWidget {
             );
           }
 
-          final Map<VisaRequirementType, List<Country>> requirementTypesMap =
-              matrix.getCountriesGroupedByRequirement(
-            targetCountry: country,
-          );
-
-          final List<Country> countryList = requirementTypesMap.values
-              .expand(
-                (List<Country> element) => element,
-              )
-              .toList();
-
           return HubScaffold(
             body: SafeArea(
               child: Padding(
@@ -208,7 +197,10 @@ class CountryDetails extends StatelessWidget {
                         ],
                       ),
                     ),
-                    CountryDetailsCountryList(countryList: countryList),
+                    CountryDetailsCountryList(
+                      matrix: matrix,
+                      targetCountry: country,
+                    ),
                   ],
                 ),
               ),
