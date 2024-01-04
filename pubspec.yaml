@@ -47,6 +47,7 @@ dependencies:
   fuzzy: ^0.5.1
   countries_world_map: ^1.1.1
   flutter_svg: ^2.0.9
+  sliver_tools: ^0.2.12
 
 dev_dependencies:
   bloc_test: ^9.1.5
