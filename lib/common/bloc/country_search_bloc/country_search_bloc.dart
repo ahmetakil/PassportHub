@@ -111,5 +111,11 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
         );
       }
     });
+
+    on<ClearSearchEvent>((event, emit) {
+      emit(
+        const CountrySearchInitialState(),
+      );
+    });
   }
 }

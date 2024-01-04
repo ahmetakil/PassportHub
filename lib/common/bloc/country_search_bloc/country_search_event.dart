@@ -23,3 +23,7 @@ class SelectCountryEvent extends CountrySearchEvent {
 
   const SelectCountryEvent({required this.country});
 }
+
+class ClearSearchEvent extends CountrySearchEvent {
+  const ClearSearchEvent();
+}
