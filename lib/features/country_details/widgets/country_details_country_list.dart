@@ -93,6 +93,13 @@ class _CountryDetailsCountryListState extends State<CountryDetailsCountryList> {
                           ),
                           suffix: Text(
                             "${visaInformation?.requirement.type.label}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: HubTheme.black.withOpacity(0.8),
+                                  fontWeight: FontWeight.w400,
+                                ),
                           ),
                         ),
                       );
