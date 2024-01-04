@@ -28,6 +28,13 @@ class _CountrySearchFieldState extends State<CountrySearchField> {
       keyboardType: TextInputType.text,
       debounce: true,
       onChanged: (String value) {
+        if (value.isEmpty) {
+          context.read<CountrySearchBloc>().add(
+                const ClearSearchEvent(),
+              );
+          return;
+        }
+
         if (value.length < 2) {
           return;
         }
