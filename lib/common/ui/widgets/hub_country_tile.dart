@@ -6,11 +6,15 @@ import 'package:passport_hub/common/ui/widgets/hub_country_flag.dart';
 class HubCountryTile extends StatelessWidget {
   final Country country;
   final Widget? suffix;
+  final EdgeInsets padding;
 
   const HubCountryTile({
     super.key,
     required this.country,
     this.suffix,
+    this.padding = const EdgeInsets.all(
+      HubTheme.hubSmallPadding,
+    ),
   });
 
   @override
@@ -20,9 +24,7 @@ class HubCountryTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(HubTheme.hubBorderRadius),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(
-          HubTheme.hubSmallPadding,
-        ),
+        padding: padding,
         child: Row(
           children: [
             HubCountryFlag(
