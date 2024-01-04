@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/models/country.dart';
+import 'package:passport_hub/common/models/visa_information.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/models/visa_requirement.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
@@ -79,6 +80,9 @@ class _CountryDetailsCountryListState extends State<CountryDetailsCountryList> {
                     itemCount: countryListResults.length,
                     itemBuilder: (context, i) {
                       final Country country = countryListResults[i];
+                      final VisaInformation? visaInformation = widget.matrix
+                          .getVisaInformation(
+                              from: widget.targetCountry, to: country);
 
                       return InkWell(
                         onTap: () {},
@@ -87,7 +91,9 @@ class _CountryDetailsCountryListState extends State<CountryDetailsCountryList> {
                           padding: const EdgeInsets.symmetric(
                             vertical: HubTheme.hubSmallPadding,
                           ),
-                          suffix: const Text(""),
+                          suffix: Text(
+                            "${visaInformation?.requirement.type.label}",
+                          ),
                         ),
                       );
                     },
