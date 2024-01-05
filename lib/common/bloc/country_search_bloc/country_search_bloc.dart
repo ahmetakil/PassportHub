@@ -5,6 +5,7 @@ import 'package:fuzzy/data/result.dart';
 import 'package:fuzzy/fuzzy.dart';
 import 'package:passport_hub/common/hub_logger.dart';
 import 'package:passport_hub/common/models/country.dart';
+import 'package:passport_hub/features/country_details/widgets/country_list_filter_chips.dart';
 
 part 'country_search_event.dart';
 
@@ -115,6 +116,12 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
     on<ClearSearchEvent>((event, emit) {
       emit(
         const CountrySearchInitialState(),
+      );
+    });
+
+    on<SelectListFilterEvent>((event, emit) {
+      emit(
+        state.copyWith(selectedFilterOption: event.option),
       );
     });
   }

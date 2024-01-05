@@ -27,3 +27,11 @@ class SelectCountryEvent extends CountrySearchEvent {
 class ClearSearchEvent extends CountrySearchEvent {
   const ClearSearchEvent();
 }
+
+class SelectListFilterEvent extends CountrySearchEvent {
+  final CountryListFilterChipOptions option;
+
+  const SelectListFilterEvent({
+    required this.option,
+  });
+}
