@@ -13,7 +13,7 @@ extension VisaRequirementExtension on VisaRequirementType {
   String get label {
     return switch (this) {
       VisaRequirementType.visaFree => "Visa Free",
-      VisaRequirementType.visaOnArrival => "Visa on arrival",
+      VisaRequirementType.visaOnArrival => "Visa on Arrival",
       VisaRequirementType.eVisa => "Evisa",
       VisaRequirementType.visaRequired => "Visa Required",
       VisaRequirementType.noAdmission => "No Admission",
