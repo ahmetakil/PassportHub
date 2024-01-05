@@ -7,6 +7,7 @@ import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/models/visa_requirement.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
 import 'package:passport_hub/common/ui/widgets/hub_country_tile.dart';
+import 'package:passport_hub/features/country_details/widgets/country_list_filter_chips.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/country_search_field.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
@@ -58,8 +59,17 @@ class _CountryDetailsCountryListState extends State<CountryDetailsCountryList> {
           children: [
             const SliverPinnedHeader(
               child: Material(
-                child: CountrySearchField(
-                  padding: EdgeInsets.zero,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.only(bottom: HubTheme.hubMediumPadding),
+                      child: CountryListFilterChips(),
+                    ),
+                    CountrySearchField(
+                      padding: EdgeInsets.zero,
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -80,9 +90,11 @@ class _CountryDetailsCountryListState extends State<CountryDetailsCountryList> {
                     itemCount: countryListResults.length,
                     itemBuilder: (context, i) {
                       final Country country = countryListResults[i];
-                      final VisaInformation? visaInformation = widget.matrix
-                          .getVisaInformation(
-                              from: widget.targetCountry, to: country);
+                      final VisaInformation? visaInformation =
+                          widget.matrix.getVisaInformation(
+                        from: widget.targetCountry,
+                        to: country,
+                      );
 
                       return InkWell(
                         onTap: () {},
