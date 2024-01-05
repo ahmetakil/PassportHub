@@ -57,17 +57,22 @@ class _CountryDetailsCountryListState extends State<CountryDetailsCountryList> {
         padding: const EdgeInsets.only(top: HubTheme.hubMediumPadding),
         sliver: MultiSliver(
           children: [
-            const SliverPinnedHeader(
+            SliverPinnedHeader(
               child: Material(
-                child: Column(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                child: const Column(
                   children: [
                     Padding(
                       padding:
                           EdgeInsets.only(bottom: HubTheme.hubMediumPadding),
                       child: CountryListFilterChips(),
                     ),
-                    CountrySearchField(
-                      padding: EdgeInsets.zero,
+                    Padding(
+                      padding:
+                          EdgeInsets.only(bottom: HubTheme.hubSmallPadding),
+                      child: CountrySearchField(
+                        padding: EdgeInsets.zero,
+                      ),
                     ),
                   ],
                 ),
