@@ -14,6 +14,7 @@ import 'package:passport_hub/common/ui/widgets/hub_passport_image.dart';
 import 'package:passport_hub/common/ui/widgets/hub_scaffold.dart';
 import 'package:passport_hub/features/country_details/widgets/country_details_action_buttons.dart';
 import 'package:passport_hub/features/country_details/widgets/country_details_country_list.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
 class CountryDetails extends StatelessWidget {
   final Iso3 isoCode;
@@ -58,19 +59,24 @@ class CountryDetails extends StatelessWidget {
                 ),
                 child: CustomScrollView(
                   slivers: [
+                    SliverPinnedHeader(
+                      child: Material(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        child: Row(
+                          children: [
+                            const HubBackIcon(),
+                            Flexible(
+                              child: HubPageTitle(
+                                title: country.name ?? "",
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     SliverToBoxAdapter(
                       child: Column(
                         children: [
-                          Row(
-                            children: [
-                              const HubBackIcon(),
-                              Flexible(
-                                child: HubPageTitle(
-                                  title: country.name ?? "",
-                                ),
-                              ),
-                            ],
-                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
