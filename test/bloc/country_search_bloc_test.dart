@@ -32,32 +32,11 @@ void main() {
     subRegion: "Southern Asia",
   );
 
-  const albania = Country(
-    iso3code: "Albania",
-    iso2code: "AL",
-    region: "Europe",
-    subRegion: "Southern Europe",
-  );
-
-  const algeria = Country(
-    iso3code: "Algeria",
-    iso2code: "DZ",
-    region: "Africa",
-    subRegion: "Northern Africa",
-  );
-
   const andorra = Country(
     iso3code: "Andorra",
     iso2code: "AD",
     region: "Europe",
     subRegion: "Southern Europe",
-  );
-
-  const angola = Country(
-    iso3code: "Angola",
-    iso2code: "AO",
-    region: "Africa",
-    subRegion: "Sub-Saharan Africa",
   );
 
   final visaApi = MockVisaApi(mockResponseData: _exampleData);
