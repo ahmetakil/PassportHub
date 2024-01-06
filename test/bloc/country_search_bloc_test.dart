@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:passport_hub/common/api/mock_visa_api.dart';
 import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/models/country.dart';
-import 'package:passport_hub/common/models/visa_information.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/repository/visa_repository.dart';
 
@@ -60,8 +59,6 @@ void main() {
     region: "Africa",
     subRegion: "Sub-Saharan Africa",
   );
-
-  final countryData = <Country>[afghanistan, albania, algeria, andorra, angola];
 
   final visaApi = MockVisaApi(mockResponseData: _exampleData);
   late VisaRepository visaRepository;
