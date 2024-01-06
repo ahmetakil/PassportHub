@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
             context.read<CountrySearchBloc>().add(
                   SetCountryList(
-                    allCountryList: visaMatrix.countryList,
+                    matrix: visaMatrix,
                   ),
                 );
             context.goNamed(AppRouter.explore);
