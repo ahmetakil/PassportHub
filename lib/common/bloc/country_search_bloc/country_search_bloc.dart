@@ -5,37 +5,54 @@ import 'package:fuzzy/data/result.dart';
 import 'package:fuzzy/fuzzy.dart';
 import 'package:passport_hub/common/hub_logger.dart';
 import 'package:passport_hub/common/models/country.dart';
+import 'package:passport_hub/common/models/visa_matrix.dart';
+import 'package:passport_hub/common/models/visa_requirement.dart';
 import 'package:passport_hub/features/country_details/widgets/country_list_filter_chips.dart';
 
 part 'country_search_event.dart';
 
 part 'country_search_state.dart';
 
+///
+/// CountrySearchBloc:
+/// There will be different instances of CountrySearchBloc scopes at different levels.
+/// Since TravelTab and SearchScreen need to pass through events to, they will use the globally accessible one
+/// But for ExploreTab it will have it's own SearchBloc same as CountryDetails.
 class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
   late List<Country> allCountryList;
+  late VisaMatrix matrix;
+
+  late Map<VisaRequirementType, List<Country>> requirementTypesMap;
+
+  List<Country> filteredCountryList = [];
 
   Fuzzy<Country>? fuzzy;
+
+  final FuzzyOptions<Country> fuzzyOptions = FuzzyOptions<Country>(
+    shouldNormalize: true,
+    threshold: 0.4,
+    distance: 50,
+    keys: [
+      WeightedKey(
+        name: 'name',
+        getter: (Country c) => c.name ?? '',
+        weight: 3,
+      ),
+    ],
+  );
 
   CountrySearchBloc()
       : super(
           const CountrySearchInitialState(),
         ) {
     on<SetCountryList>((event, emit) {
-      allCountryList = event.allCountryList;
+      matrix = event.matrix;
+
+      allCountryList = matrix.countryList;
+
       fuzzy = Fuzzy<Country>(
         allCountryList,
-        options: FuzzyOptions<Country>(
-          shouldNormalize: true,
-          threshold: 0.8,
-          distance: 50,
-          keys: [
-            WeightedKey(
-              name: 'name',
-              getter: (Country c) => c.name ?? '',
-              weight: 3,
-            ),
-          ],
-        ),
+        options: fuzzyOptions,
       );
     });
 
@@ -44,7 +61,11 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
       HubLogger.log("Searching for $query");
 
       if (query.isEmpty) {
-        emit(const CountrySearchInitialState());
+        emit(
+          CountrySearchInitialState(
+            selectedFilterOption: state.selectedFilterOption,
+          ),
+        );
         return;
       }
 
@@ -87,6 +108,8 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
         CountrySearchResultsState(
           results: matchedCountries,
           selectedCountryList: state.getSelectedCountryList(),
+          searchQuery: event.searchQuery,
+          selectedFilterOption: state.selectedFilterOption,
         ),
       );
     });
@@ -115,14 +138,62 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
 
     on<ClearSearchEvent>((event, emit) {
       emit(
-        const CountrySearchInitialState(),
+        CountrySearchInitialState(
+          selectedFilterOption: state.selectedFilterOption,
+        ),
       );
     });
 
     on<SelectListFilterEvent>((event, emit) {
+      final List<Country> filteredCountries = _applyFilter(
+            option: event.option,
+            targetCountry: event.targetCountry,
+          ) ??
+          [];
+
       emit(
-        state.copyWith(selectedFilterOption: event.option),
+        CountrySearchResultsState(
+          results: filteredCountries,
+          selectedCountryList: state.getSelectedCountryList(),
+          selectedFilterOption: event.option,
+          searchQuery: state is CountrySearchResultsState
+              ? (state as CountrySearchResultsState).searchQuery
+              : "",
+        ),
       );
+
+      final currentState = state;
+      if (currentState is CountrySearchResultsState &&
+          currentState.searchQuery.isNotEmpty) {
+        fuzzy = Fuzzy<Country>(
+          filteredCountries,
+          options: fuzzyOptions,
+        );
+
+        add(
+          CountrySearchQueryEvent(searchQuery: currentState.searchQuery),
+        );
+      }
     });
+  }
+
+  List<Country>? _applyFilter({
+    required CountryListFilterChipOptions option,
+    required Country targetCountry,
+  }) {
+    final Map<VisaRequirementType, List<Country>> requirementsMap =
+        matrix.getCountriesGroupedByRequirement(targetCountry: targetCountry);
+
+    return switch (option) {
+      CountryListFilterChipOptions.all => allCountryList,
+      CountryListFilterChipOptions.visaFree =>
+        requirementsMap[VisaRequirementType.visaFree],
+      CountryListFilterChipOptions.visaOnArrival =>
+        requirementsMap[VisaRequirementType.visaOnArrival],
+      CountryListFilterChipOptions.eVisa =>
+        requirementsMap[VisaRequirementType.eVisa],
+      CountryListFilterChipOptions.visaRequired =>
+        requirementsMap[VisaRequirementType.visaRequired],
+    };
   }
 }

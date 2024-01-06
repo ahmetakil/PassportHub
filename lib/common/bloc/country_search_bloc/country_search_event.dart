@@ -5,10 +5,10 @@ abstract class CountrySearchEvent {
 }
 
 class SetCountryList extends CountrySearchEvent {
-  final List<Country> allCountryList;
+  final VisaMatrix matrix;
 
   const SetCountryList({
-    required this.allCountryList,
+    required this.matrix,
   });
 }
 
@@ -29,9 +29,12 @@ class ClearSearchEvent extends CountrySearchEvent {
 }
 
 class SelectListFilterEvent extends CountrySearchEvent {
+  final Country targetCountry;
+
   final CountryListFilterChipOptions option;
 
   const SelectListFilterEvent({
     required this.option,
+    required this.targetCountry,
   });
 }

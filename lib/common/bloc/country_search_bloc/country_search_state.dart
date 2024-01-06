@@ -1,7 +1,13 @@
 part of 'country_search_bloc.dart';
 
 extension CountrySearchStateExtension on CountrySearchState {
-  List<Country> getSearchResults() {
+  /// We want to distinguish between an empty search results state
+  /// and the initial state.
+  List<Country>? getResultsOrEmpty() {
+    if (this is CountrySearchInitialState) {
+      return null;
+    }
+
     if (this is CountrySearchResultsState) {
       final resultState = this as CountrySearchResultsState;
 
@@ -61,11 +67,13 @@ class CountrySearchInitialState extends CountrySearchState {
 class CountrySearchResultsState extends CountrySearchState {
   final List<Country> results;
   final List<Country> selectedCountryList;
+  final String searchQuery;
 
   const CountrySearchResultsState({
     required this.results,
     this.selectedCountryList = const [],
     CountryListFilterChipOptions? selectedFilterOption,
+    required this.searchQuery,
   }) : super(
           selectedFilterOption:
               selectedFilterOption ?? CountryListFilterChipOptions.all,
@@ -80,11 +88,13 @@ class CountrySearchResultsState extends CountrySearchState {
     List<Country>? results,
     List<Country>? selectedCountryList,
     CountryListFilterChipOptions? selectedFilterOption,
+    String? searchQuery,
   }) {
     return CountrySearchResultsState(
       results: results ?? this.results,
       selectedCountryList: selectedCountryList ?? this.selectedCountryList,
       selectedFilterOption: selectedFilterOption ?? this.selectedFilterOption,
+      searchQuery: searchQuery ?? this.searchQuery,
     );
   }
 }
