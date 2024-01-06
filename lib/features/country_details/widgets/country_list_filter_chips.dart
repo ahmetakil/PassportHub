@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
+import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
 
 enum CountryListFilterChipOptions {
@@ -29,7 +30,12 @@ extension on CountryListFilterChipOptions {
 }
 
 class CountryListFilterChips extends StatelessWidget {
-  const CountryListFilterChips({super.key});
+  final Country targetCountry;
+
+  const CountryListFilterChips({
+    super.key,
+    required this.targetCountry,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +53,7 @@ class CountryListFilterChips extends StatelessWidget {
               return _CountryListFilterChip(
                 option: option,
                 isSelected: selectedOption == option,
+                targetCountry: targetCountry,
               );
             },
             separatorBuilder: (_, __) => const SizedBox(
@@ -61,11 +68,13 @@ class CountryListFilterChips extends StatelessWidget {
 }
 
 class _CountryListFilterChip extends StatelessWidget {
+  final Country targetCountry;
   final CountryListFilterChipOptions option;
   final bool isSelected;
 
   const _CountryListFilterChip({
     required this.option,
+    required this.targetCountry,
     this.isSelected = false,
   });
 
@@ -79,6 +88,7 @@ class _CountryListFilterChip extends StatelessWidget {
         context.read<CountrySearchBloc>().add(
               SelectListFilterEvent(
                 option: option,
+                targetCountry: targetCountry,
               ),
             );
       },

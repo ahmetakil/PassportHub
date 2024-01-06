@@ -11,7 +11,7 @@ import 'package:passport_hub/features/country_details/widgets/country_list_filte
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/country_search_field.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
-class CountryDetailsCountryList extends StatefulWidget {
+class CountryDetailsCountryList extends StatelessWidget {
   final VisaMatrix matrix;
   final Country targetCountry;
 
@@ -22,35 +22,12 @@ class CountryDetailsCountryList extends StatefulWidget {
   });
 
   @override
-  State<CountryDetailsCountryList> createState() =>
-      _CountryDetailsCountryListState();
-}
-
-class _CountryDetailsCountryListState extends State<CountryDetailsCountryList> {
-  late List<Country> countryList;
-  late Map<VisaRequirementType, List<Country>> requirementTypesMap;
-
-  @override
-  void initState() {
-    requirementTypesMap = widget.matrix.getCountriesGroupedByRequirement(
-      targetCountry: widget.targetCountry,
-    );
-
-    countryList = requirementTypesMap.values
-        .expand(
-          (List<Country> element) => element,
-        )
-        .toList();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider<CountrySearchBloc>(
       create: (_) => CountrySearchBloc()
         ..add(
           SetCountryList(
-            allCountryList: countryList,
+            matrix: matrix,
           ),
         ),
       child: SliverPadding(
@@ -60,14 +37,17 @@ class _CountryDetailsCountryListState extends State<CountryDetailsCountryList> {
             SliverPinnedHeader(
               child: Material(
                 color: Theme.of(context).scaffoldBackgroundColor,
-                child: const Column(
+                child: Column(
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsets.only(bottom: HubTheme.hubMediumPadding),
-                      child: CountryListFilterChips(),
+                      padding: const EdgeInsets.only(
+                        bottom: HubTheme.hubMediumPadding,
+                      ),
+                      child: CountryListFilterChips(
+                        targetCountry: targetCountry,
+                      ),
                     ),
-                    Padding(
+                    const Padding(
                       padding:
                           EdgeInsets.only(bottom: HubTheme.hubSmallPadding),
                       child: CountrySearchField(
@@ -80,10 +60,12 @@ class _CountryDetailsCountryListState extends State<CountryDetailsCountryList> {
             ),
             BlocBuilder<CountrySearchBloc, CountrySearchState>(
               builder: (context, state) {
-                final searchResults = state.getSearchResults();
-
                 final List<Country> countryListResults =
-                    searchResults.isEmpty ? countryList : searchResults;
+                    state.getResultsOrEmpty() ?? matrix.countryList;
+
+                countryListResults.removeWhere(
+                  (element) => element.iso3code == targetCountry.iso3code,
+                );
 
                 return SliverPadding(
                   padding:
@@ -96,8 +78,8 @@ class _CountryDetailsCountryListState extends State<CountryDetailsCountryList> {
                     itemBuilder: (context, i) {
                       final Country country = countryListResults[i];
                       final VisaInformation? visaInformation =
-                          widget.matrix.getVisaInformation(
-                        from: widget.targetCountry,
+                          matrix.getVisaInformation(
+                        from: targetCountry,
                         to: country,
                       );
 
