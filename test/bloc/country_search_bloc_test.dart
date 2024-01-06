@@ -1,59 +1,85 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:passport_hub/common/api/mock_visa_api.dart';
 import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/models/country.dart';
+import 'package:passport_hub/common/models/visa_information.dart';
+import 'package:passport_hub/common/models/visa_matrix.dart';
+import 'package:passport_hub/common/repository/visa_repository.dart';
+
+const _exampleData = """
+Passport,Albania,Algeria,Andorra,Angola,Antigua and Barbuda,Argentina,Armenia
+Afghanistan,e-visa,visa required,visa required,visa required,e-visa,visa required,visa required
+Albania,-1,e-visa,90,visa required,180,visa required,180
+Test,-1,visa free,90,visa required,180,visa required,visa on arrival
+Japan,180,180,visa free,180,180,180,180
+Algeria,e-visa,visa required,visa required,visa required,e-visa,visa required,visa required
+Andorra,e-visa,visa required,visa required,visa required,e-visa,visa required,visa required
+Armenia,e-visa,visa required,visa required,visa required,e-visa,visa required,visa required
+Angola,e-visa,visa required,visa required,visa required,e-visa,visa required,visa required
+Antigua and Barbuda,e-visa,visa required,visa required,visa required,e-visa,visa required,visa required
+Argentina,e-visa,visa required,visa required,visa required,e-visa,visa required,visa required
+""";
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  ///
+  /// The country names will be used as iso3 because the example data is using names.
   const afghanistan = Country(
-    iso3code: "AFG",
+    iso3code: "Afghanistan",
     iso2code: "AF",
-    name: "Afghanistan",
     region: "Asia",
     subRegion: "Southern Asia",
   );
 
   const albania = Country(
-    iso3code: "ALB",
+    iso3code: "Albania",
     iso2code: "AL",
-    name: "Albania",
     region: "Europe",
     subRegion: "Southern Europe",
   );
 
   const algeria = Country(
-    iso3code: "DZA",
+    iso3code: "Algeria",
     iso2code: "DZ",
-    name: "Algeria",
     region: "Africa",
     subRegion: "Northern Africa",
   );
 
   const andorra = Country(
-    iso3code: "AND",
+    iso3code: "Andorra",
     iso2code: "AD",
-    name: "Andorra",
     region: "Europe",
     subRegion: "Southern Europe",
   );
 
   const angola = Country(
-    iso3code: "AGO",
+    iso3code: "Angola",
     iso2code: "AO",
-    name: "Angola",
     region: "Africa",
     subRegion: "Sub-Saharan Africa",
   );
 
   final countryData = <Country>[afghanistan, albania, algeria, andorra, angola];
 
+  final visaApi = MockVisaApi(mockResponseData: _exampleData);
+  late VisaRepository visaRepository;
+  late VisaMatrix matrix;
+
+  setUpAll(() async {
+    visaRepository = VisaRepository(visaApi);
+    matrix = await visaRepository.generateVisaMatrix();
+  });
+
   blocTest<CountrySearchBloc, CountrySearchState>(
     'When country name Andorra is searched it will be the first matched result',
     build: () {
       return CountrySearchBloc()
         ..add(
-          SetCountryList(allCountryList: countryData),
+          SetCountryList(
+            matrix: matrix,
+          ),
         );
     },
     act: (bloc) => bloc
@@ -64,11 +90,8 @@ void main() {
       const CountrySearchResultsState(
         results: [
           andorra,
-          angola,
-          algeria,
-          albania,
-          afghanistan,
         ],
+        searchQuery: "",
       ),
     ],
   );
@@ -78,7 +101,9 @@ void main() {
     build: () {
       return CountrySearchBloc()
         ..add(
-          SetCountryList(allCountryList: countryData),
+          SetCountryList(
+            matrix: matrix,
+          ),
         );
     },
     act: (bloc) => bloc
@@ -89,10 +114,8 @@ void main() {
       const CountrySearchResultsState(
         results: [
           afghanistan,
-          albania,
-          algeria,
-          angola,
         ],
+        searchQuery: "",
       ),
     ],
   );
@@ -102,7 +125,9 @@ void main() {
     build: () {
       return CountrySearchBloc()
         ..add(
-          SetCountryList(allCountryList: countryData),
+          SetCountryList(
+            matrix: matrix,
+          ),
         );
     },
     act: (bloc) async {
@@ -120,11 +145,9 @@ void main() {
     },
     expect: () => <CountrySearchState>[
       const CountrySearchResultsState(
+        searchQuery: "",
         results: [
           afghanistan,
-          albania,
-          algeria,
-          angola,
         ],
       ),
       const CountrySearchInitialState(),
@@ -136,12 +159,14 @@ void main() {
     build: () {
       return CountrySearchBloc()
         ..add(
-          SetCountryList(allCountryList: countryData),
+          SetCountryList(
+            matrix: matrix,
+          ),
         );
     },
     act: (bloc) async {
       bloc.add(
-        const CountrySearchQueryEvent(searchQuery: "AFG"),
+        const CountrySearchQueryEvent(searchQuery: "Afghanistan"),
       );
 
       return bloc;
@@ -150,11 +175,8 @@ void main() {
       const CountrySearchResultsState(
         results: [
           afghanistan,
-          algeria,
-          angola,
-          albania,
-          andorra,
         ],
+        searchQuery: "",
       ),
     ],
   );
