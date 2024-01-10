@@ -59,6 +59,12 @@ class _HubWorldMapState extends State<HubWorldMap>
   }
 
   @override
+  void didChangeDependencies() {
+    updateMapColorsForSelectedCountryList(widget.selectedCountryList);
+    super.didChangeDependencies();
+  }
+
+  @override
   void initState() {
     mapColors = widget.mapColors;
 
