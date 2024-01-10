@@ -124,7 +124,7 @@ class CountryDetails extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          "103",
+                                          "${matrix.getPassportRanking(country)}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge
@@ -166,7 +166,7 @@ class CountryDetails extends StatelessWidget {
                                       top: HubTheme.hubTinyPadding,
                                     ),
                                     child: Text(
-                                      "26 Countries",
+                                      "${matrix.getVisaFreeAccessCount(country)} Countries",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge
