@@ -65,12 +65,12 @@ class _SearchScreenState extends State<SearchScreen> {
               return hideFab
                   ? const SizedBox.shrink()
                   : FloatingActionButton(
-                      child: Icon(
+                      backgroundColor: HubTheme.onPrimary.withOpacity(0.5),
+                      onPressed: () => context.pop(),
+                      child: const Icon(
                         Icons.check,
                         color: HubTheme.black,
                       ),
-                      backgroundColor: HubTheme.onPrimary.withOpacity(0.5),
-                      onPressed: () => context.pop(),
                     );
             },
           ),
