@@ -11,16 +11,33 @@ class VisaMatrix {
   final Map<Country, List<VisaInformation>> matrix;
 
   late Map<Iso3, Country> isoToCountryMap;
-  late Map<Country, int> passportRankingSortedList;
+  late Map<Country, int> _passportRankingSortedList;
 
   VisaMatrix({required this.matrix})
       : isoToCountryMap = {
           for (final Country c in matrix.keys.toList()) c.iso3code: c,
         } {
-    passportRankingSortedList = getPassportRankingsWithVisaFreeCount();
+    _passportRankingSortedList = getPassportRankingsWithVisaFreeCount();
   }
 
   List<Country> get countryList => matrix.keys.toList();
+
+  int? getPassportRanking(Country country) {
+    final int result = _passportRankingSortedList.entries
+        .toList()
+        .indexWhere((MapEntry<Country, int> entry) => entry.key == country);
+
+    if (result == -1) {
+      return null;
+    }
+
+    /// Indices start from 0.
+    return result + 1;
+  }
+
+  int? getVisaFreeAccessCount(Country country) {
+    return _passportRankingSortedList[country];
+  }
 
   Country? getCountryByIso(String iso3) {
     return countryList.firstWhereOrNull(
