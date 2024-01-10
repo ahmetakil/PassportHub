@@ -11,11 +11,14 @@ class VisaMatrix {
   final Map<Country, List<VisaInformation>> matrix;
 
   late Map<Iso3, Country> isoToCountryMap;
+  late Map<Country, int> passportRankingSortedList;
 
   VisaMatrix({required this.matrix})
       : isoToCountryMap = {
           for (final Country c in matrix.keys.toList()) c.iso3code: c,
-        };
+        } {
+    passportRankingSortedList = getPassportRankingsWithVisaFreeCount();
+  }
 
   List<Country> get countryList => matrix.keys.toList();
 
@@ -23,10 +26,6 @@ class VisaMatrix {
     return countryList.firstWhereOrNull(
       (Country country) => country.iso3code == iso3,
     );
-  }
-
-  List<VisaInformation> getDestinations({required Country target}) {
-    return matrix[target] ?? [];
   }
 
   VisaInformation? getVisaInformation({
@@ -80,7 +79,6 @@ class VisaMatrix {
         [];
   }
 
-  ///
   /// For instance if there is targetCountry: [Country(A), Country(B)]
   /// This function will return a Map where visa-free will imply countries where both
   /// A and B can visit visa free.
@@ -235,5 +233,42 @@ class VisaMatrix {
 
     mapColors[selfIsoCode] = selfColor ?? Colors.grey;
     return mapColors;
+  }
+
+  Map<Country, int> getPassportRankingsWithVisaFreeCount() {
+    final Map<Country, double> mobilityScores = {};
+    final Map<Country, int> visaFreeCounts = {};
+
+    matrix.forEach((country, visaInfoList) {
+      double score = 0;
+      int visaFreeCount = 0;
+
+      for (final visaInfo in visaInfoList) {
+        score += visaInfo.requirement.type.score;
+
+        if (visaInfo.requirement.type == VisaRequirementType.visaFree) {
+          visaFreeCount++;
+        }
+      }
+
+      mobilityScores[country] = score;
+      visaFreeCounts[country] = visaFreeCount;
+    });
+
+    final sortedCountries = mobilityScores.keys.toList();
+    sortedCountries.sort(
+      (a, b) => mobilityScores[b]?.compareTo(mobilityScores[a] ?? 0) ?? 0,
+    );
+
+    final Map<Country, int> sortedVisaFreeCounts = {};
+    for (final country in sortedCountries) {
+      final int? visaFreeCount = visaFreeCounts[country];
+
+      if (visaFreeCount != null) {
+        sortedVisaFreeCounts[country] = visaFreeCount;
+      }
+    }
+
+    return sortedVisaFreeCounts;
   }
 }
