@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:passport_hub/common/api/github_visa_api.dart';
 import 'package:passport_hub/common/api/mock_visa_api.dart';
+import 'package:passport_hub/common/api/visa_api.dart';
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/models/visa_requirement.dart';
@@ -170,6 +172,32 @@ void main() {
       );
 
       expect(result.isEmpty, isTrue);
+    });
+  });
+
+  group('getPassportRankingsWithVisaFreeCount tests', () {
+    final visaApi = MockVisaApi(mockResponseData: exampleData);
+    late VisaRepository visaRepository;
+    late VisaMatrix visaMatrix;
+
+    setUp(() async {
+      visaRepository = VisaRepository(visaApi);
+      visaMatrix = await visaRepository.generateVisaMatrix();
+    });
+
+    test('Tests calling passport rankings sorted list', () async {
+      final Map<Country, int> result =
+          visaMatrix.getPassportRankingsWithVisaFreeCount();
+
+      expect(result.isNotEmpty, isTrue);
+
+      final MapEntry<Country, int> firstEntry = result.entries.first;
+      final MapEntry<Country, int> secondEntry = result.entries.toList()[1];
+      final MapEntry<Country, int> lastEntry = result.entries.last;
+
+      expect(firstEntry.value > secondEntry.value, isTrue);
+      expect(firstEntry.value > lastEntry.value, isTrue);
+      expect(secondEntry.value > lastEntry.value, isTrue);
     });
   });
 }
