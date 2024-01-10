@@ -1,7 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:passport_hub/common/api/github_visa_api.dart';
 import 'package:passport_hub/common/api/mock_visa_api.dart';
-import 'package:passport_hub/common/api/visa_api.dart';
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/models/visa_requirement.dart';
