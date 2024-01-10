@@ -235,6 +235,7 @@ class VisaMatrix {
     return mapColors;
   }
 
+  @visibleForTesting
   Map<Country, int> getPassportRankingsWithVisaFreeCount() {
     final Map<Country, double> mobilityScores = {};
     final Map<Country, int> visaFreeCounts = {};

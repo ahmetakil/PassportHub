@@ -10,6 +10,15 @@ enum VisaRequirementType {
 }
 
 extension VisaRequirementExtension on VisaRequirementType {
+  double get score {
+    return switch (this) {
+      VisaRequirementType.visaFree => 3,
+      VisaRequirementType.visaOnArrival => 2,
+      VisaRequirementType.eVisa => 1,
+      _ => 0,
+    };
+  }
+
   String get label {
     return switch (this) {
       VisaRequirementType.visaFree => "Visa Free",
