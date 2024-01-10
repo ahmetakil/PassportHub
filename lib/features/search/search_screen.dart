@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
 import 'package:passport_hub/common/ui/widgets/hub_back_icon.dart';
@@ -19,8 +21,8 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<VisaBloc, VisaState>(
       builder: (context, state) {
-        return const HubScaffold(
-          body: SafeArea(
+        return HubScaffold(
+          body: const SafeArea(
             child: Column(
               children: [
                 Padding(
@@ -31,13 +33,10 @@ class _SearchScreenState extends State<SearchScreen> {
                     children: [
                       HubBackIcon(),
                       Expanded(
-                        child: Hero(
-                          tag: "travel_search_field",
-                          child: Material(
-                            color: Colors.transparent,
-                            child: CountrySearchField(
-                              autofocus: true,
-                            ),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: CountrySearchField(
+                            autofocus: true,
                           ),
                         ),
                       ),
@@ -58,6 +57,22 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ],
             ),
+          ),
+          floatingActionButton:
+              BlocBuilder<CountrySearchBloc, CountrySearchState>(
+            builder: (context, state) {
+              final bool hideFab = state.getSelectedCountryList().isEmpty;
+              return hideFab
+                  ? const SizedBox.shrink()
+                  : FloatingActionButton(
+                      child: Icon(
+                        Icons.check,
+                        color: HubTheme.black,
+                      ),
+                      backgroundColor: HubTheme.onPrimary.withOpacity(0.5),
+                      onPressed: () => context.pop(),
+                    );
+            },
           ),
         );
       },
