@@ -1,22 +1,20 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:passport_hub/common/ui/widgets/hub_scaffold.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
-  final Widget child;
+  final List<Widget> children;
 
   const HomeScreen({
     super.key,
     required this.navigationShell,
-    required this.child,
+    required this.children,
   });
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
+  int get currentIndex => navigationShell.currentIndex;
 
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final bottomNavigationBarItems = [
@@ -41,14 +39,32 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 8,
         backgroundColor: Colors.white,
         items: bottomNavigationBarItems,
-        currentIndex: widget.navigationShell.currentIndex,
+        currentIndex: navigationShell.currentIndex,
         onTap: (int index) {
-          widget.navigationShell.goBranch(
+          navigationShell.goBranch(
             index,
+            initialLocation: index == navigationShell.currentIndex,
           );
         },
       ),
-      body: widget.child,
+      body: Stack(
+        children: children.mapIndexed((int index, Widget navigator) {
+          return Opacity(
+            opacity: index == currentIndex ? 1 : 0,
+            child: _branchNavigatorWrapper(index, navigator),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget _branchNavigatorWrapper(int index, Widget navigator) {
+    return IgnorePointer(
+      ignoring: index != currentIndex,
+      child: TickerMode(
+        enabled: index == currentIndex,
+        child: navigator,
+      ),
     );
   }
 }

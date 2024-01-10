@@ -9,6 +9,13 @@ import 'package:passport_hub/features/home/tabs/travel_tab/travel_tab.dart';
 import 'package:passport_hub/features/search/search_screen.dart';
 import 'package:passport_hub/features/splash/screen/splash_screen.dart';
 
+final GlobalKey<NavigatorState> exploreNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: "exploreNavigator");
+final GlobalKey<NavigatorState> travelNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: "travelNavigator");
+final GlobalKey<NavigatorState> compareNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: "compareNavigator");
+
 class AppRouter {
   static const splash = "splash";
   static const home = "home";
@@ -43,6 +50,7 @@ class AppRouter {
           },
           branches: [
             StatefulShellBranch(
+              navigatorKey: exploreNavigatorKey,
               initialLocation: "/$explore",
               routes: [
                 GoRoute(
@@ -54,6 +62,7 @@ class AppRouter {
               ],
             ),
             StatefulShellBranch(
+              navigatorKey: travelNavigatorKey,
               initialLocation: "/$travel",
               routes: [
                 GoRoute(
@@ -65,6 +74,7 @@ class AppRouter {
               ],
             ),
             StatefulShellBranch(
+              navigatorKey: compareNavigatorKey,
               initialLocation: "/$compare",
               routes: [
                 GoRoute(
@@ -83,7 +93,7 @@ class AppRouter {
           ) {
             return HomeScreen(
               navigationShell: navigationShell,
-              child: children[navigationShell.currentIndex],
+              children: children,
             );
           },
         ),
