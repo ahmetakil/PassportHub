@@ -13,7 +13,7 @@ class CompareTab extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const HubPageTitle(title: "Compare"),
-          Spacer(),
+          const Spacer(),
           const HubImage(
             image: HubImages.comparePreview,
             width: 240,
@@ -34,7 +34,7 @@ class CompareTab extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
-          Spacer(
+          const Spacer(
             flex: 2,
           ),
         ],
