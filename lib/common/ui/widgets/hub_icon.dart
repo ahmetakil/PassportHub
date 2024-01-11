@@ -33,12 +33,13 @@ class HubImage extends StatelessWidget {
   final double? height;
   final BoxFit fit;
 
-  const HubImage(
-      {super.key,
-      required this.image,
-      this.width,
-      this.height,
-      required this.fit});
+  const HubImage({
+    super.key,
+    required this.image,
+    this.width,
+    this.height,
+    required this.fit,
+  });
 
   @override
   Widget build(BuildContext context) {
