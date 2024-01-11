@@ -50,7 +50,7 @@ class _TravelTabResultsListViewState extends State<TravelTabResultsListView> {
                 const HubImage(
                   image: HubImages.cartoonAirplane,
                   fit: BoxFit.cover,
-                  width: 300,
+                  width: 240,
                 ),
                 Text(
                   "Ready to explore? ",

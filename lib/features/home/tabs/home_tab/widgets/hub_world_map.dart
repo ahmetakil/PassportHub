@@ -118,7 +118,9 @@ class _HubWorldMapState extends State<HubWorldMap>
               ),
               fit: BoxFit.fitHeight,
               instructions: SMapWorld.instructions,
-              defaultColor: Colors.grey,
+              defaultColor: widget.selectedCountryList.isEmpty
+                  ? HubTheme.primary
+                  : Colors.grey,
               colors: mapColors,
               callback: (id, String name, TapUpDetails tapDetails) {
                 final Country? tappedCountry =
@@ -134,7 +136,7 @@ class _HubWorldMapState extends State<HubWorldMap>
                     behavior: SnackBarBehavior.floating,
                     width: 160,
                     shape: const StadiumBorder(),
-                    content: Text("${tappedCountry.name}"),
+                    content: Center(child: Text("${tappedCountry.name}")),
                   ),
                 );
               },

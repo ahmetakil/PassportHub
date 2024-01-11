@@ -179,7 +179,9 @@ class CountryDetails extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const CountryDetailsActionButtons(),
+                          CountryDetailsActionButtons(
+                            country: country,
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(
                               top: HubTheme.hubMediumPadding,
