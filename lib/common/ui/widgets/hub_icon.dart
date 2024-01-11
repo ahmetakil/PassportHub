@@ -10,8 +10,45 @@ extension HubIconsExtension on HubIcons {
   }
 }
 
+extension HubImagesExtension on HubImages {
+  String get path {
+    switch (this) {
+      case HubImages.cartoonAirplane:
+        return "assets/images/cartoon_airplane.png";
+    }
+  }
+}
+
 enum HubIcons {
   medal,
+}
+
+enum HubImages {
+  cartoonAirplane,
+}
+
+class HubImage extends StatelessWidget {
+  final HubImages image;
+  final double? width;
+  final double? height;
+  final BoxFit fit;
+
+  const HubImage(
+      {super.key,
+      required this.image,
+      this.width,
+      this.height,
+      required this.fit});
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      image.path,
+      width: width,
+      height: height,
+      fit: fit,
+    );
+  }
 }
 
 class HubIcon extends StatelessWidget {
