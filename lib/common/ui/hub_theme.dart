@@ -9,9 +9,9 @@ class HubTheme {
   static const Color secondary = Color(0xff10B981);
   static const Color onSecondary = Color(0xFF6EE7B7);
   static const Color background = Color(0xFFF3F4F6);
-  static const Color red = Color(0xffFF2525);
+  static const Color red = Color(0xffcc2f21);
   static const Color black = Color(0xff121212);
-  static const Color yellow = Color(0xffD1A564);
+  static const Color yellow = Color(0xffe5ac56);
 
   static const Color blueLight = Color(0xff1D44AA);
 
@@ -55,7 +55,7 @@ extension VisaRequirementTypeExtension on VisaRequirementType {
 
   Color get color {
     return switch (this) {
-      VisaRequirementType.visaFree => HubTheme.primary,
+      VisaRequirementType.visaFree => const Color(0xff329536),
       VisaRequirementType.visaOnArrival => Colors.blue,
       VisaRequirementType.eVisa => Colors.blue,
       VisaRequirementType.visaRequired => HubTheme.red,

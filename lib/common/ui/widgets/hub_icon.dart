@@ -15,6 +15,8 @@ extension HubImagesExtension on HubImages {
     switch (this) {
       case HubImages.cartoonAirplane:
         return "assets/images/cartoon_airplane.png";
+      case HubImages.comparePreview:
+        return "assets/images/compare_preview.png";
     }
   }
 }
@@ -25,6 +27,7 @@ enum HubIcons {
 
 enum HubImages {
   cartoonAirplane,
+  comparePreview,
 }
 
 class HubImage extends StatelessWidget {
@@ -38,7 +41,7 @@ class HubImage extends StatelessWidget {
     required this.image,
     this.width,
     this.height,
-    required this.fit,
+    this.fit = BoxFit.cover,
   });
 
   @override
