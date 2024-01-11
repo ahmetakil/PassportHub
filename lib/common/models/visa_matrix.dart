@@ -45,6 +45,12 @@ class VisaMatrix {
     );
   }
 
+  Country? getCountryByIso2(String iso2) {
+    return countryList.firstWhereOrNull(
+      (Country country) => country.iso2code == iso2,
+    );
+  }
+
   VisaInformation? getVisaInformation({
     required Country from,
     required Country to,

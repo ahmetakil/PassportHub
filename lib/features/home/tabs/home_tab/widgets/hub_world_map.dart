@@ -109,16 +109,37 @@ class _HubWorldMapState extends State<HubWorldMap>
         transformationController: _transformationController,
         maxScale: maxScale,
         minScale: minScale,
-        child: SimpleMap(
-          countryBorder: CountryBorder(
-            color: Colors.black.withOpacity(0.5),
-            width: 1.0,
-          ),
-          fit: BoxFit.fitHeight,
-          instructions: SMapWorld.instructions,
-          defaultColor: Colors.grey,
-          colors: mapColors,
-          callback: (id, name, tapdetails) {},
+        child: Stack(
+          children: [
+            SimpleMap(
+              countryBorder: CountryBorder(
+                color: Colors.black.withOpacity(0.5),
+                width: 1.0,
+              ),
+              fit: BoxFit.fitHeight,
+              instructions: SMapWorld.instructions,
+              defaultColor: Colors.grey,
+              colors: mapColors,
+              callback: (id, String name, TapUpDetails tapDetails) {
+                final Country? tappedCountry =
+                    widget.visaMatrix.getCountryByIso2(id.toUpperCase());
+
+                if (tappedCountry == null) {
+                  return;
+                }
+
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    behavior: SnackBarBehavior.floating,
+                    width: 160,
+                    shape: const StadiumBorder(),
+                    content: Text("${tappedCountry.name}"),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
