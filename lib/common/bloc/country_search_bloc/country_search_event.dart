@@ -29,12 +29,14 @@ class ClearSearchEvent extends CountrySearchEvent {
 }
 
 class SelectListFilterEvent extends CountrySearchEvent {
-  final Country targetCountry;
+  final List<Country> targetCountryList;
 
   final CountryListFilterChipOptions option;
+  final bool searchAfterFiltering;
 
   const SelectListFilterEvent({
     required this.option,
-    required this.targetCountry,
+    required this.targetCountryList,
+    this.searchAfterFiltering = true,
   });
 }

@@ -147,7 +147,7 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
     on<SelectListFilterEvent>((event, emit) {
       final List<Country> filteredCountries = _applyFilter(
             option: event.option,
-            targetCountry: event.targetCountry,
+            targetCountryList: event.targetCountryList,
           ) ??
           [];
 
@@ -163,7 +163,8 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
       );
 
       final currentState = state;
-      if (currentState is CountrySearchResultsState &&
+      if (event.searchAfterFiltering &&
+          currentState is CountrySearchResultsState &&
           currentState.searchQuery.isNotEmpty) {
         fuzzy = Fuzzy<Country>(
           filteredCountries,
@@ -179,10 +180,12 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
 
   List<Country>? _applyFilter({
     required CountryListFilterChipOptions option,
-    required Country targetCountry,
+    required List<Country> targetCountryList,
   }) {
     final Map<VisaRequirementType, List<Country>> requirementsMap =
-        matrix.getCountriesGroupedByRequirement(targetCountry: targetCountry);
+        matrix.getMinimumTravelAreaForCountries(
+      targetCountries: targetCountryList,
+    );
 
     return switch (option) {
       CountryListFilterChipOptions.all => allCountryList,
