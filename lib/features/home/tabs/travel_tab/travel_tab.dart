@@ -70,17 +70,14 @@ class _TravelTabState extends State<TravelTab> {
                     padding: const EdgeInsets.only(
                       bottom: HubTheme.hubMediumPadding,
                     ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: HubFakeTextField(
-                        showEmpty: selectedCountryList.isEmpty,
-                        child: TravelSearchResultListView(
-                          countryList: selectedCountryList,
-                        ),
-                        onTap: () {
-                          context.pushNamed(AppRouter.search);
-                        },
+                    child: HubFakeTextField(
+                      showEmpty: selectedCountryList.isEmpty,
+                      child: TravelSearchResultListView(
+                        countryList: selectedCountryList,
                       ),
+                      onTap: () {
+                        context.pushNamed(AppRouter.search);
+                      },
                     ),
                   ),
                   Expanded(

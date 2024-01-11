@@ -16,30 +16,17 @@ class TravelTabListResultTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HubCountryTile(
-      country: country,
-      suffix: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            width: 20,
-            height: 20,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: visaRequirementType.color,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 4,
-              horizontal: HubTheme.hubSmallPadding,
-            ),
-            child: Text(
-              visaRequirementType.label,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
-            ),
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: HubTheme.hubSmallPadding),
+      child: HubCountryTile(
+        country: country,
+        suffix: Text(
+          visaRequirementType.label,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: HubTheme.black.withOpacity(0.8),
+                fontWeight: FontWeight.w400,
+              ),
+        ),
       ),
     );
   }

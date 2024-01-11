@@ -38,24 +38,19 @@ class _TravelTabResultsListViewState extends State<TravelTabResultsListView> {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        SliverPadding(
-          padding: const EdgeInsets.only(
-            top: HubTheme.hubMediumPadding,
+        SliverList.separated(
+          separatorBuilder: (_, __) => Divider(
+            color: Colors.grey.withOpacity(0.2),
           ),
-          sliver: SliverList.separated(
-            separatorBuilder: (_, __) => Divider(
-              color: Colors.grey.withOpacity(0.2),
-            ),
-            itemCount: countryList.length,
-            itemBuilder: (context, i) {
-              final Country country = countryList[i];
-              return TravelTabListResultTile(
-                country: country,
-                visaRequirementType: countryToRequirementsMap[country] ??
-                    VisaRequirementType.none,
-              );
-            },
-          ),
+          itemCount: countryList.length,
+          itemBuilder: (context, i) {
+            final Country country = countryList[i];
+            return TravelTabListResultTile(
+              country: country,
+              visaRequirementType:
+                  countryToRequirementsMap[country] ?? VisaRequirementType.none,
+            );
+          },
         ),
       ],
     );
