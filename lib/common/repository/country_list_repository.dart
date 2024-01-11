@@ -6,6 +6,13 @@ const Map<String, String> _nameUpdates = {
   'United Kingdom of Great Britain and Northern Ireland': 'United Kingdom',
 };
 
+String? updateName(String? name) {
+  if (_nameUpdates.containsKey(name)) {
+    return _nameUpdates[name];
+  }
+  return name?.replaceAll('"', "");
+}
+
 class CountryListRepository {
   final CountryListApi countryListApi;
 
@@ -26,11 +33,22 @@ class CountryListRepository {
           continue;
         }
 
-        final String? countryName = rows[i][0] as String?;
-        final String? iso2 = rows[i][1] as String?;
-        final String? iso3 = rows[i][2] as String?;
-        final String? region = rows[i][5] as String?;
-        final String? subRegion = rows[i][6] as String?;
+        late List currentRow;
+
+        if (rows[i].length == 12) {
+          currentRow = [
+            "${rows[i][0]}${rows[i][1]}",
+            ...rows[i].sublist(2),
+          ];
+        } else {
+          currentRow = rows[i];
+        }
+
+        final String? countryName = currentRow[0] as String?;
+        final String? iso2 = currentRow[1] as String?;
+        final String? iso3 = currentRow[2] as String?;
+        final String? region = currentRow[5] as String?;
+        final String? subRegion = currentRow[6] as String?;
 
         if (iso3 == null) {
           HubLogger.e("iso3 is null for i: $i name: $countryName");
@@ -40,7 +58,7 @@ class CountryListRepository {
         result[iso3] = Country(
           iso3code: iso3,
           iso2code: iso2,
-          name: _nameUpdates[countryName] ?? countryName,
+          name: updateName(countryName),
           region: region,
           subRegion: subRegion,
         );
