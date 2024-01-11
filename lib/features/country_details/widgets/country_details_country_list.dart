@@ -44,7 +44,10 @@ class CountryDetailsCountryList extends StatelessWidget {
                         bottom: HubTheme.hubMediumPadding,
                       ),
                       child: CountryListFilterChips(
-                        targetCountry: targetCountry,
+                        targetCountryList: [
+                          targetCountry,
+                        ],
+                        isSearchScreen: true,
                       ),
                     ),
                     const Padding(

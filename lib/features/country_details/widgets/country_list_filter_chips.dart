@@ -30,11 +30,13 @@ extension on CountryListFilterChipOptions {
 }
 
 class CountryListFilterChips extends StatelessWidget {
-  final Country targetCountry;
+  final List<Country> targetCountryList;
+  final bool isSearchScreen;
 
   const CountryListFilterChips({
     super.key,
-    required this.targetCountry,
+    required this.targetCountryList,
+    required this.isSearchScreen,
   });
 
   @override
@@ -53,7 +55,8 @@ class CountryListFilterChips extends StatelessWidget {
               return _CountryListFilterChip(
                 option: option,
                 isSelected: selectedOption == option,
-                targetCountry: targetCountry,
+                targetCountryList: targetCountryList,
+                isSearchScreen: isSearchScreen,
               );
             },
             separatorBuilder: (_, __) => const SizedBox(
@@ -68,13 +71,15 @@ class CountryListFilterChips extends StatelessWidget {
 }
 
 class _CountryListFilterChip extends StatelessWidget {
-  final Country targetCountry;
+  final List<Country> targetCountryList;
   final CountryListFilterChipOptions option;
   final bool isSelected;
+  final bool isSearchScreen;
 
   const _CountryListFilterChip({
     required this.option,
-    required this.targetCountry,
+    required this.targetCountryList,
+    required this.isSearchScreen,
     this.isSelected = false,
   });
 
@@ -88,7 +93,8 @@ class _CountryListFilterChip extends StatelessWidget {
         context.read<CountrySearchBloc>().add(
               SelectListFilterEvent(
                 option: option,
-                targetCountry: targetCountry,
+                targetCountryList: targetCountryList,
+                searchAfterFiltering: isSearchScreen,
               ),
             );
       },
