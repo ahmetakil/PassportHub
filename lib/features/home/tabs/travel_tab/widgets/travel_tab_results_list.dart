@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/models/visa_requirement.dart';
-import 'package:passport_hub/common/ui/hub_theme.dart';
 import 'package:passport_hub/features/home/tabs/travel_tab/widgets/travel_tab_list_result_tile.dart';
 
 class TravelTabResultsListView extends StatefulWidget {
