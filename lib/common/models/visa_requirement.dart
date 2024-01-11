@@ -23,7 +23,7 @@ extension VisaRequirementExtension on VisaRequirementType {
     return switch (this) {
       VisaRequirementType.visaFree => "Visa Free",
       VisaRequirementType.visaOnArrival => "Visa on Arrival",
-      VisaRequirementType.eVisa => "Evisa",
+      VisaRequirementType.eVisa => "eVisa",
       VisaRequirementType.visaRequired => "Visa Required",
       VisaRequirementType.noAdmission => "No Admission",
       VisaRequirementType.none => "N/A",
