@@ -56,9 +56,6 @@ class _HubWorldMapState extends State<HubWorldMap>
     super.initState();
 
     _transformationController = TransformationController();
-  }
-
-  void configureMap() {
     _transformationController.value.setEntry(0, 0, initialZoomFactor);
     _transformationController.value.setEntry(1, 1, initialZoomFactor);
     _transformationController.value.setEntry(2, 2, initialZoomFactor);
