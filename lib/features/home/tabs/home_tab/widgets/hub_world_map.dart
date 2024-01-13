@@ -10,22 +10,7 @@ class HubWorldMap extends StatefulWidget {
   final Map<String, Color> mapColors;
   final List<Country> selectedCountryList;
 
-  const HubWorldMap({
-    super.key,
-    required this.visaMatrix,
-    required this.mapColors,
-  }) : selectedCountryList = const [];
-
-  HubWorldMap.destinationMap({
-    super.key,
-    required this.visaMatrix,
-    required Country selectedCountry,
-  })  : selectedCountryList = [selectedCountry],
-        mapColors = visaMatrix.generateColorMapForCountryRequirements(
-          targetCountry: selectedCountry,
-        );
-
-  HubWorldMap.combinedMap({
+  HubWorldMap({
     super.key,
     required this.visaMatrix,
     required this.selectedCountryList,
@@ -71,7 +56,9 @@ class _HubWorldMapState extends State<HubWorldMap>
     super.initState();
 
     _transformationController = TransformationController();
+  }
 
+  void configureMap() {
     _transformationController.value.setEntry(0, 0, initialZoomFactor);
     _transformationController.value.setEntry(1, 1, initialZoomFactor);
     _transformationController.value.setEntry(2, 2, initialZoomFactor);
