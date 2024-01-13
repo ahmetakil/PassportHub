@@ -9,7 +9,12 @@ import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/ui/widgets/hub_loading.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  final String? deeplinkPath;
+
+  const SplashScreen({
+    Key? key,
+    this.deeplinkPath,
+  }) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -31,7 +36,11 @@ class _SplashScreenState extends State<SplashScreen> {
                     matrix: visaMatrix,
                   ),
                 );
-            context.goNamed(AppRouter.explore);
+            if (widget.deeplinkPath != null) {
+              context.go(widget.deeplinkPath!);
+            } else {
+              context.goNamed(AppRouter.explore);
+            }
           }
         },
         builder: (context, state) {
