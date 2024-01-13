@@ -22,6 +22,9 @@ class VisaMatrix {
 
   List<Country> get countryList => matrix.keys.toList();
 
+  List<Country> get countryListByRank =>
+      _passportRankingSortedList.keys.toList();
+
   int? getPassportRanking(Country country) {
     final int result = _passportRankingSortedList.entries
         .toList()

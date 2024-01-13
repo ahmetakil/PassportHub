@@ -10,10 +10,18 @@ import 'package:passport_hub/common/ui/hub_error_screen.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
 import 'package:passport_hub/common/ui/widgets/hub_country_tile.dart';
 import 'package:passport_hub/common/ui/widgets/hub_page_title.dart';
+import 'package:passport_hub/common/ui/widgets/hub_segmented_control.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/country_search_field.dart';
 
-class ExploreTab extends StatelessWidget {
+class ExploreTab extends StatefulWidget {
   const ExploreTab({super.key});
+
+  @override
+  State<ExploreTab> createState() => _ExploreTabState();
+}
+
+class _ExploreTabState extends State<ExploreTab> {
+  bool showAlphabetical = true;
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +41,44 @@ class ExploreTab extends StatelessWidget {
           child: SafeArea(
             child: BlocBuilder<CountrySearchBloc, CountrySearchState>(
               builder: (context, state) {
-                final List<Country> allCountryList = visaMatrix.countryList;
+                final List<Country>? searchResults = state.getResultsOrEmpty();
 
-                final List<Country> countryList =
-                    state.getResultsOrEmpty() ?? allCountryList;
+                late List<Country> countryList;
+
+                if (searchResults != null) {
+                  countryList = searchResults;
+                } else {
+                  countryList = showAlphabetical
+                      ? visaMatrix.countryList
+                      : visaMatrix.countryListByRank;
+                }
 
                 return Column(
                   children: [
-                    const HubPageTitle(title: "Explore"),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const HubPageTitle(title: "Explore"),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            right: HubTheme.hubMediumPadding,
+                          ),
+                          child: HubSegmentedControl(
+                            groupValue: showAlphabetical ? "A-Z" : "Rank",
+                            options: const ["A-Z", "Rank"],
+                            onValueChanged: (String? val) {
+                              if (val == "Rank") {
+                                showAlphabetical = false;
+                              } else {
+                                showAlphabetical = true;
+                              }
+                              setState(() {});
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                     const Padding(
                       padding: EdgeInsets.only(
                         bottom: HubTheme.hubMediumPadding,
