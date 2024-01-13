@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:passport_hub/common/app_router.dart';
 import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/models/visa_information.dart';
@@ -87,7 +89,14 @@ class CountryDetailsCountryList extends StatelessWidget {
                       );
 
                       return InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          context.pushNamed(
+                            AppRouter.countryDetails,
+                            pathParameters: {
+                              "iso": country.iso3code,
+                            },
+                          );
+                        },
                         child: HubCountryTile(
                           country: country,
                           padding: const EdgeInsets.symmetric(
