@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:passport_hub/common/app_router.dart';
 import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
@@ -13,6 +14,7 @@ import 'package:passport_hub/common/ui/widgets/hub_page_title.dart';
 import 'package:passport_hub/common/ui/widgets/hub_segmented_control.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/hub_world_map.dart';
 import 'package:passport_hub/features/home/tabs/travel_tab/widgets/travel_search_result_list_view.dart';
+import 'package:passport_hub/features/home/tabs/travel_tab/widgets/travel_tab_info_sheet.dart';
 import 'package:passport_hub/features/home/tabs/travel_tab/widgets/travel_tab_results_list.dart';
 
 class TravelTab extends StatefulWidget {
@@ -41,11 +43,36 @@ class _TravelTabState extends State<TravelTab> {
               final List<Country> selectedCountryList =
                   state.getSelectedCountryList();
               return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const HubPageTitle(title: "Travel"),
+                      InkWell(
+                        onTap: () {
+                          showMaterialModalBottomSheet(
+                            useRootNavigator: true,
+                            context: context,
+                            builder: (_) => const FractionallySizedBox(
+                              heightFactor: 0.6,
+                              child: TravelTabInfoSheet(),
+                            ),
+                          );
+                        },
+                        child: const Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            HubPageTitle(title: "Travel"),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: HubTheme.hubSmallPadding,
+                              ),
+                              child: Icon(Icons.info_outline),
+                            ),
+                          ],
+                        ),
+                      ),
                       const Spacer(),
                       Padding(
                         padding: const EdgeInsets.only(
@@ -82,7 +109,7 @@ class _TravelTabState extends State<TravelTab> {
                   ),
                   Expanded(
                     child: showMap
-                        ? HubWorldMap.combinedMap(
+                        ? HubWorldMap(
                             visaMatrix: visaMatrix,
                             selectedCountryList: selectedCountryList,
                           )

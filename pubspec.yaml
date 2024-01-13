@@ -48,6 +48,8 @@ dependencies:
   countries_world_map: ^1.1.1
   flutter_svg: ^2.0.9
   sliver_tools: ^0.2.12
+  another_flushbar: ^1.12.30
+  modal_bottom_sheet: ^3.0.0-pre
 
 dev_dependencies:
   bloc_test: ^9.1.5
