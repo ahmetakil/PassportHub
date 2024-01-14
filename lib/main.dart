@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_frame/flutter_web_frame.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:passport_hub/common/app_router.dart';
@@ -40,31 +42,20 @@ class _MyAppState extends State<MyApp> {
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
       },
-      child: HubBlocProvider(
-        child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          routeInformationProvider: _router.routeInformationProvider,
-          routeInformationParser: _router.routeInformationParser,
-          routerDelegate: _router.routerDelegate,
-          title: 'PassportHub',
-          theme: HubTheme.lightTheme,
+      child: FlutterWebFrame(
+        enabled: kIsWeb,
+        maximumSize: Size(600.0, 800.0),
+        builder: (context) => HubBlocProvider(
+          child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            routeInformationProvider: _router.routeInformationProvider,
+            routeInformationParser: _router.routeInformationParser,
+            routerDelegate: _router.routerDelegate,
+            title: 'PassportHub',
+            theme: HubTheme.lightTheme,
+          ),
         ),
       ),
     );
   }
 }
-
-/*
-1. Hero animation bug
-2. Keyboard popping up when navigated to search
-3. Make travel page more understandable
-  a. Make title as Travel together
-  b. Info button with bottom sheet
-4. Update country details with real values
-5. Update Travel -> List to match the company details
-6. Compare
-7. Map colors
-8. Firebase and more data
-9. Display country name overlay when tapped on the map
-10. Add filtering to Travel -> List.
-*/
