@@ -1,11 +1,11 @@
 {
-    "name": "passport_hub",
-    "short_name": "passport_hub",
+    "name": "PassportHub",
+    "short_name": "PassportHub",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Discover your Passport.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
