@@ -34,10 +34,12 @@ class AppRouter {
       redirect: (context, state) {
         final bool hasVisaMatrix = context.read<VisaBloc>().state.hasData;
 
-        if (!hasVisaMatrix) {
+        if (!hasVisaMatrix &&
+            state.fullPath != "/" &&
+            state.fullPath != "/splash") {
           return state.namedLocation(
             AppRouter.splash,
-            queryParameters: {'from': state.path ?? ""},
+            queryParameters: {'from': state.fullPath ?? "/explore"},
           );
         }
 
