@@ -64,7 +64,12 @@ class CountryDetailsActionButtons extends StatelessWidget {
           ),
           child: InkWell(
             onTap: () {
-              context.goNamed(AppRouter.travel);
+              context.goNamed(
+                AppRouter.travel,
+                queryParameters: {
+                  "iso": country.iso3code,
+                },
+              );
             },
             child: Container(
               decoration: BoxDecoration(

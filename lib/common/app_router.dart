@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
+import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/ui/hub_error_screen.dart';
 import 'package:passport_hub/features/country_details/country_details_screen.dart';
 import 'package:passport_hub/features/home/home_screen.dart';
@@ -87,8 +89,26 @@ class AppRouter {
                 GoRoute(
                   path: "/$travel",
                   name: AppRouter.travel,
-                  builder: (BuildContext context, GoRouterState state) =>
-                      const TravelTab(),
+                  builder: (BuildContext context, GoRouterState state) {
+                    final String? countryIso = state.uri.queryParameters["iso"];
+
+                    if (countryIso != null) {
+                      final Country? country = context
+                          .read<VisaBloc>()
+                          .state
+                          .visaMatrix
+                          ?.getCountryByIso(countryIso);
+
+                      if (country != null) {
+                        context.read<CountrySearchBloc>().add(
+                              SelectCountryEvent(
+                                country: country,
+                              ),
+                            );
+                      }
+                    }
+                    return const TravelTab();
+                  },
                 ),
               ],
             ),

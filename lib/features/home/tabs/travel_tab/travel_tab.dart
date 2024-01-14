@@ -18,7 +18,9 @@ import 'package:passport_hub/features/home/tabs/travel_tab/widgets/travel_tab_in
 import 'package:passport_hub/features/home/tabs/travel_tab/widgets/travel_tab_results_list.dart';
 
 class TravelTab extends StatefulWidget {
-  const TravelTab({super.key});
+  const TravelTab({
+    super.key,
+  });
 
   @override
   State<TravelTab> createState() => _TravelTabState();
