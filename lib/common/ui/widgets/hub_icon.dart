@@ -30,7 +30,7 @@ enum HubImages {
   comparePreview,
 }
 
-class HubImage extends StatelessWidget {
+class HubImage extends StatefulWidget {
   final HubImages image;
   final double? width;
   final double? height;
@@ -45,13 +45,51 @@ class HubImage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Image.asset(
-      image.path,
-      width: width,
-      height: height,
-      fit: fit,
+  State<HubImage> createState() => _HubImageState();
+}
+
+class _HubImageState extends State<HubImage> {
+  late Image assetImage;
+
+  @override
+  void initState() {
+    assetImage = Image.asset(
+      widget.image.path,
+      width: widget.width,
+      height: widget.height,
+      fit: widget.fit,
+      cacheWidth: 200,
+      frameBuilder: (
+        BuildContext context,
+        Widget child,
+        int? frame,
+        bool wasSynchronouslyLoaded,
+      ) {
+        if (wasSynchronouslyLoaded) {
+          return child;
+        }
+
+        if (frame == null) {
+          return const SizedBox(
+            width: 200,
+            height: 200,
+          );
+        }
+        return child;
+      },
     );
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    precacheImage(assetImage.image, context);
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return assetImage;
   }
 }
 

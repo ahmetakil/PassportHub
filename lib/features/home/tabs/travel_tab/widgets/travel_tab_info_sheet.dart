@@ -52,7 +52,7 @@ class TravelTabInfoSheet extends StatelessWidget {
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.only(
-                bottom: HubTheme.hubSmallPadding,
+                bottom: HubTheme.hubMediumPadding,
               ),
               child: Text(
                 'Map Legend',
@@ -70,13 +70,13 @@ class TravelTabInfoSheet extends StatelessWidget {
                 title: values[i].label,
               ),
               separatorBuilder: (_, __) => const SizedBox(
-                height: HubTheme.hubSmallPadding,
+                height: HubTheme.hubMediumPadding,
               ),
               itemCount: values.length,
             ),
             Padding(
               padding: const EdgeInsets.only(
-                top: HubTheme.hubSmallPadding,
+                top: HubTheme.hubMediumPadding,
               ),
               child: _InfoSheetRow(
                 title: "Selected Country",

@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
       },
       child: FlutterWebFrame(
         enabled: kIsWeb,
-        maximumSize: Size(600.0, 800.0),
+        maximumSize: const Size(600.0, 800.0),
         builder: (context) => HubBlocProvider(
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
@@ -59,3 +59,12 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+/*
+3. Make travel page more understandable
+  a. Make title as Travel together
+  b. Info button with bottom sheet
+6. Compare
+8. Firebase and more data
+9. Display country name overlay when tapped on the map
+10. Add filtering to Travel -> List.
+*/
