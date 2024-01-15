@@ -68,4 +68,3 @@ mason-lock.json
 test/**/goldens/**/*.*
 test/**/failures/**/*.*
 !test/**/goldens/ci/*.*
-/brand_assets/
