@@ -31,13 +31,12 @@ flutter run
 ## Features
 
 1. Explore global passport rankings.
-
-    - ![explore_image](brand_assets/explore.png)
+    - ![explore](brand_assets/explore_c.png)
 2. Discover to which countries you and your international friends can travel with visa-free
-    -  ![travel](brand_assets/travel.png)
-   
+    - ![travel](brand_assets/travel.png)
+
 3. Check visa requirements for a country.
-   - ![country_details](brand_assets/country_details.png)
+    - ![country_details](brand_assets/country_details.png)
 
 - Compare the passport strength between two countries. [SOON]
 - Bloc pattern for predictable state management.
