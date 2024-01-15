@@ -20,8 +20,12 @@ class CountrySearchQueryEvent extends CountrySearchEvent {
 
 class SelectCountryEvent extends CountrySearchEvent {
   final Country country;
+  final bool isUnselectable;
 
-  const SelectCountryEvent({required this.country});
+  const SelectCountryEvent({
+    required this.country,
+    this.isUnselectable = false,
+  });
 }
 
 class ClearSearchEvent extends CountrySearchEvent {

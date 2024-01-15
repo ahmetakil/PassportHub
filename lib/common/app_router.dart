@@ -103,6 +103,7 @@ class AppRouter {
                         context.read<CountrySearchBloc>().add(
                               SelectCountryEvent(
                                 country: country,
+                                isUnselectable: true,
                               ),
                             );
                       }

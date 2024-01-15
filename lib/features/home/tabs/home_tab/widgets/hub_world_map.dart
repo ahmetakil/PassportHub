@@ -118,9 +118,13 @@ class _HubWorldMapState extends State<HubWorldMap>
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     behavior: SnackBarBehavior.floating,
-                    width: 160,
+                    width: 180,
                     shape: const StadiumBorder(),
-                    content: Center(child: Text("${tappedCountry.name}")),
+                    content: Row(
+                      children: [
+                        Text("${tappedCountry.name}"),
+                      ],
+                    ),
                   ),
                 );
               },

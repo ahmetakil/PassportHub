@@ -115,13 +115,16 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
     });
 
     on<SelectCountryEvent>((event, emit) {
+      HubLogger.log("> SelectCountryEvent ${event.country}");
+
       switch (state) {
         case CountrySearchInitialState():
           emit(
             CountrySearchResultsState(
-                results: const [],
-                searchQuery: '',
-                selectedCountryList: [event.country]),
+              results: const [],
+              searchQuery: '',
+              selectedCountryList: [event.country],
+            ),
           );
         case CountrySearchResultsState():
           final resultState = state as CountrySearchResultsState;
@@ -131,7 +134,9 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
           ];
 
           if (selectedCountryList.contains(event.country)) {
-            selectedCountryList.remove(event.country);
+            if (!event.isUnselectable) {
+              selectedCountryList.remove(event.country);
+            }
           } else {
             selectedCountryList.add(event.country);
           }
@@ -145,6 +150,8 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
     });
 
     on<ClearSearchEvent>((event, emit) {
+      HubLogger.log("> ClearSearchEvent}");
+
       emit(
         CountrySearchInitialState(
           selectedFilterOption: state.selectedFilterOption,
@@ -153,6 +160,8 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
     });
 
     on<SelectListFilterEvent>((event, emit) {
+      HubLogger.log("> SelectListFilterEvent");
+
       final List<Country> filteredCountries = _applyFilter(
             option: event.option,
             targetCountryList: event.targetCountryList,
