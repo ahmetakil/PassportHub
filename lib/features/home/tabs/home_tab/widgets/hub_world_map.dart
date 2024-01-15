@@ -1,6 +1,9 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:countries_world_map/countries_world_map.dart';
 import 'package:countries_world_map/data/maps/world_map.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:passport_hub/common/app_router.dart';
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
@@ -118,11 +121,40 @@ class _HubWorldMapState extends State<HubWorldMap>
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     behavior: SnackBarBehavior.floating,
-                    width: 180,
-                    shape: const StadiumBorder(),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        HubTheme.hubBorderRadius * 2,
+                      ),
+                    ),
                     content: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("${tappedCountry.name}"),
+                        Flexible(
+                          child: Text(
+                            "${tappedCountry.name}",
+                            maxLines: 2,
+                          ),
+                        ),
+                        const Spacer(),
+                        InkWell(
+                          onTap: () {
+                            context.pushNamed(
+                              AppRouter.countryDetails,
+                              pathParameters: {
+                                "iso": tappedCountry.iso3code,
+                              },
+                            );
+                          },
+                          child: Text(
+                            "Details",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: HubTheme.yellow,
+                                ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
