@@ -86,7 +86,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
     return HubScaffold(
       appBar: AppBar(
         leading: const HubBackIcon(),
-        title: Text("Hub News"),
+        title: const Text("Hub News"),
       ),
       body: SafeArea(
         child: Column(
