@@ -12,6 +12,7 @@ import 'package:passport_hub/common/ui/widgets/hub_country_tile.dart';
 import 'package:passport_hub/common/ui/widgets/hub_page_title.dart';
 import 'package:passport_hub/common/ui/widgets/hub_segmented_control.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/country_search_field.dart';
+import 'package:passport_hub/features/news/widgets/hub_news_list.dart';
 
 class ExploreTab extends StatefulWidget {
   const ExploreTab({super.key});
@@ -79,6 +80,7 @@ class _ExploreTabState extends State<ExploreTab> {
                         ),
                       ],
                     ),
+                    const HubNewsList(),
                     const Padding(
                       padding: EdgeInsets.only(
                         bottom: HubTheme.hubMediumPadding,

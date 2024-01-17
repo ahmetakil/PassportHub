@@ -7,6 +7,10 @@ import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
 import 'package:passport_hub/common/repository/country_list_repository.dart';
 import 'package:passport_hub/common/repository/visa_repository.dart';
+import 'package:passport_hub/features/news/api/google_news_api.dart';
+import 'package:passport_hub/features/news/api/news_api.dart';
+import 'package:passport_hub/features/news/bloc/news_bloc.dart';
+import 'package:passport_hub/features/news/repository/news_repository.dart';
 
 Future<void> injectorSetup(GetIt getIt) async {
   getIt.registerLazySingleton<VisaApi>(
@@ -15,6 +19,10 @@ Future<void> injectorSetup(GetIt getIt) async {
 
   getIt.registerLazySingleton<CountryListApi>(
     () => GithubCountryListApi(),
+  );
+
+  getIt.registerLazySingleton<NewsApi>(
+    () => GoogleNewsApi(),
   );
 
   getIt.registerLazySingleton<VisaRepository>(
@@ -29,6 +37,12 @@ Future<void> injectorSetup(GetIt getIt) async {
     ),
   );
 
+  getIt.registerLazySingleton<NewsRepository>(
+    () => NewsRepository(
+      getIt<NewsApi>(),
+    ),
+  );
+
   getIt.registerLazySingleton<VisaBloc>(
     () => VisaBloc(
       getIt<VisaRepository>(),
@@ -38,6 +52,14 @@ Future<void> injectorSetup(GetIt getIt) async {
 
   getIt.registerLazySingleton<CountrySearchBloc>(
     () => CountrySearchBloc(),
+  );
+
+  getIt.registerLazySingleton<NewsBloc>(
+    () => NewsBloc(
+      getIt<NewsRepository>(),
+    )..add(
+        FetchNewsEvent(),
+      ),
   );
 
   await getIt.allReady();

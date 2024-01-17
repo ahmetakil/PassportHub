@@ -10,6 +10,7 @@ import 'package:passport_hub/features/home/home_screen.dart';
 import 'package:passport_hub/features/home/tabs/compare_tab/compare_tab.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/explore_tab.dart';
 import 'package:passport_hub/features/home/tabs/travel_tab/travel_tab.dart';
+import 'package:passport_hub/features/news/screen/news_details_screen.dart';
 import 'package:passport_hub/features/search/search_screen.dart';
 import 'package:passport_hub/features/splash/screen/splash_screen.dart';
 
@@ -28,6 +29,7 @@ class AppRouter {
   static const explore = "explore";
   static const travel = "travel";
   static const compare = "compare";
+  static const newsDetails = "newsDetails";
 
   static GoRouter generateGoRouter() {
     return GoRouter(
@@ -159,6 +161,23 @@ class AppRouter {
           path: "/$search",
           builder: (BuildContext context, GoRouterState state) =>
               const SearchScreen(),
+        ),
+        GoRoute(
+          name: AppRouter.newsDetails,
+          path: "/$newsDetails",
+          builder: (BuildContext context, GoRouterState state) {
+            final String? url = state.extra as String?;
+
+            if (url == null) {
+              return const HubErrorScreen(
+                errorMessage: "Could not find a valid news url!",
+              );
+            }
+
+            return NewsDetailsScreen(
+              newsUrl: url,
+            );
+          },
         ),
       ],
     );
