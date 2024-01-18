@@ -10,6 +10,9 @@ explore, compare, and understand passport strengths and visa-free travel opportu
 Leveraging Bloc pattern for state management and a feature-based folder structure, PassportHub ensures a scalable,
 maintainable, and clean codebase.
 
+<a href="https://play.google.com/store/apps/details?id=me.ahmetakil.passport_hub">
+<img src="https://svgshare.com/i/tP8.svg" width="275px" alt="google_play_link"/></a>
+
 > Live demo is available at:
 > https://passporthub-ec83e.web.app/
 
