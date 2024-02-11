@@ -17,6 +17,10 @@ extension CountrySearchStateExtension on CountrySearchState {
     return [];
   }
 
+  bool getIsSelected(Country country) {
+    return getSelectedCountryList().contains(country);
+  }
+
   List<Country> getSelectedCountryList() {
     if (this is CountrySearchResultsState) {
       final resultState = this as CountrySearchResultsState;

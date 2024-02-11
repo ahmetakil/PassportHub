@@ -1,8 +1,10 @@
 import 'package:countries_world_map/countries_world_map.dart';
 import 'package:countries_world_map/data/maps/world_map.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:passport_hub/common/app_router.dart';
+import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
@@ -128,30 +130,66 @@ class _HubWorldMapState extends State<HubWorldMap>
                     content: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Flexible(
+                        Expanded(
                           child: Text(
                             "${tappedCountry.name}",
                             maxLines: 2,
                           ),
                         ),
-                        const Spacer(),
-                        InkWell(
-                          onTap: () {
-                            context.pushNamed(
-                              AppRouter.countryDetails,
-                              pathParameters: {
-                                "iso": tappedCountry.iso3code,
-                              },
-                            );
-                          },
-                          child: Text(
-                            "Details",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  color: HubTheme.yellow,
+                        Flexible(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  right: HubTheme.hubMediumPadding,
                                 ),
+                                child: InkWell(
+                                  onTap: () {
+                                    context.read<CountrySearchBloc>().add(
+                                          SelectCountryEvent(
+                                            country: tappedCountry,
+                                          ),
+                                        );
+                                  },
+                                  child: BlocBuilder<CountrySearchBloc,
+                                      CountrySearchState>(
+                                    builder: (context, state) {
+                                      final bool isSelected =
+                                          state.getIsSelected(tappedCountry);
+                                      return Text(
+                                        "${isSelected ? "Uns" : "S"}elect",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                              color: HubTheme.onPrimary,
+                                            ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  context.pushNamed(
+                                    AppRouter.countryDetails,
+                                    pathParameters: {
+                                      "iso": tappedCountry.iso3code,
+                                    },
+                                  );
+                                },
+                                child: Text(
+                                  "Details",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                        color: HubTheme.yellow,
+                                      ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
