@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_frame/flutter_web_frame.dart';
@@ -7,11 +8,15 @@ import 'package:passport_hub/common/app_router.dart';
 import 'package:passport_hub/common/bloc/hub_bloc_provider.dart';
 import 'package:passport_hub/common/injector.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
+import 'package:passport_hub/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await injectorSetup(GetIt.I);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(
     const MyApp(),

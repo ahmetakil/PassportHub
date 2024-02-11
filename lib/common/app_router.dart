@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -33,6 +35,9 @@ class AppRouter {
 
   static GoRouter generateGoRouter() {
     return GoRouter(
+      observers: [
+        FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
+      ],
       debugLogDiagnostics: true,
       initialLocation: "/",
       redirect: (context, state) {
@@ -43,7 +48,7 @@ class AppRouter {
             state.fullPath != "/splash") {
           return state.namedLocation(
             AppRouter.splash,
-            queryParameters: {'from': state.fullPath ?? "/explore"},
+            queryParameters: {'from': state.fullPath ?? "/travel"},
           );
         }
 
@@ -73,18 +78,6 @@ class AppRouter {
           },
           branches: [
             StatefulShellBranch(
-              navigatorKey: exploreNavigatorKey,
-              initialLocation: "/$explore",
-              routes: [
-                GoRoute(
-                  path: "/$explore",
-                  name: AppRouter.explore,
-                  builder: (BuildContext context, GoRouterState state) =>
-                      const ExploreTab(),
-                ),
-              ],
-            ),
-            StatefulShellBranch(
               navigatorKey: travelNavigatorKey,
               initialLocation: "/$travel",
               routes: [
@@ -112,6 +105,18 @@ class AppRouter {
                     }
                     return const TravelTab();
                   },
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              navigatorKey: exploreNavigatorKey,
+              initialLocation: "/$explore",
+              routes: [
+                GoRoute(
+                  path: "/$explore",
+                  name: AppRouter.explore,
+                  builder: (BuildContext context, GoRouterState state) =>
+                      const ExploreTab(),
                 ),
               ],
             ),

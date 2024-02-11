@@ -1,5 +1,7 @@
 import 'dart:developer' as dev;
 
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
 class HubLogger {
   static const _instance = HubLogger._();
 
@@ -12,6 +14,7 @@ class HubLogger {
     Severity severity = Severity.info,
     Map<String, String>? metadata,
   }) {
+    FirebaseCrashlytics.instance.log("Log[$severity] : $message");
     dev.log(
       "${severity.icon} $message",
     );
@@ -23,6 +26,8 @@ class HubLogger {
     StackTrace? stackTrace,
     Map<String, String>? metadata,
   }) {
+    FirebaseCrashlytics.instance.log("Error[$severity] : $message");
+    FirebaseCrashlytics.instance.recordError("Error: $message", stackTrace);
     dev.log(
       "${severity.icon} $message",
       stackTrace: stackTrace,

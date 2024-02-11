@@ -2,13 +2,20 @@ import 'package:dio/dio.dart';
 import 'package:passport_hub/features/news/api/news_api.dart';
 
 class GoogleNewsApi implements NewsApi {
-  final Dio _dio = Dio();
+  final Dio _dio = Dio(
+    BaseOptions(
+      headers: {
+        'Access-Control-Allow-Origin': 'true',
+      },
+    ),
+  );
 
   @override
   Future<String?> fetchNewsForKeyword(String keyword) async {
     try {
-      final Response<String> response =
-          await _dio.get("https://news.google.com/rss/search?q=$keyword");
+      final Response<String> response = await _dio.get(
+        "https://news.google.com/rss/search?q=$keyword",
+      );
 
       if (response.statusCode == 200) {
         final String? responseData = response.data;
