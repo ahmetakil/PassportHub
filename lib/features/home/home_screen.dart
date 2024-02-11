@@ -19,14 +19,14 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final bottomNavigationBarItems = [
       const BottomNavigationBarItem(
-        icon: Icon(Icons.explore),
-        label: "Explore",
-      ),
-      const BottomNavigationBarItem(
         icon: Icon(
           Icons.flight,
         ),
         label: "Travel",
+      ),
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.explore),
+        label: "Explore",
       ),
       const BottomNavigationBarItem(
         icon: Icon(Icons.compare_arrows),

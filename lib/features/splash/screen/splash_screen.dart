@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
             if (widget.deeplinkPath != null) {
               context.go(widget.deeplinkPath!);
             } else {
-              context.goNamed(AppRouter.explore);
+              context.goNamed(AppRouter.travel);
             }
           }
         },
