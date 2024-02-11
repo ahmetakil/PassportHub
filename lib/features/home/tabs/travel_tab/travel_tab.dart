@@ -56,7 +56,7 @@ class _TravelTabState extends State<TravelTab> {
                             useRootNavigator: true,
                             context: context,
                             builder: (_) => const FractionallySizedBox(
-                              heightFactor: 0.6,
+                              heightFactor: 0.7,
                               child: TravelTabInfoSheet(),
                             ),
                           );
