@@ -31,7 +31,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "me.ahmetakil.passport_hub"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -59,7 +59,8 @@ android {
     defaultConfig {
         applicationId "me.ahmetakil.passport_hub"
         minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion 34
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -86,3 +87,6 @@ flutter {
 }
 
 dependencies {}
+
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
