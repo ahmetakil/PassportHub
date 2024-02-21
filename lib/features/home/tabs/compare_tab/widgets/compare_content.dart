@@ -73,7 +73,7 @@ class CompareContent extends StatelessWidget {
                           "${visaMatrix.getPassportRanking(left)}",
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           "${visaMatrix.getPassportRanking(right)}",
                           style: Theme.of(context).textTheme.bodyLarge,
