@@ -36,8 +36,8 @@ class CompareTab extends StatelessWidget {
                     selectedCountryList: selectedCountryList,
                   ),
                   state.selectedCountryCount < 2
-                      ? CompareEmptyText()
-                      : CompareContent()
+                      ? const CompareEmptyText()
+                      : const CompareContent()
                 ],
               );
             },

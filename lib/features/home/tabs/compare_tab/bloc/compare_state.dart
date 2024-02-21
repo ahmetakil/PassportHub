@@ -2,6 +2,8 @@ part of 'compare_bloc.dart';
 
 extension CompareStateExtension on CompareState {
   int get selectedCountryCount => selectedCountryList.length;
+
+  bool isSelected(Country country) => selectedCountryList.contains(country);
 }
 
 class CompareState extends Equatable {
