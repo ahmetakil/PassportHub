@@ -40,6 +40,7 @@ class CompareTab extends StatelessWidget {
                     ),
                     child: HubFakeTextField(
                       showEmpty: selectedCountryList.isEmpty,
+                      emptyLabel: "Search Country",
                       child: TravelSearchResultListView(
                         countryList: selectedCountryList,
                         isCompareScreen: true,

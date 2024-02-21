@@ -5,12 +5,14 @@ class HubFakeTextField extends StatelessWidget {
   final VoidCallback? onTap;
   final Widget child;
   final bool showEmpty;
+  final String? emptyLabel;
 
   const HubFakeTextField({
     super.key,
     this.onTap,
     required this.child,
     this.showEmpty = false,
+    this.emptyLabel,
   });
 
   @override
@@ -49,7 +51,7 @@ class HubFakeTextField extends StatelessWidget {
                   ? Padding(
                       padding: const EdgeInsets.symmetric(vertical: 3),
                       child: Text(
-                        "Search",
+                        emptyLabel ?? "Search",
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: Theme.of(context).hintColor,
                             ),
