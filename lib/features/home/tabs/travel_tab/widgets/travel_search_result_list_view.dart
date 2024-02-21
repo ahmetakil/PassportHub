@@ -5,10 +5,12 @@ import 'package:passport_hub/features/home/tabs/travel_tab/widgets/travel_search
 
 class TravelSearchResultListView extends StatelessWidget {
   final List<Country> countryList;
+  final bool isCompareScreen;
 
   const TravelSearchResultListView({
     super.key,
     required this.countryList,
+    required this.isCompareScreen,
   });
 
   @override
@@ -20,6 +22,7 @@ class TravelSearchResultListView extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (context, i) => TravelSearchResultChip(
           country: countryList[i],
+          isCompareScreen: isCompareScreen,
         ),
         separatorBuilder: (_, __) => const SizedBox(
           width: HubTheme.hubSmallPadding,

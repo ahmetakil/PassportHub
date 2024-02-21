@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuzzy/data/result.dart';
 import 'package:fuzzy/fuzzy.dart';
+import 'package:passport_hub/common/hub_fuzzy_search.dart';
 import 'package:passport_hub/common/hub_logger.dart';
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
@@ -28,18 +29,7 @@ class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
 
   Fuzzy<Country>? fuzzy;
 
-  final FuzzyOptions<Country> fuzzyOptions = FuzzyOptions<Country>(
-    shouldNormalize: true,
-    threshold: 0.4,
-    distance: 50,
-    keys: [
-      WeightedKey(
-        name: 'name',
-        getter: (Country c) => c.name ?? '',
-        weight: 3,
-      ),
-    ],
-  );
+  final FuzzyOptions<Country> fuzzyOptions = getFuzzyOptions();
 
   CountrySearchBloc()
       : super(

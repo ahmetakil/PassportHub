@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
+import 'package:passport_hub/features/home/tabs/compare_tab/bloc/compare_bloc.dart';
 import 'package:passport_hub/features/news/bloc/news_bloc.dart';
 
 class HubBlocProvider extends StatelessWidget {
@@ -25,6 +26,9 @@ class HubBlocProvider extends StatelessWidget {
         ),
         BlocProvider<NewsBloc>(
           create: (_) => GetIt.I.get<NewsBloc>(),
+        ),
+        BlocProvider<CompareBloc>(
+          create: (_) => GetIt.I.get<CompareBloc>(),
         ),
       ],
       child: child,

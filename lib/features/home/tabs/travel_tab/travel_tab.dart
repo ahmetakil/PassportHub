@@ -103,6 +103,7 @@ class _TravelTabState extends State<TravelTab> {
                       showEmpty: selectedCountryList.isEmpty,
                       child: TravelSearchResultListView(
                         countryList: selectedCountryList,
+                        isCompareScreen: false,
                       ),
                       onTap: () {
                         context.pushNamed(AppRouter.search);

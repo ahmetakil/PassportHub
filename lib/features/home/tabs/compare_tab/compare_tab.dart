@@ -1,44 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:passport_hub/common/app_router.dart';
+import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
+import 'package:passport_hub/common/models/country.dart';
+import 'package:passport_hub/common/models/visa_matrix.dart';
+import 'package:passport_hub/common/ui/hub_error_screen.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
-import 'package:passport_hub/common/ui/widgets/hub_icon.dart';
+import 'package:passport_hub/common/ui/widgets/hub_fake_text_field.dart';
 import 'package:passport_hub/common/ui/widgets/hub_page_title.dart';
+import 'package:passport_hub/features/home/tabs/compare_tab/bloc/compare_bloc.dart';
+import 'package:passport_hub/features/home/tabs/travel_tab/widgets/travel_search_result_list_view.dart';
 
 class CompareTab extends StatelessWidget {
   const CompareTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const HubPageTitle(title: "Compare"),
-          const Spacer(),
-          const HubImage(
-            image: HubImages.comparePreview,
-            width: 240,
+    return BlocBuilder<VisaBloc, VisaState>(
+      builder: (context, state) {
+        final VisaMatrix? visaMatrix = state.visaMatrix;
+
+        if (visaMatrix == null) {
+          return const HubErrorScreen();
+        }
+
+        return SafeArea(
+          child: BlocBuilder<CompareBloc, CompareState>(
+            builder: (context, state) {
+              final List<Country> selectedCountryList =
+                  state.getSelectedCompareList();
+
+              return Column(
+                children: [
+                  const HubPageTitle(title: "Compare"),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: HubTheme.hubMediumPadding,
+                    ),
+                    child: HubFakeTextField(
+                      showEmpty: selectedCountryList.isEmpty,
+                      child: TravelSearchResultListView(
+                        countryList: selectedCountryList,
+                        isCompareScreen: true,
+                      ),
+                      onTap: () {
+                        context.pushNamed(
+                          AppRouter.compareSearch,
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
-          Text(
-            "COMING SOON",
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(
-              HubTheme.hubMediumPadding,
-            ),
-            child: Text(
-              'Compare and find out which passport gives you the most freedom to travel around the world!',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ),
-          const Spacer(
-            flex: 2,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

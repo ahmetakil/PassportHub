@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc.dart';
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
+import 'package:passport_hub/features/home/tabs/compare_tab/bloc/compare_bloc.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/widgets/country_search_result_row.dart';
 
-class CountrySearchResults extends StatelessWidget {
-  const CountrySearchResults({
+class CompareSearchResults extends StatelessWidget {
+  const CompareSearchResults({
     super.key,
   });
 
@@ -14,13 +14,13 @@ class CountrySearchResults extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: HubTheme.hubSmallPadding),
-      sliver: BlocBuilder<CountrySearchBloc, CountrySearchState>(
+      sliver: BlocBuilder<CompareBloc, CompareState>(
         builder: (context, state) {
           return switch (state) {
-            CountrySearchInitialState() => const SliverToBoxAdapter(
+            CompareInitialState() => const SliverToBoxAdapter(
                 child: SizedBox.shrink(),
               ),
-            CountrySearchResultsState(
+            CompareResultState(
               :final List<Country> results,
               :final List<Country> selectedCountryList
             ) =>
@@ -30,8 +30,8 @@ class CountrySearchResults extends StatelessWidget {
                 ),
                 itemCount: results.length,
                 itemBuilder: (context, i) => CountrySearchResultTile(
-                  isCompare: false,
                   country: results[i],
+                  isCompare: true,
                   isSelected: selectedCountryList.contains(
                     results[i],
                   ),

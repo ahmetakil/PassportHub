@@ -9,6 +9,7 @@ import 'package:passport_hub/common/ui/hub_error_screen.dart';
 import 'package:passport_hub/features/country_details/country_details_screen.dart';
 import 'package:passport_hub/features/home/home_screen.dart';
 import 'package:passport_hub/features/home/tabs/compare_tab/compare_tab.dart';
+import 'package:passport_hub/features/home/tabs/compare_tab/screens/compare_search_screen.dart';
 import 'package:passport_hub/features/home/tabs/home_tab/explore_tab.dart';
 import 'package:passport_hub/features/home/tabs/travel_tab/travel_tab.dart';
 import 'package:passport_hub/features/news/screen/news_details_screen.dart';
@@ -30,6 +31,7 @@ class AppRouter {
   static const explore = "explore";
   static const travel = "travel";
   static const compare = "compare";
+  static const compareSearch = "compareSearch";
   static const newsDetails = "newsDetails";
 
   static GoRouter generateGoRouter() {
@@ -128,6 +130,14 @@ class AppRouter {
                   name: AppRouter.compare,
                   builder: (BuildContext context, GoRouterState state) =>
                       const CompareTab(),
+                  routes: [
+                    GoRoute(
+                      path: compareSearch,
+                      name: AppRouter.compareSearch,
+                      builder: (BuildContext context, GoRouterState state) =>
+                          const CompareSearchScreen(),
+                    ),
+                  ],
                 ),
               ],
             ),
