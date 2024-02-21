@@ -16,28 +16,22 @@ class CompareSearchResults extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: HubTheme.hubSmallPadding),
       sliver: BlocBuilder<CompareBloc, CompareState>(
         builder: (context, state) {
-          return switch (state) {
-            CompareInitialState() => const SliverToBoxAdapter(
-                child: SizedBox.shrink(),
+          final List<Country> results = state.results;
+          final List<Country> selectedCountryList = state.selectedCountryList;
+
+          return SliverList.separated(
+            separatorBuilder: (_, __) => Divider(
+              color: Colors.grey.withOpacity(0.2),
+            ),
+            itemCount: results.length,
+            itemBuilder: (context, i) => CountrySearchResultTile(
+              country: results[i],
+              isCompare: true,
+              isSelected: selectedCountryList.contains(
+                results[i],
               ),
-            CompareResultState(
-              :final List<Country> results,
-              :final List<Country> selectedCountryList
-            ) =>
-              SliverList.separated(
-                separatorBuilder: (_, __) => Divider(
-                  color: Colors.grey.withOpacity(0.2),
-                ),
-                itemCount: results.length,
-                itemBuilder: (context, i) => CountrySearchResultTile(
-                  country: results[i],
-                  isCompare: true,
-                  isSelected: selectedCountryList.contains(
-                    results[i],
-                  ),
-                ),
-              ),
-          };
+            ),
+          );
         },
       ),
     );
