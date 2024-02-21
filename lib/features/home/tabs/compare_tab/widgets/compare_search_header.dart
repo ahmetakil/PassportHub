@@ -19,7 +19,7 @@ class CompareSearchHeader extends StatelessWidget {
       ),
       child: HubFakeTextField(
         showEmpty: selectedCountryList.isEmpty,
-        emptyLabel: "Search Country",
+        emptyLabel: "Select 2 Countries",
         child: TravelSearchResultListView(
           countryList: selectedCountryList,
           isCompareScreen: true,

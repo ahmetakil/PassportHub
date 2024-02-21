@@ -6,6 +6,8 @@ import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/ui/hub_error_screen.dart';
 import 'package:passport_hub/common/ui/widgets/hub_page_title.dart';
 import 'package:passport_hub/features/home/tabs/compare_tab/bloc/compare_bloc.dart';
+import 'package:passport_hub/features/home/tabs/compare_tab/widgets/compare_content.dart';
+import 'package:passport_hub/features/home/tabs/compare_tab/widgets/compare_empty_text.dart';
 import 'package:passport_hub/features/home/tabs/compare_tab/widgets/compare_search_header.dart';
 
 class CompareTab extends StatelessWidget {
@@ -33,6 +35,9 @@ class CompareTab extends StatelessWidget {
                   CompareSearchHeader(
                     selectedCountryList: selectedCountryList,
                   ),
+                  state.selectedCountryCount < 2
+                      ? CompareEmptyText()
+                      : CompareContent()
                 ],
               );
             },
