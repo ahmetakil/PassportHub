@@ -19,7 +19,7 @@ class CompareBloc extends Bloc<CompareEvent, CompareState> {
 
   Fuzzy<Country>? fuzzy;
 
-  CompareBloc() : super(CompareInitialState()) {
+  CompareBloc() : super(const CompareState.initial()) {
     on<SetCompareCountryList>((event, emit) {
       matrix = event.matrix;
 
@@ -38,7 +38,7 @@ class CompareBloc extends Bloc<CompareEvent, CompareState> {
 
       if (query.isEmpty) {
         emit(
-          CompareInitialState(),
+          const CompareState.initial(),
         );
         return;
       }
@@ -57,9 +57,9 @@ class CompareBloc extends Bloc<CompareEvent, CompareState> {
           fuzzyResults.map((e) => e.item).toList();
 
       emit(
-        CompareResultState(
+        CompareState(
           results: matchedCountries,
-          selectedCountryList: state.getSelectedCompareList(),
+          selectedCountryList: state.selectedCountryList,
           searchQuery: event.searchQuery,
         ),
       );
@@ -68,30 +68,21 @@ class CompareBloc extends Bloc<CompareEvent, CompareState> {
     on<SelectCountryForCompareEvent>((event, emit) {
       HubLogger.log("> SelectCountryEvent ${event.country}");
 
-      switch (state) {
-        case CompareInitialState():
-          emit(
-            CompareInitialState(),
-          );
-        case CompareResultState():
-          final resultState = state as CompareResultState;
+      final List<Country> selectedCountryList = [
+        ...state.selectedCountryList,
+      ];
 
-          final List<Country> selectedCountryList = [
-            ...resultState.selectedCountryList,
-          ];
-
-          if (selectedCountryList.contains(event.country)) {
-            selectedCountryList.remove(event.country);
-          } else {
-            selectedCountryList.add(event.country);
-          }
-
-          emit(
-            resultState.copyWith(
-              selectedCountryList: selectedCountryList,
-            ),
-          );
+      if (selectedCountryList.contains(event.country)) {
+        selectedCountryList.remove(event.country);
+      } else {
+        selectedCountryList.add(event.country);
       }
+
+      emit(
+        state.copyWith(
+          selectedCountryList: selectedCountryList,
+        ),
+      );
     });
   }
 }
