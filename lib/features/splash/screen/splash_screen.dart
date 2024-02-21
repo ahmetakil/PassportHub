@@ -7,6 +7,7 @@ import 'package:passport_hub/common/bloc/visa_bloc/visa_bloc.dart';
 import 'package:passport_hub/common/hub_logger.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/ui/widgets/hub_loading.dart';
+import 'package:passport_hub/features/home/tabs/compare_tab/bloc/compare_bloc.dart';
 
 class SplashScreen extends StatefulWidget {
   final String? deeplinkPath;
@@ -33,6 +34,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
             context.read<CountrySearchBloc>().add(
                   SetCountryList(
+                    matrix: visaMatrix,
+                  ),
+                );
+
+            context.read<CompareBloc>().add(
+                  SetCompareCountryList(
                     matrix: visaMatrix,
                   ),
                 );
