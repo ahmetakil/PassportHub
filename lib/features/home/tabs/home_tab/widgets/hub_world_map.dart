@@ -8,6 +8,7 @@ import 'package:passport_hub/common/bloc/country_search_bloc/country_search_bloc
 import 'package:passport_hub/common/models/country.dart';
 import 'package:passport_hub/common/models/visa_matrix.dart';
 import 'package:passport_hub/common/ui/hub_theme.dart';
+import 'package:passport_hub/common/ui/widgets/hub_snackbar.dart';
 
 class HubWorldMap extends StatefulWidget {
   final VisaMatrix visaMatrix;
@@ -118,78 +119,65 @@ class _HubWorldMapState extends State<HubWorldMap>
                   return;
                 }
 
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        HubTheme.hubBorderRadius * 2,
-                      ),
+                HubSnackbar.show(
+                  context: context,
+                  child: Expanded(
+                    child: Text(
+                      "${tappedCountry.name}",
+                      maxLines: 2,
                     ),
-                    content: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  ),
+                  trailing: Flexible(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Expanded(
-                          child: Text(
-                            "${tappedCountry.name}",
-                            maxLines: 2,
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            right: HubTheme.hubMediumPadding,
                           ),
-                        ),
-                        Flexible(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  right: HubTheme.hubMediumPadding,
-                                ),
-                                child: InkWell(
-                                  onTap: () {
-                                    context.read<CountrySearchBloc>().add(
-                                          SelectCountryEvent(
-                                            country: tappedCountry,
-                                          ),
-                                        );
-                                  },
-                                  child: BlocBuilder<CountrySearchBloc,
-                                      CountrySearchState>(
-                                    builder: (context, state) {
-                                      final bool isSelected =
-                                          state.getIsSelected(tappedCountry);
-                                      return Text(
-                                        "${isSelected ? "Uns" : "S"}elect",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(
-                                              color: HubTheme.onPrimary,
-                                            ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  context.pushNamed(
-                                    AppRouter.countryDetails,
-                                    pathParameters: {
-                                      "iso": tappedCountry.iso3code,
-                                    },
+                          child: InkWell(
+                            onTap: () {
+                              context.read<CountrySearchBloc>().add(
+                                    SelectCountryEvent(
+                                      country: tappedCountry,
+                                    ),
                                   );
-                                },
-                                child: Text(
-                                  "Details",
+                            },
+                            child: BlocBuilder<CountrySearchBloc,
+                                CountrySearchState>(
+                              builder: (context, state) {
+                                final bool isSelected =
+                                    state.getIsSelected(tappedCountry);
+                                return Text(
+                                  "${isSelected ? "Uns" : "S"}elect",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(
-                                        color: HubTheme.yellow,
+                                        color: HubTheme.onPrimary,
                                       ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            context.pushNamed(
+                              AppRouter.countryDetails,
+                              pathParameters: {
+                                "iso": tappedCountry.iso3code,
+                              },
+                            );
+                          },
+                          child: Text(
+                            "Details",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: HubTheme.yellow,
                                 ),
-                              ),
-                            ],
                           ),
                         ),
                       ],
